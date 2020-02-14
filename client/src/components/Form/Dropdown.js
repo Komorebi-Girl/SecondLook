@@ -18,7 +18,10 @@ class Dropdown extends Component {
 
   render() {
     return (
-      <select value={this.state.value} onChange={this.handleChange}>
+      <select
+        value={this.props.isSubmitted ? this.state.value : this.props.category}
+        onChange={this.handleChange}
+      >
         <option value={this.props.category}>
           {`Select ${this.props.category} Score`}:
         </option>

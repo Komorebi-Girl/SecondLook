@@ -37,6 +37,7 @@ class Teachbacks extends Component {
       .then(res =>
         this.setState({
           teachbacks: res.data,
+          value: "finalResult",
           candidateName: "",
           role: "",
           university: "",
@@ -186,49 +187,56 @@ class Teachbacks extends Component {
                 index={0}
                 updateScores={this.updateScores}
                 reviewedBy={this.state.reviewedBy}
-                isSubmitted={Boolean(this.state.submittedBy)}
+                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Investment"
                 index={1}
                 updateScores={this.updateScores}
                 reviewedBy={this.state.reviewedBy}
+                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Pace"
                 index={2}
                 updateScores={this.updateScores}
                 reviewedBy={this.state.reviewedBy}
+                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Clarity"
                 index={3}
                 updateScores={this.updateScores}
                 reviewedBy={this.state.reviewedBy}
+                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Knowledge"
                 index={4}
                 updateScores={this.updateScores}
                 reviewedBy={this.state.reviewedBy}
+                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Responses"
                 index={5}
                 updateScores={this.updateScores}
                 reviewedBy={this.state.reviewedBy}
+                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Industry Knowledge"
                 index={6}
                 updateScores={this.updateScores}
                 reviewedBy={this.state.reviewedBy}
+                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Coachability"
                 index={7}
                 updateScores={this.updateScores}
                 reviewedBy={this.state.reviewedBy}
+                isSubmitted={this.state.submittedBy}
               />
               {/* Stand-alone dropbox to select final result*/}
               <select
