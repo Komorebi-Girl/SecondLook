@@ -14,13 +14,13 @@ class QAform extends Component {
     university: "",
     programType: "",
     submittedBy: "",
-    reviewedBy: "Nobody",
+    reviewedBy: "",
     zoomLink: "",
     cohortStartDate: "",
     submitterScores: [],
     submitterResult: "",
     reviewerScores: [],
-    reviewerResult: "None"
+    reviewerResult: ""
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
@@ -46,13 +46,6 @@ class QAform extends Component {
           submitterResult: res.data.submitterResult
         })
       )
-      .catch(err => console.log(err));
-  };
-
-  // Deletes a teachback from the database with a given id, then reloads teachbacks from the db
-  deleteTeachback = id => {
-    API.deleteTeachback(id)
-      .then(res => this.loadTeachbacks())
       .catch(err => console.log(err));
   };
 
@@ -89,30 +82,24 @@ class QAform extends Component {
       });
     } else {
       // If someone has been assigned, save the final result to reviewerResult
-      this.setState({ reviewerResult: event.target.value });
+      this.setState({
+        value: event.target.value,
+        reviewerResult: event.target.value
+      });
     }
   };
 
-  /* When the form is submitted, use the API.saveTeachback method to save the teachback data
-   Then reload teachbacks from the database */
+  /* When the form is submitted, use the API.updateTeachback method to update the teachback data
+   with reviewer's score Then reload teachbacks from the database */
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.validateAllValues(this.state)) {
-      API.saveTeachback({
-        candidateName: this.state.candidateName,
-        role: this.state.role,
-        university: this.state.university,
-        programType: this.state.programType,
+      API.updateTeachback(this.props.match.params.id, {
         reviewedBy: this.state.reviewedBy,
-        submittedBy: this.state.submittedBy,
-        zoomLink: this.state.zoomLink,
-        cohortStartDate: this.state.cohortStartDate,
-        submitterScores: this.state.submitterScores,
         reviewerScores: this.state.reviewerScores,
-        submitterResult: this.state.submitterResult,
         reviewerResult: this.state.reviewerResult
       })
-        .then(res => this.loadTeachbacks())
+        .then(res => res.send("Review Submitted"))
         .catch(err => console.log(err));
     }
   };
@@ -132,7 +119,7 @@ class QAform extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>Review a Teachback!</h1>
+              <h1>Teachback Profile</h1>
             </Jumbotron>
             <form>
               {/* Input boxes for the data that must be filled-in*/}
@@ -178,82 +165,127 @@ class QAform extends Component {
                 name="cohortStartDate"
                 placeholder="Cohort Start Date (required)"
               />
+            </form>
+          </Col>
+          <Col size="md-6 sm-12">
+            <Jumbotron>
+              <h1>Submit Your Scores</h1>
+            </Jumbotron>
+            <form>
+              <Row>
+                <Col size="md-6">
+                  <Input
+                    value={this.state.reviewedBy}
+                    onChange={this.handleInputChange}
+                    name="reviewedBy"
+                    placeholder="Your Name (required)"
+                  />
+                </Col>
+              </Row>
               {/* Dropboxes for the data that must be selected */}
-              <Dropdown
-                category="Positivity"
-                index={0}
-                updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
-              />
-              <Dropdown
-                category="Investment"
-                index={1}
-                updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
-              />
-              <Dropdown
-                category="Pace"
-                index={2}
-                updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
-              />
-              <Dropdown
-                category="Clarity"
-                index={3}
-                updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
-              />
-              <Dropdown
-                category="Knowledge"
-                index={4}
-                updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
-              />
-              <Dropdown
-                category="Responses"
-                index={5}
-                updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
-              />
-              <Dropdown
-                category="Industry Knowledge"
-                index={6}
-                updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
-              />
-              <Dropdown
-                category="Coachability"
-                index={7}
-                updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
-              />
-              {/* Stand-alone dropbox to select final result*/}
-              <select
-                name={"finalResult"}
-                value={this.state.value}
-                onChange={this.updateFinalResult}
-              >
-                <option value="finalResult">Select Final Result:</option>
-                <option value="Weak">Weak</option>
-                <option value="Average">Average</option>
-                <option value="Strong">Strong</option>
-                <option value="Exemplary">Exemplary</option>
-              </select>
-              {/* Submit button */}
-              <FormBtn
-                disabled={!this.validateAllValues(this.state)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Teachback
-              </FormBtn>
+              <Row>
+                <Col size="md-4">
+                  <Dropdown
+                    category="Positivity"
+                    index={0}
+                    updateScores={this.updateScores}
+                    reviewedBy={this.state.reviewedBy}
+                    isSubmitted={this.state.submittedBy}
+                  />
+                </Col>
+                <Col size="md-4">
+                  <Dropdown
+                    category="Investment"
+                    index={1}
+                    updateScores={this.updateScores}
+                    reviewedBy={this.state.reviewedBy}
+                    isSubmitted={this.state.submittedBy}
+                  />
+                </Col>
+                <Col size="md-4">
+                  <Dropdown
+                    category="Pace"
+                    index={2}
+                    updateScores={this.updateScores}
+                    reviewedBy={this.state.reviewedBy}
+                    isSubmitted={this.state.submittedBy}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-4">
+                  <Dropdown
+                    category="Clarity"
+                    index={3}
+                    updateScores={this.updateScores}
+                    reviewedBy={this.state.reviewedBy}
+                    isSubmitted={this.state.submittedBy}
+                  />
+                </Col>
+                <Col size="md-4">
+                  <Dropdown
+                    category="Knowledge"
+                    index={4}
+                    updateScores={this.updateScores}
+                    reviewedBy={this.state.reviewedBy}
+                    isSubmitted={this.state.submittedBy}
+                  />
+                </Col>
+                <Col size="md-4">
+                  <Dropdown
+                    category="Responses"
+                    index={5}
+                    updateScores={this.updateScores}
+                    reviewedBy={this.state.reviewedBy}
+                    isSubmitted={this.state.submittedBy}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-4">
+                  <Dropdown
+                    category="Industry Knowledge"
+                    index={6}
+                    updateScores={this.updateScores}
+                    reviewedBy={this.state.reviewedBy}
+                    isSubmitted={this.state.submittedBy}
+                  />
+                </Col>
+                <Col size="md-4">
+                  <Dropdown
+                    category="Coachability"
+                    index={7}
+                    updateScores={this.updateScores}
+                    reviewedBy={this.state.reviewedBy}
+                    isSubmitted={this.state.submittedBy}
+                  />
+                </Col>
+                <Col size="md-4">
+                  {/* Stand-alone dropbox to select final result*/}
+                  <select
+                    name={"finalResult"}
+                    value={this.state.value}
+                    onChange={this.updateFinalResult}
+                  >
+                    <option value="finalResult">Select Final Result:</option>
+                    <option value="Weak">Weak</option>
+                    <option value="Average">Average</option>
+                    <option value="Strong">Strong</option>
+                    <option value="Exemplary">Exemplary</option>
+                  </select>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-12">
+                  {/* Submit button */}
+                  <FormBtn
+                    disabled={!this.validateAllValues(this.state)}
+                    onClick={this.handleFormSubmit}
+                  >
+                    Submit Teachback
+                  </FormBtn>
+                </Col>
+              </Row>
             </form>
           </Col>
         </Row>
