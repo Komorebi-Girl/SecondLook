@@ -16,7 +16,7 @@ class Teachbacks extends Component {
     role: "",
     university: "",
     programType: "",
-    submittedBy: "",
+    submittedBy: this.props.match.params.userID,
     reviewedBy: "Nobody",
     zoomLink: "",
     cohortStartDate: "",
@@ -269,7 +269,7 @@ class Teachbacks extends Component {
                 {this.state.teachbacks.map(teachback => {
                   return (
                     <ListItem key={teachback._id}>
-                      <a href={"/teachbacks/" + teachback._id}>
+                      <a href={"/review/" + teachback._id}>
                         <strong>
                           {teachback.candidateName} ~ {teachback.role} role for{" "}
                           {teachback.programType} program at{" "}
