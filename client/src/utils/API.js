@@ -1,6 +1,13 @@
 import axios from "axios";
 
 export default {
+  //signs user in with Google
+  loginToGoogle: function() {
+    return axios({
+      method: "get",
+      url: "/auth/google"
+    });
+  },
   // Gets all teachbacks
   getTeachbacks: function() {
     return axios.get("/api/teachbacks");
