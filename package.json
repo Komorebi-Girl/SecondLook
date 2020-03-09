@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
+    "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.15.4",
     "http-proxy-middleware": "^1.0.1",

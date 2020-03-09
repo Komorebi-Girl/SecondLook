@@ -14,7 +14,7 @@ const App = () => (
         <Route exact path="/" component={Dashboard} />
         <Route path="/auth/login" component={Login} />
         <Route path="/submit/:userID" component={Teachbacks} />
-        <Route path="/review/:teachbackID/:userID" component={QAform} />
+        <Route path="/teachbacks/:id" component={QAform} />
       </Switch>
     </div>
   </Router>

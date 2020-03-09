@@ -259,34 +259,6 @@ class Teachbacks extends Component {
               </FormBtn>
             </form>
           </Col>
-
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Saved Teachbacks</h1>
-            </Jumbotron>
-            {this.state.teachbacks.length ? (
-              <List>
-                {this.state.teachbacks.map(teachback => {
-                  return (
-                    <ListItem key={teachback._id}>
-                      <a href={"/review/" + teachback._id}>
-                        <strong>
-                          {teachback.candidateName} ~ {teachback.role} role for{" "}
-                          {teachback.programType} program at{" "}
-                          {teachback.university}
-                        </strong>
-                      </a>
-                      <DeleteBtn
-                        onClick={() => this.deleteTeachback(teachback._id)}
-                      />
-                    </ListItem>
-                  );
-                })}
-              </List>
-            ) : (
-              <h3>No Teachbacks to Display</h3>
-            )}
-          </Col>
         </Row>
       </Container>
     );

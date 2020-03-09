@@ -43,13 +43,13 @@ class Dashboard extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>View Teachbacks Here!</h1>
+              <h1>Teachback To Review</h1>
             </Jumbotron>
           </Col>
 
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>Saved Teachbacks</h1>
+              <h1>My Teachbacks</h1>
             </Jumbotron>
             {this.state.teachbacks.length ? (
               <List>

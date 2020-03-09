@@ -1,3 +1,4 @@
 module.exports = {
-  Teachback: require("./teachback")
+  Teachback: require("./teachback"),
+  User: require("./user")
 };

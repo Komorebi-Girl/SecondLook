@@ -9,14 +9,17 @@ router.get(
   })
 );
 
-// router.get("/google", function(req, res) {
-//   res.redirect("/");
-//   console.log(res);
-// });
-
 // auth logout
 router.get("/logout", function(req, res) {
   res.send("Logging out");
+});
+
+// callback route after google sign-in
+router.get("/google/redirect", passport.authenticate("google"), function(
+  req,
+  res
+) {
+  res.send(req.user);
 });
 
 module.exports = router;

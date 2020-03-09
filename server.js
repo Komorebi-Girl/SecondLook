@@ -5,14 +5,27 @@ const mongoose = require("mongoose");
 const logger = require("morgan");
 const passport = require("passport");
 const passportSetup = require("./config/passport.js");
+const keys = require("./config/keys");
+const cookieSession = require("cookie-session");
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+
 // app.use(cors());
+
+//initializing passport
 app.use(passport.initialize());
+app.use(passport.session());
 
 const routes = require("./routes");
 
+// Use cookie-session to conceal user id of logged-in user
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [keys.session.cookieKey]
+  })
+);
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Configure body parser for AJAX requests
