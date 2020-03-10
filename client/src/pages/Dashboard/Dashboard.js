@@ -8,7 +8,7 @@ class Dashboard extends Component {
   // Setting our component's initial state
   state = {
     teachbacks: [],
-    userId: ""
+    userID: this.props.match.params.userID
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
@@ -18,7 +18,7 @@ class Dashboard extends Component {
 
   // Loads all teachbacks and sets them to this.state.teachbacks
   loadTeachbacks = () => {
-    API.getTeachbacks()
+    API.getTeachbacks(this.state.userID)
       .then(res =>
         this.setState({
           teachbacks: res.data,
@@ -50,13 +50,16 @@ class Dashboard extends Component {
           <Col size="md-6 sm-12">
             <Jumbotron>
               <h1>My Teachbacks</h1>
+              <a href={`/submit/${this.state.userID}`} className="navbar-brand">
+                Submit A Teachback
+              </a>
             </Jumbotron>
             {this.state.teachbacks.length ? (
               <List>
                 {this.state.teachbacks.map(teachback => {
                   return (
                     <ListItem key={teachback._id}>
-                      <a href={"/teachbacks/" + teachback._id}>
+                      <a href={`/review/${this.state.userID}/${teachback._id}`}>
                         <strong>
                           {teachback.candidateName} ~ {teachback.role} role for{" "}
                           {teachback.programType} program at{" "}

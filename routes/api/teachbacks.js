@@ -7,6 +7,9 @@ router
   .get(teachbacksController.findAll)
   .post(teachbacksController.create);
 
+// Matches with "/api/teachbacks/myTBs/userID"
+router.route("/mytbs/:userID").get(teachbacksController.findUserTBs);
+
 // Matches with "/api/teachbacks/:id"
 router
   .route("/:id")

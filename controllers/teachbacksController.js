@@ -8,6 +8,17 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findUserTBs: function(req, res) {
+    db.Teachback.find({
+      $or: [
+        { reviewedBy: req.params.userID },
+        { submittedBy: req.params.userID }
+      ]
+    })
+      .sort({ date: -1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   findById: function(req, res) {
     db.Teachback.findById(req.params.id)
       .then(dbModel => res.json(dbModel))

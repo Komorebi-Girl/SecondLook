@@ -19,7 +19,7 @@ router.get("/google/redirect", passport.authenticate("google"), function(
   req,
   res
 ) {
-  res.send(req.user);
+  res.redirect(`http://localhost:3000/dashboard/${req.user.id}`);
 });
 
 module.exports = router;

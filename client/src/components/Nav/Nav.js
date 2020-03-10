@@ -12,9 +12,6 @@ const Nav = () => (
         <a href="/" className="navbar-brand">
           SecondLook
         </a>
-        <a href="/submit/5e664aed0188e521aca6984" className="navbar-brand">
-          Submit
-        </a>
         <a href="/auth/login" className="navbar-brand">
           Login
         </a>

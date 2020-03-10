@@ -33,7 +33,7 @@ passport.use(
             user
               .save()
               .then(function(user) {
-                console.log("new user created!", user);
+                console.log(user);
                 return done(null, user);
               })
               .catch(function(err) {
