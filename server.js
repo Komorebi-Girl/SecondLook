@@ -8,16 +8,18 @@ const passportSetup = require("./config/passport.js");
 const keys = require("./config/keys");
 const cookieSession = require("cookie-session");
 const PORT = process.env.PORT || 3001;
-
 const app = express();
-
-// app.use(cors());
-
-//initializing passport
-app.use(passport.initialize());
-app.use(passport.session());
-
 const routes = require("./routes");
+
+// Use morgan logger for logging requests
+app.use(logger("dev"));
+
+// Serve up static assets
+app.use(express.static("client/build"));
+
+// Configure body parser for AJAX requests
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Use cookie-session to conceal user id of logged-in user
 app.use(
@@ -26,15 +28,13 @@ app.use(
     keys: [keys.session.cookieKey]
   })
 );
-// Use morgan logger for logging requests
-app.use(logger("dev"));
-// Configure body parser for AJAX requests
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-// Add routes, both API and view
+
+//initializing passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Add routes, both API and auth
 app.use(routes);
-// Serve up static assets
-app.use(express.static("client/build"));
 
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;

@@ -11,7 +11,8 @@ router.get(
 
 // auth logout
 router.get("/logout", function(req, res) {
-  res.send("Logging out");
+  req.logout();
+  res.redirect("http://localhost:3000/");
 });
 
 // callback route after google sign-in
@@ -20,6 +21,10 @@ router.get("/google/redirect", passport.authenticate("google"), function(
   res
 ) {
   res.redirect(`http://localhost:3000/dashboard/${req.user.id}`);
+});
+
+router.get("/user", function(req, res) {
+  res.json(req.user);
 });
 
 module.exports = router;

@@ -50,9 +50,6 @@ class Dashboard extends Component {
           <Col size="md-6 sm-12">
             <Jumbotron>
               <h1>My Teachbacks</h1>
-              <a href={`/submit/${this.state.userID}`} className="navbar-brand">
-                Submit A Teachback
-              </a>
             </Jumbotron>
             {this.state.teachbacks.length ? (
               <List>

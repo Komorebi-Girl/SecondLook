@@ -20,5 +20,8 @@ export default {
   // Saves a teachback to the database
   saveTeachback: function(teachbackData) {
     return axios.post("/api/teachbacks", teachbackData);
+  },
+  returnUser: function() {
+    return axios.get("/auth/user");
   }
 };
