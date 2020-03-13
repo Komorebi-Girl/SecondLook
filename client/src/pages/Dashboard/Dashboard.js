@@ -45,15 +45,9 @@ class Dashboard extends Component {
             <Jumbotron>
               <h1>Teachback To Review</h1>
             </Jumbotron>
-          </Col>
-
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>My Teachbacks</h1>
-            </Jumbotron>
-            {this.state.teachbacks.length ? (
-              <List>
-                {this.state.teachbacks.map(teachback => {
+            <List>
+              {this.state.teachbacks.map(teachback => {
+                if (teachback.reviewedBy === this.state.userID)
                   return (
                     <ListItem key={teachback._id}>
                       <a href={`/review/${this.state.userID}/${teachback._id}`}>
@@ -65,11 +59,30 @@ class Dashboard extends Component {
                       </a>
                     </ListItem>
                   );
-                })}
-              </List>
-            ) : (
-              <h3>No Teachbacks to Display</h3>
-            )}
+              })}
+            </List>
+          </Col>
+
+          <Col size="md-6 sm-12">
+            <Jumbotron>
+              <h1>My Teachbacks</h1>
+            </Jumbotron>
+            <List>
+              {this.state.teachbacks.map(teachback => {
+                if (teachback.submittedBy === this.state.userID)
+                  return (
+                    <ListItem key={teachback._id}>
+                      <a href={`/review/${this.state.userID}/${teachback._id}`}>
+                        <strong>
+                          {teachback.candidateName} ~ {teachback.role} role for{" "}
+                          {teachback.programType} program at{" "}
+                          {teachback.university}
+                        </strong>
+                      </a>
+                    </ListItem>
+                  );
+              })}
+            </List>
           </Col>
         </Row>
       </Container>

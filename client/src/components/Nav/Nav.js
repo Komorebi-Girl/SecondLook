@@ -27,31 +27,35 @@ class Nav extends Component {
               <span className="icon-bar" />
             </button>
             {this.state.userID ? (
-              <a
-                href={`/dashboard/${this.state.userID}`}
-                className="navbar-brand"
-              >
-                SecondLook
-              </a>
+              <div>
+                <a
+                  href={`/dashboard/${this.state.userID}`}
+                  className="navbar-brand"
+                >
+                  SecondLook
+                </a>
+                <a
+                  href={`/submit/${this.state.userID}`}
+                  className="navbar-brand"
+                >
+                  Submit
+                </a>
+                <a
+                  href="http://localhost:3001/auth/logout"
+                  className="navbar-brand"
+                >
+                  Logout
+                </a>
+              </div>
             ) : (
-              <a href="/" className="navbar-brand">
-                SecondLook
-              </a>
-            )}
-            <a href={`/submit/${this.state.userID}`} className="navbar-brand">
-              Submit
-            </a>
-            {this.state.userID ? (
-              <a
-                href="http://localhost:3001/auth/logout"
-                className="navbar-brand"
-              >
-                Logout
-              </a>
-            ) : (
-              <a href="/auth/login" className="navbar-brand">
-                Login
-              </a>
+              <div>
+                <a href="/" className="navbar-brand">
+                  SecondLook
+                </a>
+                <a href="/auth/login" className="navbar-brand">
+                  Login
+                </a>
+              </div>
             )}
           </div>
         </div>
