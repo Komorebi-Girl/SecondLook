@@ -30,7 +30,7 @@ class QAform extends Component {
 
   // Loads all teachbacks and sets them to this.state.teachbacks
   loadSingleTeachback = () => {
-    API.getTeachback(this.props.match.params.id)
+    API.getTeachback(this.props.match.params.tbID)
       .then(res =>
         this.setState({
           teachbacks: res.data,

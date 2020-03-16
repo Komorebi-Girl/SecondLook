@@ -7,7 +7,8 @@ import { List, ListItem } from "../../components/List";
 class Dashboard extends Component {
   // Setting our component's initial state
   state = {
-    teachbacks: [],
+    assignedTeachbacks: [],
+    submittedTeachbacks: [],
     userID: this.props.match.params.userID
   };
 
@@ -19,22 +20,26 @@ class Dashboard extends Component {
   // Loads all teachbacks and sets them to this.state.teachbacks
   loadTeachbacks = () => {
     API.getTeachbacks(this.state.userID)
-      .then(res =>
-        this.setState({
-          teachbacks: res.data,
-          value: "finalResult",
-          candidateName: "",
-          role: "",
-          university: "",
-          programType: "",
-          submittedBy: "",
-          zoomLink: "",
-          cohortStartDate: "",
-          submitterScores: [],
-          submitterResult: ""
-        })
-      )
+      .then(res => {
+        this.sortTeachbacks(res.data);
+      })
       .catch(err => console.log(err));
+  };
+
+  sortTeachbacks = teachbackArr => {
+    const assignedTBs = [];
+    const submittedTBs = [];
+    for (let i = 0; i < teachbackArr.length; i++) {
+      if (teachbackArr[i].reviewedBy === this.state.userID) {
+        assignedTBs.push(teachbackArr[i]);
+      } else if (teachbackArr[i].submittedBy === this.state.userID) {
+        submittedTBs.push(teachbackArr[i]);
+      }
+    }
+    this.setState({
+      assignedTeachbacks: assignedTBs,
+      submittedTeachbacks: submittedTBs
+    });
   };
 
   render() {
@@ -45,9 +50,9 @@ class Dashboard extends Component {
             <Jumbotron>
               <h1>Teachback To Review</h1>
             </Jumbotron>
-            <List>
-              {this.state.teachbacks.map(teachback => {
-                if (teachback.reviewedBy === this.state.userID)
+            {this.state.assignedTeachbacks.length ? (
+              <List>
+                {this.state.assignedTeachbacks.map(teachback => {
                   return (
                     <ListItem key={teachback._id}>
                       <a href={`/review/${this.state.userID}/${teachback._id}`}>
@@ -59,17 +64,20 @@ class Dashboard extends Component {
                       </a>
                     </ListItem>
                   );
-              })}
-            </List>
+                })}
+              </List>
+            ) : (
+              <h3>No Teachbacks to Display</h3>
+            )}
           </Col>
 
           <Col size="md-6 sm-12">
             <Jumbotron>
               <h1>My Teachbacks</h1>
             </Jumbotron>
-            <List>
-              {this.state.teachbacks.map(teachback => {
-                if (teachback.submittedBy === this.state.userID)
+            {this.state.submittedTeachbacks.length ? (
+              <List>
+                {this.state.submittedTeachbacks.map(teachback => {
                   return (
                     <ListItem key={teachback._id}>
                       <a href={`/review/${this.state.userID}/${teachback._id}`}>
@@ -81,8 +89,11 @@ class Dashboard extends Component {
                       </a>
                     </ListItem>
                   );
-              })}
-            </List>
+                })}
+              </List>
+            ) : (
+              <h3>No Teachbacks to Display</h3>
+            )}
           </Col>
         </Row>
       </Container>

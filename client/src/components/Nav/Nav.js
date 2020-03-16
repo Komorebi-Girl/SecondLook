@@ -52,9 +52,6 @@ class Nav extends Component {
                 <a href="/" className="navbar-brand">
                   SecondLook
                 </a>
-                <a href="/auth/login" className="navbar-brand">
-                  Login
-                </a>
               </div>
             )}
           </div>
