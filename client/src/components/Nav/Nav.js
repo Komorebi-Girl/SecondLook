@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
+import NavOptions from "../NavOptions";
 
 class Nav extends Component {
   // Setting our component's initial state
@@ -27,34 +28,19 @@ class Nav extends Component {
               <span className="icon-bar" />
             </button>
             {this.state.userID ? (
-              <div>
-                <a
-                  href={`/dashboard/${this.state.userID}`}
-                  className="navbar-brand"
-                >
-                  SecondLook
-                </a>
-                <a
-                  href={`/submit/${this.state.userID}`}
-                  className="navbar-brand"
-                >
-                  Submit
-                </a>
-                <a
-                  href="http://localhost:3001/auth/logout"
-                  className="navbar-brand"
-                >
-                  Logout
-                </a>
-              </div>
+              <a
+                href={`/dashboard/${this.state.userID}`}
+                className="navbar-brand"
+              >
+                SecondLook
+              </a>
             ) : (
-              <div>
-                <a href="/" className="navbar-brand">
-                  SecondLook
-                </a>
-              </div>
+              <a href="/" className="navbar-brand">
+                SecondLook
+              </a>
             )}
           </div>
+          {this.state.userID ? <NavOptions userID={this.state.userID} /> : null}
         </div>
       </nav>
     );

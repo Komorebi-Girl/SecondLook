@@ -40,7 +40,6 @@ class Teachbacks extends Component {
           role: "",
           university: "",
           programType: "",
-          submittedBy: "",
           zoomLink: "",
           cohortStartDate: "",
           submitterScores: [],
@@ -160,12 +159,6 @@ class Teachbacks extends Component {
                 onChange={this.handleInputChange}
                 name="programType"
                 placeholder="Program Type (required)"
-              />
-              <Input
-                value={this.state.submittedBy}
-                onChange={this.handleInputChange}
-                name="submittedBy"
-                placeholder="Submitted By (required)"
               />
               <Input
                 value={this.state.zoomLink}
