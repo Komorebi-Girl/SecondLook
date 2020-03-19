@@ -58,35 +58,20 @@ class QAform extends Component {
   };
 
   /* This function will take the scores selected via the category dropdowns & populate them
-     to the correct array based on who's doing the selecting: the submitter or reviewer */
-  updateScores = (value, reviewedBy, index) => {
-    // If no one's been assigned to review the TB, save the scores to the submitter array
-    if (reviewedBy === "Nobody") {
-      var savedScores = [...this.state.submitterScores];
-      savedScores[index] = value;
-      this.setState({ submitterScores: savedScores });
-    } else {
-      // If someone has been assigned, save the scores to the reviewer array
-      savedScores = [...this.state.reviewerScores];
-      savedScores[index] = value;
-      this.setState({ reviewerScores: savedScores });
-    }
+     the reviewer's score array */
+  updateScores = (value, index) => {
+    let savedScores = [...this.state.reviewerScores];
+    savedScores[index] = value;
+    this.setState({ reviewerScores: savedScores });
   };
 
+  /* This function will take the scores selected via the category dropdowns & populate them
+     the reviewer's final result field */
   updateFinalResult = event => {
-    // If no one's been assigned to review the TB, save the final result to submitterResult
-    if (this.state.reviewedBy === "Nobody") {
-      this.setState({
-        value: event.target.value,
-        submitterResult: event.target.value
-      });
-    } else {
-      // If someone has been assigned, save the final result to reviewerResult
-      this.setState({
-        value: event.target.value,
-        reviewerResult: event.target.value
-      });
-    }
+    this.setState({
+      value: event.target.value,
+      reviewerResult: event.target.value
+    });
   };
 
   /* When the form is submitted, use the API.updateTeachback method to update the teachback data
@@ -94,7 +79,7 @@ class QAform extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.validateAllValues(this.state)) {
-      API.updateTeachback(this.props.match.params.id, {
+      API.updateTeachback(this.props.match.params.tbID, {
         reviewedBy: this.state.reviewedBy,
         reviewerScores: this.state.reviewerScores,
         reviewerResult: this.state.reviewerResult

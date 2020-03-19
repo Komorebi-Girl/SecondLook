@@ -9,11 +9,7 @@ class Dropdown extends Component {
 
   handleChange(event) {
     this.setState({ value: event.target.value });
-    this.props.updateScores(
-      event.target.value,
-      this.props.reviewedBy,
-      this.props.index
-    );
+    this.props.updateScores(event.target.value, this.props.index);
   }
 
   render() {
