@@ -11,6 +11,7 @@ import Teachbacks from "./pages/Teachbacks";
 import Dashboard from "./pages/Dashboard";
 import QAform from "./pages/QAform";
 import Login from "./pages/Login";
+import TBprofile from "./pages/TBprofile";
 
 class App extends Component {
   state = {
@@ -41,6 +42,7 @@ class App extends Component {
             <Route path="/dashboard/:userID" component={Dashboard} />
             <Route path="/submit/:userID" component={Teachbacks} />
             <Route path="/review/:userID/:tbID" component={QAform} />
+            <Route path="/view/:userID/:tbID" component={TBprofile} />
           </Switch>
         </div>
       </Router>

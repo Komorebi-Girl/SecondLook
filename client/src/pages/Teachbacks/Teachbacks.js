@@ -8,14 +8,13 @@ import Dropdown from "../../components/Form/Dropdown";
 class Teachbacks extends Component {
   // Setting our component's initial state
   state = {
-    teachbacks: [],
     value: "finalResult",
     candidateName: "",
     role: "",
     university: "",
     programType: "",
     submittedBy: this.props.match.params.userID,
-    reviewedBy: "Nobody",
+    reviewedBy: "5e664aed0188e521aca69846",
     zoomLink: "",
     cohortStartDate: "",
     submitterScores: [],
@@ -31,22 +30,17 @@ class Teachbacks extends Component {
 
   // Loads all teachbacks and sets them to this.state.teachbacks
   loadTeachbacks = () => {
-    API.getTeachbacks()
-      .then(res =>
-        this.setState({
-          teachbacks: res.data,
-          value: "finalResult",
-          candidateName: "",
-          role: "",
-          university: "",
-          programType: "",
-          zoomLink: "",
-          cohortStartDate: "",
-          submitterScores: [],
-          submitterResult: ""
-        })
-      )
-      .catch(err => console.log(err));
+    this.setState({
+      value: "finalResult",
+      candidateName: "",
+      role: "",
+      university: "",
+      programType: "",
+      zoomLink: "",
+      cohortStartDate: "",
+      submitterScores: [],
+      submitterResult: ""
+    });
   };
 
   // Deletes a teachback from the database with a given id, then reloads teachbacks from the db
@@ -66,37 +60,24 @@ class Teachbacks extends Component {
 
   /* This function will take the scores selected via the category dropdowns & populate them
    to the correct array based on who's doing the selecting: the submitter or reviewer */
-  updateScores = (value, reviewedBy, index) => {
+  updateScores = (value, index) => {
     // If no one's been assigned to review the TB, save the scores to the submitter array
-    if (reviewedBy === "Nobody") {
-      var savedScores = [...this.state.submitterScores];
-      savedScores[index] = value;
-      this.setState({ submitterScores: savedScores });
-    } else {
-      // If someone has been assigned, save the scores to the reviewer array
-      savedScores = [...this.state.reviewerScores];
-      savedScores[index] = value;
-      this.setState({ reviewerScores: savedScores });
-    }
+    var savedScores = [...this.state.submitterScores];
+    savedScores[index] = value;
+    this.setState({ submitterScores: savedScores });
   };
 
   updateFinalResult = event => {
-    // If no one's been assigned to review the TB, save the final result to submitterResult
-    if (this.state.reviewedBy === "Nobody") {
-      this.setState({
-        value: event.target.value,
-        submitterResult: event.target.value
-      });
-    } else {
-      // If someone has been assigned, save the final result to reviewerResult
-      this.setState({ reviewerResult: event.target.value });
-    }
+    // Save the final result to submitterResult
+    this.setState({
+      value: event.target.value,
+      submitterResult: event.target.value
+    });
   };
 
   /* When the form is submitted, use the API.saveTeachback method to save the teachback data
  Then reload teachbacks from the database */
   handleFormSubmit = event => {
-    event.preventDefault();
     if (this.validateAllValues(this.state)) {
       API.saveTeachback({
         candidateName: this.state.candidateName,
@@ -177,57 +158,41 @@ class Teachbacks extends Component {
                 category="Positivity"
                 index={0}
                 updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Investment"
                 index={1}
                 updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Pace"
                 index={2}
                 updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Clarity"
                 index={3}
                 updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Knowledge"
                 index={4}
                 updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Responses"
                 index={5}
                 updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Industry Knowledge"
                 index={6}
                 updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
               />
               <Dropdown
                 category="Coachability"
                 index={7}
                 updateScores={this.updateScores}
-                reviewedBy={this.state.reviewedBy}
-                isSubmitted={this.state.submittedBy}
               />
               {/* Stand-alone dropbox to select final result*/}
               <select

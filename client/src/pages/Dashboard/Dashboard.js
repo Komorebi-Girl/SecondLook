@@ -31,7 +31,8 @@ class Dashboard extends Component {
     const submittedTBs = [];
     for (let i = 0; i < teachbackArr.length; i++) {
       if (teachbackArr[i].reviewedBy === this.state.userID) {
-        assignedTBs.push(teachbackArr[i]);
+        // assignedTBs.push(teachbackArr[i]);
+        submittedTBs.push(teachbackArr[i]);
       } else if (teachbackArr[i].submittedBy === this.state.userID) {
         submittedTBs.push(teachbackArr[i]);
       }
@@ -80,7 +81,7 @@ class Dashboard extends Component {
                 {this.state.submittedTeachbacks.map(teachback => {
                   return (
                     <ListItem key={teachback._id}>
-                      <a href={`/review/${this.state.userID}/${teachback._id}`}>
+                      <a href={`/view/${this.state.userID}/${teachback._id}`}>
                         <strong>
                           {teachback.candidateName} ~ {teachback.role} role for{" "}
                           {teachback.programType} program at{" "}

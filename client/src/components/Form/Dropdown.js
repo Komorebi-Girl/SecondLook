@@ -15,7 +15,7 @@ class Dropdown extends Component {
   render() {
     return (
       <select
-        value={this.props.isSubmitted ? this.state.value : this.props.category}
+        value={this.state.value ? this.state.value : this.props.category}
         onChange={this.handleChange}
       >
         <option value={this.props.category}>
