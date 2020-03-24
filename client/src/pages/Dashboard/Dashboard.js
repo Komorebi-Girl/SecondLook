@@ -19,7 +19,7 @@ class Dashboard extends Component {
 
   // Loads all teachbacks and sets them to this.state.teachbacks
   loadTeachbacks = () => {
-    API.getTeachbacks(this.state.userID)
+    API.getUserTeachbacks(this.state.userID)
       .then(res => {
         this.sortTeachbacks(res.data);
       })
@@ -31,8 +31,8 @@ class Dashboard extends Component {
     const submittedTBs = [];
     for (let i = 0; i < teachbackArr.length; i++) {
       if (teachbackArr[i].reviewedBy === this.state.userID) {
-        // assignedTBs.push(teachbackArr[i]);
-        submittedTBs.push(teachbackArr[i]);
+        assignedTBs.push(teachbackArr[i]);
+        // submittedTBs.push(teachbackArr[i]);
       } else if (teachbackArr[i].submittedBy === this.state.userID) {
         submittedTBs.push(teachbackArr[i]);
       }

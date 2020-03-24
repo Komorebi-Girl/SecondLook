@@ -54,74 +54,143 @@ class TBprofile extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>Basic Info</h1>
+              <h1>Teachback Profile</h1>
             </Jumbotron>
             <form>
               {/* Input boxes for the data that must be filled-in*/}
-              <Input
-                value={this.state.candidateName}
-                name="candidateName"
-                placeholder="No Candidate Name Found "
-              />
-              <Input
-                value={this.state.role}
-                name="role"
-                placeholder="No Role Found"
-              />
-              <Input
-                value={this.state.university}
-                name="university"
-                placeholder="No University Found)"
-              />
-              <Input
-                value={this.state.programType}
-                name="programType"
-                placeholder="No Program Type Found"
-              />
-              <Input
-                value={this.state.submittedBy}
-                name="submittedBy"
-                placeholder="No Submitter Found"
-              />
-              <Input
-                value={this.state.zoomLink}
-                name="zoomLink"
-                placeholder="No Zoom Link Found"
-              />
-              <Input
-                value={this.state.cohortStartDate}
-                name="cohortStartDate"
-                placeholder="No Cohort Start Date Found"
-              />
+              <label>
+                Candidate Name
+                <Input
+                  value={this.state.candidateName}
+                  name="candidateName"
+                  placeholder="No Candidate Name Found "
+                />
+              </label>
+              <label>
+                Role
+                <Input
+                  value={this.state.role}
+                  name="role"
+                  placeholder="No Role Found"
+                />
+              </label>
+
+              <label>
+                University
+                <Input
+                  value={this.state.university}
+                  name="university"
+                  placeholder="No University Found)"
+                />
+              </label>
+
+              <label>
+                Program Type
+                <Input
+                  value={this.state.programType}
+                  name="programType"
+                  placeholder="No Program Type Found"
+                />
+              </label>
+
+              <label>
+                Zoom Link
+                <Input
+                  value={this.state.zoomLink}
+                  name="zoomLink"
+                  placeholder="No Zoom Link Found"
+                />
+              </label>
             </form>
           </Col>
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1> Candidate Scores</h1>
+              <h1>Reviewer Scores</h1>
             </Jumbotron>
             <form>
               {/* Dropboxes for the data that must be selected */}
               <Row>
-                <Col size="md-4">
-                  <Input
-                    value={`Positivity Score: ${this.state.reviewerScores[0]}`}
-                    name="Positivity"
-                    placeholder="No Positivity Score Found"
-                  />
+                <Col size="md-3">
+                  <label>
+                    Positivity
+                    <Input
+                      value={this.state.reviewerScores[0]}
+                      name="Positivity"
+                      placeholder="No Positivity Score Found"
+                    />
+                  </label>
                 </Col>
-                <Col size="md-4">
-                  {/* Stand-alone dropbox to select final result*/}
-                  <select
-                    name={"finalResult"}
-                    value={this.state.value}
-                    onChange={this.updateFinalResult}
-                  >
-                    <option value="finalResult">Select Final Result:</option>
-                    <option value="Weak">Weak</option>
-                    <option value="Average">Average</option>
-                    <option value="Strong">Strong</option>
-                    <option value="Exemplary">Exemplary</option>
-                  </select>
+                <Col size="md-3">
+                  <label>
+                    Investment
+                    <Input
+                      value={this.state.reviewerScores[1]}
+                      name="Investment"
+                      placeholder="No Investment Score Found"
+                    />
+                  </label>
+                </Col>
+                <Col size="md-3">
+                  <label>
+                    Pace
+                    <Input
+                      value={this.state.reviewerScores[2]}
+                      name="Pace"
+                      placeholder="No Pace Score Found"
+                    />
+                  </label>
+                </Col>
+                <Col size="md-3">
+                  <label>
+                    Clarity
+                    <Input
+                      value={this.state.reviewerScores[3]}
+                      name="Clarity"
+                      placeholder="No Clarity Score Found"
+                    />
+                  </label>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-3">
+                  <label>
+                    Knowledge
+                    <Input
+                      value={this.state.reviewerScores[4]}
+                      name="Knowledge"
+                      placeholder="No Knowledge Score Found"
+                    />
+                  </label>
+                </Col>
+                <Col size="md-3">
+                  <label>
+                    Responses
+                    <Input
+                      value={this.state.reviewerScores[5]}
+                      name="Responses"
+                      placeholder="No Responses Score Found"
+                    />
+                  </label>
+                </Col>
+                <Col size="md-3">
+                  <label>
+                    Industry Knowledge
+                    <Input
+                      value={this.state.reviewerScores[6]}
+                      name="Industry Knowledge"
+                      placeholder="No Industry Knowledge Score Found"
+                    />
+                  </label>
+                </Col>
+                <Col size="md-3">
+                  <label>
+                    Coachability
+                    <Input
+                      value={this.state.reviewerScores[7]}
+                      name="Coachability "
+                      placeholder="No Coachability Score Found"
+                    />
+                  </label>
                 </Col>
               </Row>
             </form>

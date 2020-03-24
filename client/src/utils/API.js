@@ -1,8 +1,11 @@
 import axios from "axios";
 
 export default {
-  // Gets all teachbacks
-  getTeachbacks: function(userID) {
+  getTeachbacks: function() {
+    return axios.get("/api/teachbacks");
+  },
+  // Gets all teachbacks associated with a particular user
+  getUserTeachbacks: function(userID) {
     return axios.get("/api/teachbacks/myTBs/" + userID);
   },
   // Gets the teachback with the given id
@@ -23,5 +26,8 @@ export default {
   },
   returnUser: function() {
     return axios.get("/auth/user");
+  },
+  returnAllUsers: function() {
+    return axios.get("/api/user");
   }
 };

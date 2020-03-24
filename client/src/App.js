@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import QAform from "./pages/QAform";
 import Login from "./pages/Login";
 import TBprofile from "./pages/TBprofile";
+import AssignView from "./pages/AssignView";
 
 class App extends Component {
   state = {
@@ -40,6 +41,7 @@ class App extends Component {
               )}
             </Route>
             <Route path="/dashboard/:userID" component={Dashboard} />
+            <Route path="/assign/:userID" component={AssignView} />
             <Route path="/submit/:userID" component={Teachbacks} />
             <Route path="/review/:userID/:tbID" component={QAform} />
             <Route path="/view/:userID/:tbID" component={TBprofile} />

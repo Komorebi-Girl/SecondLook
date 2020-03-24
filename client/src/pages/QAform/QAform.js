@@ -14,7 +14,7 @@ class QAform extends Component {
     university: "",
     programType: "",
     submittedBy: "",
-    reviewedBy: "",
+    reviewedBy: [],
     zoomLink: "",
     cohortStartDate: "",
     submitterScores: [],
@@ -65,8 +65,8 @@ class QAform extends Component {
     this.setState({ reviewerScores: savedScores });
   };
 
-  /* This function will take the scores selected via the category dropdowns & populate them
-     the reviewer's final result field */
+  /* This function will take the score from the final result dropdown & populate 
+  the reviewer's final result field with that info*/
   updateFinalResult = event => {
     this.setState({
       value: event.target.value,
@@ -133,22 +133,10 @@ class QAform extends Component {
                 placeholder="Program Type (required)"
               />
               <Input
-                value={this.state.submittedBy}
-                onChange={this.handleInputChange}
-                name="submittedBy"
-                placeholder="Submitted By (required)"
-              />
-              <Input
                 value={this.state.zoomLink}
                 onChange={this.handleInputChange}
                 name="zoomLink"
                 placeholder="Zoom Link (required)"
-              />
-              <Input
-                value={this.state.cohortStartDate}
-                onChange={this.handleInputChange}
-                name="cohortStartDate"
-                placeholder="Cohort Start Date (required)"
               />
             </form>
           </Col>
@@ -157,16 +145,6 @@ class QAform extends Component {
               <h1>Submit Your Scores</h1>
             </Jumbotron>
             <form>
-              <Row>
-                <Col size="md-6">
-                  <Input
-                    value={this.state.reviewedBy}
-                    onChange={this.handleInputChange}
-                    name="reviewedBy"
-                    placeholder="Your Name (required)"
-                  />
-                </Col>
-              </Row>
               {/* Dropboxes for the data that must be selected */}
               <Row>
                 <Col size="md-4">
