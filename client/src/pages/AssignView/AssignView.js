@@ -3,22 +3,39 @@ import API from "../../utils/API";
 import Jumbotron from "../../components/Jumbotron";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import Dropdown from "../../components/Form/Dropdown";
 import AssignDropdown from "../../components/AssignDropdown/AssignDropdown";
 
 class AssignView extends Component {
   state = {
     teachbacks: [],
-    userID: this.props.match.params.userID
+    users: []
   };
 
   componentDidMount() {
-    this.loadTeachbacks();
+    this.loadAssignInfo();
   }
 
-  loadTeachbacks = () => {
-    API.getTeachbacks()
-      .then(res => this.setState({ teachbacks: res.data }))
+  loadAssignInfo = () => {
+    Promise.all([API.getTeachbacks(), API.returnAllUsers()])
+      .then(res => {
+        const noReviewer = [];
+        const tbArr = res[0].data;
+        console.log(tbArr);
+        for (let tb in tbArr) {
+          if (tb.reviewedBy === "N/A") {
+            noReviewer.push(tb);
+          }
+        }
+        this.setState({ teachbacks: noReviewer, users: res[1].data });
+      })
+      .catch(err => console.log(err));
+  };
+
+  assignReviewer = (event, tbID) => {
+    API.updateTeachback(tbID, {
+      reviewedBy: event.target.value
+    })
+      .then(res => res.status(200))
       .catch(err => console.log(err));
   };
 
@@ -53,7 +70,11 @@ class AssignView extends Component {
                         </ListItem>
                       </Col>
                       <Col size="md-2">
-                        <AssignDropdown tbID={teachback._id} />
+                        <AssignDropdown
+                          tbID={teachback._id}
+                          users={this.state.users}
+                          assignReviewer={this.assignReviewer}
+                        />
                       </Col>
                     </Row>
                   );

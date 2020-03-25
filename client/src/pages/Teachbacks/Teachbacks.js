@@ -14,13 +14,13 @@ class Teachbacks extends Component {
     university: "",
     programType: "",
     submittedBy: this.props.match.params.userID,
-    reviewedBy: "5e664aed0188e521aca69846",
+    reviewedBy: "N/A",
     zoomLink: "",
     cohortStartDate: "",
     submitterScores: [],
     submitterResult: "",
     reviewerScores: [],
-    reviewerResult: "None"
+    reviewerResult: "N/A"
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
