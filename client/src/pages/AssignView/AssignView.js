@@ -4,6 +4,7 @@ import Jumbotron from "../../components/Jumbotron";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import Dropdown from "../../components/Form/Dropdown";
+import AssignDropdown from "../../components/AssignDropdown/AssignDropdown";
 
 class AssignView extends Component {
   state = {
@@ -32,20 +33,29 @@ class AssignView extends Component {
           </Col>
         </Row>
         <Row>
-          <Col size="md-6">
+          <Col size="md-10">
             {this.state.teachbacks.length ? (
               <List>
                 {this.state.teachbacks.map(teachback => {
                   return (
-                    <ListItem key={teachback._id}>
-                      <a href={`/view/${this.state.userID}/${teachback._id}`}>
-                        <strong>
-                          {teachback.candidateName} ~ {teachback.role} role for{" "}
-                          {teachback.programType} program at{" "}
-                          {teachback.university}
-                        </strong>
-                      </a>
-                    </ListItem>
+                    <Row>
+                      <Col size="md-10">
+                        <ListItem key={teachback._id}>
+                          <a
+                            href={`/view/${this.state.userID}/${teachback._id}`}
+                          >
+                            <strong>
+                              {teachback.candidateName} ~ {teachback.role} role
+                              for {teachback.programType} program at{" "}
+                              {teachback.university}
+                            </strong>
+                          </a>
+                        </ListItem>
+                      </Col>
+                      <Col size="md-2">
+                        <AssignDropdown tbID={teachback._id} />
+                      </Col>
+                    </Row>
                   );
                 })}
               </List>
