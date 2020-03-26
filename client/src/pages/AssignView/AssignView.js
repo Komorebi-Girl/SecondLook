@@ -18,15 +18,15 @@ class AssignView extends Component {
   loadAssignInfo = () => {
     Promise.all([API.getTeachbacks(), API.returnAllUsers()])
       .then(res => {
-        const noReviewer = [];
+        const noReviewerArr = [];
         const tbArr = res[0].data;
-        console.log(tbArr);
-        for (let tb in tbArr) {
-          if (tb.reviewedBy === "N/A") {
-            noReviewer.push(tb);
+
+        for (let i = 0; i < tbArr.length; i++) {
+          if (tbArr[i].reviewedBy === "N/A") {
+            noReviewerArr.push(tbArr[i]);
           }
         }
-        this.setState({ teachbacks: noReviewer, users: res[1].data });
+        this.setState({ teachbacks: noReviewerArr, users: res[1].data });
       })
       .catch(err => console.log(err));
   };

@@ -43,13 +43,6 @@ class Teachbacks extends Component {
     });
   };
 
-  // Deletes a teachback from the database with a given id, then reloads teachbacks from the db
-  deleteTeachback = id => {
-    API.deleteTeachback(id)
-      .then(res => this.loadTeachbacks())
-      .catch(err => console.log(err));
-  };
-
   // Handles updating component state when the user types into the input field
   handleInputChange = event => {
     const { name, value } = event.target;
