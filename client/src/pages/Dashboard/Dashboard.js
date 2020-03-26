@@ -30,9 +30,11 @@ class Dashboard extends Component {
     const assignedTBs = [];
     const submittedTBs = [];
     for (let i = 0; i < teachbackArr.length; i++) {
-      if (teachbackArr[i].reviewedBy === this.state.userID) {
+      if (
+        teachbackArr[i].reviewedBy === this.state.userID &&
+        teachbackArr[i].reviewerResult === "N/A"
+      ) {
         assignedTBs.push(teachbackArr[i]);
-        // submittedTBs.push(teachbackArr[i]);
       } else if (teachbackArr[i].submittedBy === this.state.userID) {
         submittedTBs.push(teachbackArr[i]);
       }
@@ -49,7 +51,7 @@ class Dashboard extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>Teachback To Review</h1>
+              <h1>Teachbacks To Review</h1>
             </Jumbotron>
             {this.state.assignedTeachbacks.length ? (
               <List>
@@ -74,21 +76,34 @@ class Dashboard extends Component {
 
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>My Teachbacks</h1>
+              <h1 style={{ textAlign: "center" }}>My Teachbacks</h1>
             </Jumbotron>
             {this.state.submittedTeachbacks.length ? (
               <List>
                 {this.state.submittedTeachbacks.map(teachback => {
                   return (
-                    <ListItem key={teachback._id}>
-                      <a href={`/view/${this.state.userID}/${teachback._id}`}>
-                        <strong>
-                          {teachback.candidateName} ~ {teachback.role} role for{" "}
-                          {teachback.programType} program at{" "}
-                          {teachback.university}
-                        </strong>
-                      </a>
-                    </ListItem>
+                    <Row>
+                      <Col size="md-10">
+                        <ListItem key={teachback._id}>
+                          <a
+                            href={`/view/${this.state.userID}/${teachback._id}`}
+                          >
+                            <strong>
+                              {teachback.candidateName} ~ {teachback.role} role
+                              for {teachback.programType} program at{" "}
+                              {teachback.university}
+                            </strong>
+                          </a>
+                        </ListItem>
+                      </Col>
+                      <Col size="md-2">
+                        {teachback.reviewerResult === "N/A" ? (
+                          <button type="button"> Review Pending </button>
+                        ) : (
+                          <button type="button"> Review Complete </button>
+                        )}
+                      </Col>
+                    </Row>
                   );
                 })}
               </List>

@@ -8,7 +8,6 @@ import Dropdown from "../../components/Form/Dropdown";
 class Teachbacks extends Component {
   // Setting our component's initial state
   state = {
-    value: "finalResult",
     candidateName: "",
     role: "",
     university: "",
@@ -21,26 +20,6 @@ class Teachbacks extends Component {
     submitterResult: "",
     reviewerScores: [],
     reviewerResult: "N/A"
-  };
-
-  // When the component mounts, load all teachbacks and save them to this.state.teachbacks
-  componentDidMount() {
-    this.loadTeachbacks();
-  }
-
-  // Loads all teachbacks and sets them to this.state.teachbacks
-  loadTeachbacks = () => {
-    this.setState({
-      value: "finalResult",
-      candidateName: "",
-      role: "",
-      university: "",
-      programType: "",
-      zoomLink: "",
-      cohortStartDate: "",
-      submitterScores: [],
-      submitterResult: ""
-    });
   };
 
   // Handles updating component state when the user types into the input field
@@ -86,7 +65,7 @@ class Teachbacks extends Component {
         submitterResult: this.state.submitterResult,
         reviewerResult: this.state.reviewerResult
       })
-        .then(res => this.loadTeachbacks())
+        .then(res => res.status(200).send("Teachback Saved"))
         .catch(err => console.log(err));
     }
   };
@@ -188,12 +167,10 @@ class Teachbacks extends Component {
                 updateScores={this.updateScores}
               />
               {/* Stand-alone dropbox to select final result*/}
-              <select
-                name={"finalResult"}
-                value={this.state.value}
-                onChange={this.updateFinalResult}
-              >
-                <option value="finalResult">Select Final Result:</option>
+              <select onChange={this.updateFinalResult}>
+                <option selected value="default">
+                  Select Final Result:
+                </option>
                 <option value="Weak">Weak</option>
                 <option value="Average">Average</option>
                 <option value="Strong">Strong</option>

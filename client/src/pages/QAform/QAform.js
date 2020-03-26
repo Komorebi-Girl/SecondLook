@@ -8,15 +8,11 @@ import Dropdown from "../../components/Form/Dropdown";
 class QAform extends Component {
   // Setting our component's initial state
   state = {
-    value: "finalResult",
     candidateName: "",
     role: "",
     university: "",
     programType: "",
-    submittedBy: "",
-    reviewedBy: [],
     zoomLink: "",
-    cohortStartDate: "",
     submitterScores: [],
     submitterResult: "",
     reviewerScores: [],
@@ -34,14 +30,11 @@ class QAform extends Component {
       .then(res =>
         this.setState({
           teachbacks: res.data,
-          value: "finalResult",
           candidateName: res.data.candidateName,
           role: res.data.role,
           university: res.data.university,
           programType: res.data.programType,
-          submittedBy: res.data.submittedBy,
           zoomLink: res.data.zoomLink,
-          cohortStartDate: res.data.cohortStartDate,
           submitterScores: res.data.submitterScores,
           submitterResult: res.data.submitterResult
         })
@@ -80,7 +73,6 @@ class QAform extends Component {
     event.preventDefault();
     if (this.validateAllValues(this.state)) {
       API.updateTeachback(this.props.match.params.tbID, {
-        reviewedBy: this.state.reviewedBy,
         reviewerScores: this.state.reviewerScores,
         reviewerResult: this.state.reviewerResult
       })
@@ -225,12 +217,10 @@ class QAform extends Component {
                 </Col>
                 <Col size="md-4">
                   {/* Stand-alone dropbox to select final result*/}
-                  <select
-                    name={"finalResult"}
-                    value={this.state.value}
-                    onChange={this.updateFinalResult}
-                  >
-                    <option value="finalResult">Select Final Result:</option>
+                  <select onChange={this.updateFinalResult}>
+                    <option selected value="default">
+                      Select Final Result:
+                    </option>
                     <option value="Weak">Weak</option>
                     <option value="Average">Average</option>
                     <option value="Strong">Strong</option>
