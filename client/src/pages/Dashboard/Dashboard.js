@@ -3,6 +3,7 @@ import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
+import "./Dashboard.css";
 
 class Dashboard extends Component {
   // Setting our component's initial state
@@ -98,9 +99,13 @@ class Dashboard extends Component {
                       </Col>
                       <Col size="md-2">
                         {teachback.reviewerResult === "N/A" ? (
-                          <button type="button"> Review Pending </button>
+                          <button className="pending" type="button">
+                            Review Pending
+                          </button>
                         ) : (
-                          <button type="button"> Review Complete </button>
+                          <button className="complete" type="button">
+                            Review Complete
+                          </button>
                         )}
                       </Col>
                     </Row>

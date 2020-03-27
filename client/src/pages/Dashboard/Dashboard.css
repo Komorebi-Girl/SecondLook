@@ -1,0 +1,15 @@
+.complete {
+  background-color: rgb(50, 198, 230);
+  color: white;
+  font-family: Impact;
+  font-weight: 600;
+  font-size: 1.75rem;
+}
+
+.pending {
+  background-color: white;
+  color: black;
+  font-family: Roboto;
+  font-weight: 600;
+  font-size: 1.75rem;
+}
