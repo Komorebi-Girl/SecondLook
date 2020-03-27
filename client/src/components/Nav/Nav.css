@@ -1,0 +1,18 @@
+#mainNav {
+  background-color: rgb(50, 198, 230);
+  border-color: rgb(50, 198, 230);
+}
+
+#toggleNav {
+  border-color: rgb(50, 198, 230);
+}
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+  background-color: rgb(50, 198, 230);
+}
+
+.navbar-brand {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2rem;
+}

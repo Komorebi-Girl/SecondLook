@@ -1,11 +1,16 @@
 import React from "react";
 import NavOptions from "../NavOptions";
+import "./Nav.css";
 
 const Nav = props => (
-  <nav className="navbar navbar-inverse navbar-top">
+  <nav id="mainNav" className="navbar navbar-inverse navbar-top">
     <div className="container-fluid">
       <div className="navbar-header">
-        <button type="button" className="collapsed navbar-toggle">
+        <button
+          type="button"
+          id="toggleNav"
+          className="collapsed navbar-toggle"
+        >
           <span className="sr-only">Toggle navigation</span>
           <span className="icon-bar" /> <span className="icon-bar" />
           <span className="icon-bar" />

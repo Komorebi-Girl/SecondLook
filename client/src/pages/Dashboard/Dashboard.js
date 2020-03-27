@@ -60,7 +60,7 @@ class Dashboard extends Component {
                   return (
                     <ListItem key={teachback._id}>
                       <a href={`/review/${this.state.userID}/${teachback._id}`}>
-                        <strong>
+                        <strong className="tbInfo">
                           {teachback.candidateName} ~ {teachback.role} role for{" "}
                           {teachback.programType} program at{" "}
                           {teachback.university}
@@ -89,7 +89,7 @@ class Dashboard extends Component {
                           <a
                             href={`/view/${this.state.userID}/${teachback._id}`}
                           >
-                            <strong>
+                            <strong className="tbInfo">
                               {teachback.candidateName} ~ {teachback.role} role
                               for {teachback.programType} program at{" "}
                               {teachback.university}
