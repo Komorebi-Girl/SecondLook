@@ -1,5 +1,4 @@
 const express = require("express");
-// const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const logger = require("morgan");
@@ -28,7 +27,6 @@ app.use(
   })
 );
 
-console.log("over here!", process.env.REACT_APP_GOOGLE_CLIENT_ID);
 //initializing passport
 app.use(passport.initialize());
 app.use(passport.session());

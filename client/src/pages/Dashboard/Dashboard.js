@@ -3,7 +3,15 @@ import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import "./Dashboard.css";
+// import "./Dashboard.css";
+
+const jumbotronStyle = {
+  fontFamily: "Montserrat",
+  fontSize: "1.75rem",
+  color: "rgb(50, 198, 230)",
+  fontSize: "45px",
+  textAlign: "center"
+};
 
 class Dashboard extends Component {
   // Setting our component's initial state
@@ -51,8 +59,8 @@ class Dashboard extends Component {
       <Container fluid>
         <Row>
           <Col size="md-6">
-            <Jumbotron>
-              <h1>Teachbacks To Review</h1>
+            <Jumbotron style={{ backgroundColor: "white" }}>
+              <h1 style={jumbotronStyle}>Teachbacks To Review</h1>
             </Jumbotron>
             {this.state.assignedTeachbacks.length ? (
               <List>
@@ -76,8 +84,8 @@ class Dashboard extends Component {
           </Col>
 
           <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1 style={{ textAlign: "center" }}>My Teachbacks</h1>
+            <Jumbotron style={{ backgroundColor: "white" }}>
+              <h1 style={jumbotronStyle}>My Teachbacks</h1>
             </Jumbotron>
             {this.state.submittedTeachbacks.length ? (
               <List>
