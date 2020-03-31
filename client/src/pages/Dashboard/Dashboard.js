@@ -3,14 +3,35 @@ import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-// import "./Dashboard.css";
 
-const jumbotronStyle = {
+const jumbotronText = {
   fontFamily: "Montserrat",
   fontSize: "1.75rem",
   color: "rgb(50, 198, 230)",
   fontSize: "45px",
   textAlign: "center"
+};
+
+const completedBtn = {
+  backgroundColor: "rgb(50, 198, 230)",
+  color: "rgb(255,255,255)",
+  fontFamily: "Montserrat",
+  fontWeight: 600,
+  fontSize: "1.75rem"
+};
+
+const pendingBtn = {
+  backgroundColor: "rgb(255,255,255)",
+  color: "rgb(0,0,0)",
+  fontFamily: "Montserrat",
+  fontWeight: 600,
+  fontSize: "1.75rem"
+};
+
+const tbText = {
+  fontFamily: "Montserrat",
+  color: "rgb(0,0,0)",
+  fontSize: "2.0rem"
 };
 
 class Dashboard extends Component {
@@ -59,8 +80,8 @@ class Dashboard extends Component {
       <Container fluid>
         <Row>
           <Col size="md-6">
-            <Jumbotron style={{ backgroundColor: "white" }}>
-              <h1 style={jumbotronStyle}>Teachbacks To Review</h1>
+            <Jumbotron>
+              <h1 style={jumbotronText}>Teachbacks To Review</h1>
             </Jumbotron>
             {this.state.assignedTeachbacks.length ? (
               <List>
@@ -68,7 +89,7 @@ class Dashboard extends Component {
                   return (
                     <ListItem key={teachback._id}>
                       <a href={`/review/${this.state.userID}/${teachback._id}`}>
-                        <strong className="tbInfo">
+                        <strong style={tbText}>
                           {teachback.candidateName} ~ {teachback.role} role for{" "}
                           {teachback.programType} program at{" "}
                           {teachback.university}
@@ -79,13 +100,13 @@ class Dashboard extends Component {
                 })}
               </List>
             ) : (
-              <h3>No Teachbacks to Display</h3>
+              <h3 style={tbText}>No Teachbacks to Display</h3>
             )}
           </Col>
 
           <Col size="md-6 sm-12">
-            <Jumbotron style={{ backgroundColor: "white" }}>
-              <h1 style={jumbotronStyle}>My Teachbacks</h1>
+            <Jumbotron>
+              <h1 style={jumbotronText}>My Teachbacks</h1>
             </Jumbotron>
             {this.state.submittedTeachbacks.length ? (
               <List>
@@ -97,7 +118,7 @@ class Dashboard extends Component {
                           <a
                             href={`/view/${this.state.userID}/${teachback._id}`}
                           >
-                            <strong className="tbInfo">
+                            <strong style={tbText}>
                               {teachback.candidateName} ~ {teachback.role} role
                               for {teachback.programType} program at{" "}
                               {teachback.university}
@@ -121,7 +142,7 @@ class Dashboard extends Component {
                 })}
               </List>
             ) : (
-              <h3>No Teachbacks to Display</h3>
+              <h3 style={tbText}>No Teachbacks to Display</h3>
             )}
           </Col>
         </Row>
