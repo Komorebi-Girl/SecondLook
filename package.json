@@ -29,5 +29,6 @@
     "morgan": "^1.9.1",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0"
-  }
+  },
+  "homepage": "https://secondlook-2u.herokuapp.com/"
 }
