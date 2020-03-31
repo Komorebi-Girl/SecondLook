@@ -29,6 +29,7 @@ app.use(
   })
 );
 
+console.log("over here!", process.env.REACT_APP_GOOGLE_CLIENT_ID);
 //initializing passport
 app.use(passport.initialize());
 app.use(passport.session());
