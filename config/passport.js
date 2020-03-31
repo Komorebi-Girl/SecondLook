@@ -1,6 +1,5 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const keys = require("./keys.js");
 const User = require("../models/user.js");
 
 passport.serializeUser(function(user, done) {
@@ -16,8 +15,8 @@ passport.deserializeUser(function(id, done) {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: keys.google.clientID,
-      clientSecret: keys.google.clientSecret,
+      clientID: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+      clientSecret: process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
       callbackURL: "/auth/google/redirect"
     },
     function(accessToken, refreshToken, profile, done) {

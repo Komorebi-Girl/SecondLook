@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
-    keys: [keys.session.cookieKey]
+    keys: [process.env.REACT_APP_SESSION_COOKIE_KEY]
   })
 );
 
@@ -41,7 +41,7 @@ mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
 mongoose.connect(
   process.env.MONGODB_URI ||
-    `mongodb://${keys.mLab.username}:${keys.mLab.password}@ds159100.mlab.com:59100/heroku_6mc1jvwt`,
+    `mongodb://${process.env.REACT_APP_MLAB_USERNAME}:${process.env.REACT_APP_MLAB_PASSWORD}@ds159100.mlab.com:59100/heroku_6mc1jvwt`,
   {
     useMongoClient: true
   }
