@@ -9,7 +9,8 @@ const jumbotronText = {
   fontSize: "1.75rem",
   color: "rgb(50, 198, 230)",
   fontSize: "45px",
-  textAlign: "center"
+  textAlign: "center",
+  textDecoration: "underline"
 };
 
 const completedBtn = {
@@ -100,7 +101,9 @@ class Dashboard extends Component {
                 })}
               </List>
             ) : (
-              <h3 style={tbText}>No Teachbacks to Display</h3>
+              <div>
+                <h3 style={tbText}>No Teachbacks to Display</h3>
+              </div>
             )}
           </Col>
 
@@ -128,11 +131,11 @@ class Dashboard extends Component {
                       </Col>
                       <Col size="md-2">
                         {teachback.reviewerResult === "N/A" ? (
-                          <button className="pending" type="button">
+                          <button style={pendingBtn} type="button">
                             Review Pending
                           </button>
                         ) : (
-                          <button className="complete" type="button">
+                          <button style={completedBtn} type="button">
                             Review Complete
                           </button>
                         )}
