@@ -6,14 +6,8 @@ import "./Login.css";
 const Login = () => (
   <Container fluid>
     <Row>
-      <Col size="md-6">
-        <Jumbotron>
-          <h1>Sign In</h1>
-        </Jumbotron>
-      </Col>
-
-      <Col size="md-6 sm-12">
-        <a href="http://localhost:3001/auth/google" className="button">
+      <Col size="md-10">
+        <a href="/auth/google" className="button">
           <div>
             <span className="svgIcon t-popup-svg">
               <svg

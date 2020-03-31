@@ -15,7 +15,9 @@ const routes = require("./routes");
 app.use(logger("dev"));
 
 // Serve up static assets
-app.use(express.static("client/build"));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,7 +42,8 @@ app.use(routes);
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/teachbacksDB",
+  process.env.MONGODB_URI ||
+    `mongodb://${keys.mLab.username}:${keys.mLab.password}@ds159100.mlab.com:59100/heroku_6mc1jvwt`,
   {
     useMongoClient: true
   }

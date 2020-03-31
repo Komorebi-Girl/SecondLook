@@ -18,7 +18,7 @@ const NavOptions = props => {
           </a>
         </li>
         <li>
-          <a href="http://localhost:3001/auth/logout" className="navbar-brand">
+          <a href="/auth/logout" className="navbar-brand">
             Logout
           </a>
         </li>
