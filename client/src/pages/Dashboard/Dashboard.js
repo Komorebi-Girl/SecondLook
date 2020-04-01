@@ -41,6 +41,11 @@ const tbText = {
   textAlign: "center"
 };
 
+const tbStyles = {
+  borderStyle: "solid",
+  borderColor: "black"
+};
+
 class Dashboard extends Component {
   // Setting our component's initial state
   state = {
@@ -103,17 +108,23 @@ class Dashboard extends Component {
               <List>
                 {this.state.assignedTeachbacks.map(teachback => {
                   return (
-                    <ListItem key={teachback._id}>
-                      <a href={`/review/${this.state.userID}/${teachback._id}`}>
-                        <strong style={tbText}>
-                          {teachback.candidateName}
-                        </strong>
-                        <div style={tbText}>
-                          {teachback.role} role for {teachback.programType}{" "}
-                          program at {teachback.university}
-                        </div>
-                      </a>
-                    </ListItem>
+                    <Row style={tbStyles}>
+                      <Col size="md-12">
+                        <ListItem key={teachback._id}>
+                          <a
+                            href={`/review/${this.state.userID}/${teachback._id}`}
+                          >
+                            <strong style={tbText}>
+                              {teachback.candidateName}
+                            </strong>
+                            <div style={tbText}>
+                              {teachback.role} role for {teachback.programType}{" "}
+                              program at {teachback.university}
+                            </div>
+                          </a>
+                        </ListItem>
+                      </Col>
+                    </Row>
                   );
                 })}
               </List>
@@ -128,7 +139,7 @@ class Dashboard extends Component {
               <List>
                 {this.state.submittedTeachbacks.map(teachback => {
                   return (
-                    <Row>
+                    <Row style={tbStyles}>
                       <Col size="md-9">
                         <ListItem key={teachback._id}>
                           <a
