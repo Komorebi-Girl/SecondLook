@@ -108,7 +108,7 @@ class Dashboard extends Component {
               <List>
                 {this.state.assignedTeachbacks.map(teachback => {
                   return (
-                    <Row style={tbStyles}>
+                    <Row customStyle={tbStyles}>
                       <Col size="md-12">
                         <ListItem key={teachback._id}>
                           <a
@@ -139,7 +139,7 @@ class Dashboard extends Component {
               <List>
                 {this.state.submittedTeachbacks.map(teachback => {
                   return (
-                    <Row style={tbStyles}>
+                    <Row customStyle={tbStyles}>
                       <Col size="md-9">
                         <ListItem key={teachback._id}>
                           <a
