@@ -5,6 +5,21 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import AssignDropdown from "../../components/AssignDropdown/AssignDropdown";
 
+const jumbotronText = {
+  fontFamily: "Montserrat",
+  color: "rgb(50, 198, 230)",
+  fontSize: "4rem",
+  textAlign: "center",
+  textDecoration: "underline"
+};
+
+const tbText = {
+  fontFamily: "Montserrat",
+  color: "rgb(0,0,0)",
+  fontSize: "2rem",
+  textAlign: "center"
+};
+
 class AssignView extends Component {
   state = {
     teachbacks: [],
@@ -45,7 +60,7 @@ class AssignView extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1 style={{ textAlign: "center" }}>Unassigned Teachbacks</h1>
+              <h1 style={jumbotronText}>Unassigned Teachbacks</h1>
             </Jumbotron>
           </Col>
         </Row>
@@ -56,16 +71,19 @@ class AssignView extends Component {
                 {this.state.teachbacks.map(teachback => {
                   return (
                     <Row>
+                      <Col size="md-1"></Col>
                       <Col size="md-10">
                         <ListItem key={teachback._id}>
                           <a
                             href={`/view/${this.state.userID}/${teachback._id}`}
                           >
-                            <strong>
-                              {teachback.candidateName} ~ {teachback.role} role
-                              for {teachback.programType} program at{" "}
-                              {teachback.university}
+                            <strong style={tbText}>
+                              {teachback.candidateName}
                             </strong>
+                            <div style={tbText}>
+                              {teachback.role} role for {teachback.programType}{" "}
+                              program at {teachback.university}
+                            </div>
                           </a>
                         </ListItem>
                       </Col>
@@ -76,6 +94,7 @@ class AssignView extends Component {
                           assignReviewer={this.assignReviewer}
                         />
                       </Col>
+                      <Col size="md-1"></Col>
                     </Row>
                   );
                 })}
