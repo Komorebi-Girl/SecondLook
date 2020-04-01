@@ -6,9 +6,8 @@ import { List, ListItem } from "../../components/List";
 
 const jumbotronText = {
   fontFamily: "Montserrat",
-  fontSize: "1.75rem",
   color: "rgb(50, 198, 230)",
-  fontSize: "45px",
+  fontSize: "2.8rem",
   textAlign: "center",
   textDecoration: "underline"
 };
@@ -32,7 +31,8 @@ const pendingBtn = {
 const tbText = {
   fontFamily: "Montserrat",
   color: "rgb(0,0,0)",
-  fontSize: "2.0rem"
+  fontSize: "2.0rem",
+  textAlign: "center"
 };
 
 class Dashboard extends Component {
@@ -84,27 +84,36 @@ class Dashboard extends Component {
             <Jumbotron>
               <h1 style={jumbotronText}>Teachbacks To Review</h1>
             </Jumbotron>
-            {this.state.assignedTeachbacks.length ? (
-              <List>
-                {this.state.assignedTeachbacks.map(teachback => {
-                  return (
-                    <ListItem key={teachback._id}>
-                      <a href={`/review/${this.state.userID}/${teachback._id}`}>
-                        <strong style={tbText}>
-                          {teachback.candidateName} ~ {teachback.role} role for{" "}
-                          {teachback.programType} program at{" "}
-                          {teachback.university}
-                        </strong>
-                      </a>
-                    </ListItem>
-                  );
-                })}
-              </List>
-            ) : (
-              <div>
-                <h3 style={tbText}>No Teachbacks to Display</h3>
-              </div>
-            )}
+            <Row>
+              <Col size="md-12">
+                {this.state.assignedTeachbacks.length ? (
+                  <List>
+                    {this.state.assignedTeachbacks.map(teachback => {
+                      return (
+                        <ListItem
+                          key={teachback._id}
+                          style={{ textAlign: "center" }}
+                        >
+                          <a
+                            href={`/review/${this.state.userID}/${teachback._id}`}
+                          >
+                            <strong style={tbText}>
+                              [ {teachback.candidateName} ] ~ {teachback.role}{" "}
+                              role for {teachback.programType} program at{" "}
+                              {teachback.university}
+                            </strong>
+                          </a>
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                ) : (
+                  <div>
+                    <h3 style={tbText}>No Teachbacks to Display</h3>
+                  </div>
+                )}
+              </Col>
+            </Row>
           </Col>
 
           <Col size="md-6 sm-12">
@@ -116,14 +125,17 @@ class Dashboard extends Component {
                 {this.state.submittedTeachbacks.map(teachback => {
                   return (
                     <Row>
-                      <Col size="md-10">
-                        <ListItem key={teachback._id}>
+                      <Col size="md-9">
+                        <ListItem
+                          key={teachback._id}
+                          style={{ textAlign: "center" }}
+                        >
                           <a
                             href={`/view/${this.state.userID}/${teachback._id}`}
                           >
                             <strong style={tbText}>
-                              {teachback.candidateName} ~ {teachback.role} role
-                              for {teachback.programType} program at{" "}
+                              [ {teachback.candidateName} ] ~ {teachback.role}{" "}
+                              role for {teachback.programType} program at{" "}
                               {teachback.university}
                             </strong>
                           </a>
