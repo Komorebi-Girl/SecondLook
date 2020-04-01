@@ -7,7 +7,7 @@ import { List, ListItem } from "../../components/List";
 const jumbotronText = {
   fontFamily: "Montserrat",
   color: "rgb(50, 198, 230)",
-  fontSize: "2.8rem",
+  fontSize: "4.5rem",
   textAlign: "center",
   textDecoration: "underline"
 };
@@ -31,7 +31,7 @@ const pendingBtn = {
 const tbText = {
   fontFamily: "Montserrat",
   color: "rgb(0,0,0)",
-  fontSize: "2.0rem",
+  fontSize: "2.3rem",
   textAlign: "center"
 };
 
@@ -90,15 +90,12 @@ class Dashboard extends Component {
                   <List>
                     {this.state.assignedTeachbacks.map(teachback => {
                       return (
-                        <ListItem
-                          key={teachback._id}
-                          style={{ textAlign: "center" }}
-                        >
+                        <ListItem key={teachback._id}>
                           <a
                             href={`/review/${this.state.userID}/${teachback._id}`}
                           >
                             <strong style={tbText}>
-                              [ {teachback.candidateName} ] ~ {teachback.role}{" "}
+                              [ {teachback.candidateName} ] {teachback.role}{" "}
                               role for {teachback.programType} program at{" "}
                               {teachback.university}
                             </strong>
@@ -126,15 +123,12 @@ class Dashboard extends Component {
                   return (
                     <Row>
                       <Col size="md-9">
-                        <ListItem
-                          key={teachback._id}
-                          style={{ textAlign: "center" }}
-                        >
+                        <ListItem key={teachback._id}>
                           <a
                             href={`/view/${this.state.userID}/${teachback._id}`}
                           >
                             <strong style={tbText}>
-                              [ {teachback.candidateName} ] ~ {teachback.role}{" "}
+                              [ {teachback.candidateName} ] {teachback.role}{" "}
                               role for {teachback.programType} program at{" "}
                               {teachback.university}
                             </strong>
