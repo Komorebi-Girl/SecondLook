@@ -65,13 +65,12 @@ class AssignView extends Component {
           </Col>
         </Row>
         <Row>
-          <Col size="md-10">
+          <Col size="md-12">
             {this.state.teachbacks.length ? (
               <List>
                 {this.state.teachbacks.map(teachback => {
                   return (
                     <Row>
-                      <Col size="md-1"></Col>
                       <Col size="md-10">
                         <ListItem key={teachback._id}>
                           <a
@@ -94,7 +93,6 @@ class AssignView extends Component {
                           assignReviewer={this.assignReviewer}
                         />
                       </Col>
-                      <Col size="md-1"></Col>
                     </Row>
                   );
                 })}
