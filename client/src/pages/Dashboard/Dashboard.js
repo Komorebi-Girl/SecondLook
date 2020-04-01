@@ -7,7 +7,7 @@ import { List, ListItem } from "../../components/List";
 const jumbotronText = {
   fontFamily: "Montserrat",
   color: "rgb(50, 198, 230)",
-  fontSize: "4.5rem",
+  fontSize: "4rem",
   textAlign: "center",
   textDecoration: "underline"
 };
@@ -84,39 +84,38 @@ class Dashboard extends Component {
             <Jumbotron>
               <h1 style={jumbotronText}>Teachbacks To Review</h1>
             </Jumbotron>
-            <Row>
-              <Col size="md-12">
-                {this.state.assignedTeachbacks.length ? (
-                  <List>
-                    {this.state.assignedTeachbacks.map(teachback => {
-                      return (
-                        <ListItem key={teachback._id}>
-                          <a
-                            href={`/review/${this.state.userID}/${teachback._id}`}
-                          >
-                            <strong style={tbText}>
-                              [ {teachback.candidateName} ] {teachback.role}{" "}
-                              role for {teachback.programType} program at{" "}
-                              {teachback.university}
-                            </strong>
-                          </a>
-                        </ListItem>
-                      );
-                    })}
-                  </List>
-                ) : (
-                  <div>
-                    <h3 style={tbText}>No Teachbacks to Display</h3>
-                  </div>
-                )}
-              </Col>
-            </Row>
           </Col>
-
-          <Col size="md-6 sm-12">
+          <Col size="md-6">
             <Jumbotron>
               <h1 style={jumbotronText}>My Teachbacks</h1>
             </Jumbotron>
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-6">
+            {this.state.assignedTeachbacks.length ? (
+              <List>
+                {this.state.assignedTeachbacks.map(teachback => {
+                  return (
+                    <ListItem key={teachback._id}>
+                      <a href={`/review/${this.state.userID}/${teachback._id}`}>
+                        <strong style={tbText}>
+                          [ {teachback.candidateName} ] {teachback.role} role
+                          for {teachback.programType} program at{" "}
+                          {teachback.university}
+                        </strong>
+                      </a>
+                    </ListItem>
+                  );
+                })}
+              </List>
+            ) : (
+              <div>
+                <h3 style={tbText}>No Teachbacks to Display</h3>
+              </div>
+            )}
+          </Col>
+          <Col size="md-6">
             {this.state.submittedTeachbacks.length ? (
               <List>
                 {this.state.submittedTeachbacks.map(teachback => {
