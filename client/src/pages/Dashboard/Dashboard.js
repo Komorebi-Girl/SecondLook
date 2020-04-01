@@ -17,7 +17,10 @@ const completedBtn = {
   color: "rgb(255,255,255)",
   fontFamily: "Montserrat",
   fontWeight: 600,
-  fontSize: "1.75rem"
+  fontSize: "1.75rem",
+  height: "50%",
+  marginTop: "25%",
+  marginBottom: "25%"
 };
 
 const pendingBtn = {
@@ -25,13 +28,16 @@ const pendingBtn = {
   color: "rgb(0,0,0)",
   fontFamily: "Montserrat",
   fontWeight: 600,
-  fontSize: "1.75rem"
+  fontSize: "1.75rem",
+  height: "50%",
+  marginTop: "25%",
+  marginBottom: "25%"
 };
 
 const tbText = {
   fontFamily: "Montserrat",
   color: "rgb(0,0,0)",
-  fontSize: "2.3rem",
+  fontSize: "2rem",
   textAlign: "center"
 };
 
@@ -100,10 +106,12 @@ class Dashboard extends Component {
                     <ListItem key={teachback._id}>
                       <a href={`/review/${this.state.userID}/${teachback._id}`}>
                         <strong style={tbText}>
-                          [ {teachback.candidateName} ] {teachback.role} role
-                          for {teachback.programType} program at{" "}
-                          {teachback.university}
+                          {teachback.candidateName}
                         </strong>
+                        <div style={tbText}>
+                          {teachback.role} role for {teachback.programType}{" "}
+                          program at {teachback.university}
+                        </div>
                       </a>
                     </ListItem>
                   );
@@ -127,14 +135,16 @@ class Dashboard extends Component {
                             href={`/view/${this.state.userID}/${teachback._id}`}
                           >
                             <strong style={tbText}>
-                              [ {teachback.candidateName} ] {teachback.role}{" "}
-                              role for {teachback.programType} program at{" "}
-                              {teachback.university}
+                              {teachback.candidateName}
                             </strong>
+                            <div style={tbText}>
+                              {teachback.role} role for {teachback.programType}{" "}
+                              program at {teachback.university}
+                            </div>
                           </a>
                         </ListItem>
                       </Col>
-                      <Col size="md-2">
+                      <Col size="md-3">
                         {teachback.reviewerResult === "N/A" ? (
                           <button style={pendingBtn} type="button">
                             Review Pending
