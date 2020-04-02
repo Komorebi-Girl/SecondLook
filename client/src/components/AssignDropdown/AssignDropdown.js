@@ -1,7 +1,16 @@
 import React from "react";
 
+const dropdownStyles = {
+  fontSize: "1.8rem",
+  position: "relative",
+  top: "30px"
+};
+
 const AssignDropdown = props => (
-  <select onChange={event => props.assignReviewer(event, props.tbID)}>
+  <select
+    style={dropdownStyles}
+    onChange={event => props.assignReviewer(event, props.tbID)}
+  >
     <option selected value="default">
       Select Reviewer:
     </option>

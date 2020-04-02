@@ -34,6 +34,14 @@ const pendingBtn = {
   marginBottom: "25%"
 };
 
+const tbHeader = {
+  fontFamily: "Montserrat",
+  color: "rgb(0,0,0)",
+  fontSize: "2rem",
+  textAlign: "center",
+  fontWeight: 700
+};
+
 const tbText = {
   fontFamily: "Montserrat",
   color: "rgb(0,0,0)",
@@ -109,9 +117,9 @@ class Dashboard extends Component {
                           <a
                             href={`/review/${this.state.userID}/${teachback._id}`}
                           >
-                            <strong style={tbText}>
+                            <div style={tbHeader}>
                               {teachback.candidateName}
-                            </strong>
+                            </div>
                             <div style={tbText}>
                               {teachback.role} role for {teachback.programType}{" "}
                               program at {teachback.university}
@@ -140,9 +148,9 @@ class Dashboard extends Component {
                           <a
                             href={`/view/${this.state.userID}/${teachback._id}`}
                           >
-                            <strong style={tbText}>
+                            <div style={tbHeader}>
                               {teachback.candidateName}
-                            </strong>
+                            </div>
                             <div style={tbText}>
                               {teachback.role} role for {teachback.programType}{" "}
                               program at {teachback.university}

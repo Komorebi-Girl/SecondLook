@@ -16,8 +16,7 @@ const jumbotronText = {
 const tbText = {
   fontFamily: "Montserrat",
   color: "rgb(0,0,0)",
-  fontSize: "2rem",
-  textAlign: "center"
+  fontSize: "2rem"
 };
 
 class AssignView extends Component {
