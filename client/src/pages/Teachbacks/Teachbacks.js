@@ -5,6 +5,14 @@ import { Col, Row, Container } from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
 import Dropdown from "../../components/Form/Dropdown";
 
+const jumbotronText = {
+  fontFamily: "Montserrat",
+  color: "rgb(50, 198, 230)",
+  fontSize: "4rem",
+  textAlign: "center",
+  textDecoration: "underline"
+};
+
 class Teachbacks extends Component {
   // Setting our component's initial state
   state = {
@@ -85,8 +93,12 @@ class Teachbacks extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>Submit a Teachback!</h1>
+              <h1 style={jumbotronText}>Submit a Teachback!</h1>
             </Jumbotron>
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-6">
             <form>
               {/* Input boxes for the data that must be filled-in*/}
               <Input

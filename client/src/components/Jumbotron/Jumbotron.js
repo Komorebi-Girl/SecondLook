@@ -2,7 +2,6 @@ import React from "react";
 
 const jumbotronStyles = {
   backgroundColor: "white",
-  height: "15rem",
   clear: "both"
 };
 const Jumbotron = ({ children }) => (

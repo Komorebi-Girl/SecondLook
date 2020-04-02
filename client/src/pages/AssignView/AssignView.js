@@ -72,17 +72,13 @@ class AssignView extends Component {
                     <Row>
                       <Col size="md-10">
                         <ListItem key={teachback._id}>
-                          <a
-                            href={`/view/${this.state.userID}/${teachback._id}`}
-                          >
-                            <strong style={tbText}>
-                              {teachback.candidateName}
-                            </strong>
-                            <div style={tbText}>
-                              {teachback.role} role for {teachback.programType}{" "}
-                              program at {teachback.university}
-                            </div>
-                          </a>
+                          <strong style={tbText}>
+                            {teachback.candidateName}
+                          </strong>
+                          <div style={tbText}>
+                            {teachback.role} role for {teachback.programType}{" "}
+                            program at {teachback.university}
+                          </div>
                         </ListItem>
                       </Col>
                       <Col size="md-2">
