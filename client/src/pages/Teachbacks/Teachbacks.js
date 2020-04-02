@@ -177,8 +177,8 @@ class Teachbacks extends Component {
                 </Col>
                 <Col size="md-4">
                   <Dropdown
-                    category="Responses"
-                    index={5}
+                    category="Industry Knowledge"
+                    index={6}
                     updateScores={this.updateScores}
                   />
                 </Col>
@@ -186,8 +186,8 @@ class Teachbacks extends Component {
               <Row>
                 <Col size="md-4">
                   <Dropdown
-                    category="Industry Knowledge"
-                    index={6}
+                    category="Responses"
+                    index={5}
                     updateScores={this.updateScores}
                   />
                 </Col>
@@ -211,7 +211,7 @@ class Teachbacks extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col size="md-3" customStyles="col-md-offset-9">
+                <Col size="md-3" customStyles="col-md-offset-8">
                   <FormBtn
                     disabled={!this.validateAllValues(this.state)}
                     onClick={this.handleFormSubmit}
