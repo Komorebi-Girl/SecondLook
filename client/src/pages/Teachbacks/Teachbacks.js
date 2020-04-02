@@ -138,67 +138,67 @@ class Teachbacks extends Component {
                 placeholder="Cohort Start Date (required)"
               />
               <Row>
-                <Col size="md-3">
+                <Col size="md-4">
                   <Dropdown
                     category="Positivity"
                     index={0}
                     updateScores={this.updateScores}
                   />
                 </Col>
-                <Col size="md-3">
+                <Col size="md-4">
                   <Dropdown
                     category="Investment"
                     index={1}
                     updateScores={this.updateScores}
                   />
                 </Col>
-                <Col size="md-3">
+                <Col size="md-4">
                   <Dropdown
                     category="Pace"
                     index={2}
                     updateScores={this.updateScores}
                   />
                 </Col>
-                <Col size="md-3">
+              </Row>
+              <Row>
+                <Col size="md-4">
                   <Dropdown
                     category="Clarity"
                     index={3}
                     updateScores={this.updateScores}
                   />
                 </Col>
-              </Row>
-              <Row>
-                <Col size="md-3">
+                <Col size="md-4">
                   <Dropdown
                     category="Knowledge"
                     index={4}
                     updateScores={this.updateScores}
                   />
                 </Col>
-                <Col size="md-3">
+                <Col size="md-4">
                   <Dropdown
                     category="Responses"
                     index={5}
                     updateScores={this.updateScores}
                   />
                 </Col>
-                <Col size="md-3">
+              </Row>
+              <Row>
+                <Col size="md-4">
                   <Dropdown
                     category="Industry Knowledge"
                     index={6}
                     updateScores={this.updateScores}
                   />
                 </Col>
-                <Col size="md-3">
+                <Col size="md-4">
                   <Dropdown
                     category="Coachability"
                     index={7}
                     updateScores={this.updateScores}
                   />
                 </Col>
-              </Row>
-              <Row>
-                <Col size="md-3" customStyles="col-md-offset-9">
+                <Col size="md-4">
                   <select onChange={this.updateFinalResult}>
                     <option selected value="default">
                       Select Final Result:
