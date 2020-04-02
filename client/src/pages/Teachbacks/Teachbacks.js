@@ -91,14 +91,14 @@ class Teachbacks extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
+          <Col size="md-6" customStyles="col-md-offset-3">
             <Jumbotron>
               <h1 style={jumbotronText}>Submit a Teachback!</h1>
             </Jumbotron>
           </Col>
         </Row>
         <Row>
-          <Col size="md-6">
+          <Col size="md-6" customStyles="col-md-offset-3">
             <form>
               {/* Input boxes for the data that must be filled-in*/}
               <Input
@@ -137,64 +137,89 @@ class Teachbacks extends Component {
                 name="cohortStartDate"
                 placeholder="Cohort Start Date (required)"
               />
-              {/* Dropboxes for the data that must be selected */}
-              <Dropdown
-                category="Positivity"
-                index={0}
-                updateScores={this.updateScores}
-              />
-              <Dropdown
-                category="Investment"
-                index={1}
-                updateScores={this.updateScores}
-              />
-              <Dropdown
-                category="Pace"
-                index={2}
-                updateScores={this.updateScores}
-              />
-              <Dropdown
-                category="Clarity"
-                index={3}
-                updateScores={this.updateScores}
-              />
-              <Dropdown
-                category="Knowledge"
-                index={4}
-                updateScores={this.updateScores}
-              />
-              <Dropdown
-                category="Responses"
-                index={5}
-                updateScores={this.updateScores}
-              />
-              <Dropdown
-                category="Industry Knowledge"
-                index={6}
-                updateScores={this.updateScores}
-              />
-              <Dropdown
-                category="Coachability"
-                index={7}
-                updateScores={this.updateScores}
-              />
-              {/* Stand-alone dropbox to select final result*/}
-              <select onChange={this.updateFinalResult}>
-                <option selected value="default">
-                  Select Final Result:
-                </option>
-                <option value="Weak">Weak</option>
-                <option value="Average">Average</option>
-                <option value="Strong">Strong</option>
-                <option value="Exemplary">Exemplary</option>
-              </select>
-              {/* Submit button */}
-              <FormBtn
-                disabled={!this.validateAllValues(this.state)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Teachback
-              </FormBtn>
+              <Row>
+                <Col size="md-3">
+                  <Dropdown
+                    category="Positivity"
+                    index={0}
+                    updateScores={this.updateScores}
+                  />
+                </Col>
+                <Col size="md-3">
+                  <Dropdown
+                    category="Investment"
+                    index={1}
+                    updateScores={this.updateScores}
+                  />
+                </Col>
+                <Col size="md-3">
+                  <Dropdown
+                    category="Pace"
+                    index={2}
+                    updateScores={this.updateScores}
+                  />
+                </Col>
+                <Col size="md-3">
+                  <Dropdown
+                    category="Clarity"
+                    index={3}
+                    updateScores={this.updateScores}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-3">
+                  <Dropdown
+                    category="Knowledge"
+                    index={4}
+                    updateScores={this.updateScores}
+                  />
+                </Col>
+                <Col size="md-3">
+                  <Dropdown
+                    category="Responses"
+                    index={5}
+                    updateScores={this.updateScores}
+                  />
+                </Col>
+                <Col size="md-3">
+                  <Dropdown
+                    category="Industry Knowledge"
+                    index={6}
+                    updateScores={this.updateScores}
+                  />
+                </Col>
+                <Col size="md-3">
+                  <Dropdown
+                    category="Coachability"
+                    index={7}
+                    updateScores={this.updateScores}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-3" customStyles="col-md-offset-9">
+                  <select onChange={this.updateFinalResult}>
+                    <option selected value="default">
+                      Select Final Result:
+                    </option>
+                    <option value="Weak">Weak</option>
+                    <option value="Average">Average</option>
+                    <option value="Strong">Strong</option>
+                    <option value="Exemplary">Exemplary</option>
+                  </select>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-3" customStyles="col-md-offset-9">
+                  <FormBtn
+                    disabled={!this.validateAllValues(this.state)}
+                    onClick={this.handleFormSubmit}
+                  >
+                    Submit Teachback
+                  </FormBtn>
+                </Col>
+              </Row>
             </form>
           </Col>
         </Row>
