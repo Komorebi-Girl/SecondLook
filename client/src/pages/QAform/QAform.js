@@ -5,6 +5,14 @@ import { Col, Row, Container } from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
 import Dropdown from "../../components/Form/Dropdown";
 
+const jumbotronText = {
+  fontFamily: "Montserrat",
+  color: "rgb(50, 198, 230)",
+  fontSize: "4rem",
+  textAlign: "center",
+  textDecoration: "underline"
+};
+
 class QAform extends Component {
   // Setting our component's initial state
   state = {
@@ -40,14 +48,6 @@ class QAform extends Component {
         })
       )
       .catch(err => console.log(err));
-  };
-
-  // Handles updating component state when the user types into the input field
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
   };
 
   /* This function will take the scores selected via the category dropdowns & populate them
@@ -96,45 +96,40 @@ class QAform extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>Teachback Profile</h1>
+              <h1 style={jumbotronText}>Teachback Profile</h1>
             </Jumbotron>
             <form>
               {/* Input boxes for the data that must be filled-in*/}
               <Input
                 value={this.state.candidateName}
-                onChange={this.handleInputChange}
                 name="candidateName"
                 placeholder="Candidate Name (required)"
               />
               <Input
                 value={this.state.role}
-                onChange={this.handleInputChange}
                 name="role"
                 placeholder="Role (required)"
               />
               <Input
                 value={this.state.university}
-                onChange={this.handleInputChange}
                 name="university"
                 placeholder="University (required)"
               />
               <Input
                 value={this.state.programType}
-                onChange={this.handleInputChange}
                 name="programType"
                 placeholder="Program Type (required)"
               />
               <Input
                 value={this.state.zoomLink}
-                onChange={this.handleInputChange}
                 name="zoomLink"
                 placeholder="Zoom Link (required)"
               />
             </form>
           </Col>
-          <Col size="md-6 sm-12">
+          <Col size="md-6">
             <Jumbotron>
-              <h1>Submit Your Scores</h1>
+              <h1 style={jumbotronText}>Submit Your Scores</h1>
             </Jumbotron>
             <form>
               {/* Dropboxes for the data that must be selected */}
@@ -188,8 +183,8 @@ class QAform extends Component {
                 </Col>
                 <Col size="md-4">
                   <Dropdown
-                    category="Responses"
-                    index={5}
+                    category="Industry Knowledge"
+                    index={6}
                     updateScores={this.updateScores}
                     reviewedBy={this.state.reviewedBy}
                     isSubmitted={this.state.submittedBy}
@@ -199,8 +194,8 @@ class QAform extends Component {
               <Row>
                 <Col size="md-4">
                   <Dropdown
-                    category="Industry Knowledge"
-                    index={6}
+                    category="Responses"
+                    index={5}
                     updateScores={this.updateScores}
                     reviewedBy={this.state.reviewedBy}
                     isSubmitted={this.state.submittedBy}
@@ -229,7 +224,7 @@ class QAform extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col size="md-12">
+                <Col size="md-4" customStyles="col-md-offset-8">
                   {/* Submit button */}
                   <FormBtn
                     disabled={!this.validateAllValues(this.state)}
