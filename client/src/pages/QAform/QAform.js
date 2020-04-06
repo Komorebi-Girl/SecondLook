@@ -139,8 +139,6 @@ class QAform extends Component {
                     category="Positivity"
                     index={0}
                     updateScores={this.updateScores}
-                    reviewedBy={this.state.reviewedBy}
-                    isSubmitted={this.state.submittedBy}
                   />
                 </Col>
                 <Col size="md-4">
@@ -148,8 +146,6 @@ class QAform extends Component {
                     category="Investment"
                     index={1}
                     updateScores={this.updateScores}
-                    reviewedBy={this.state.reviewedBy}
-                    isSubmitted={this.state.submittedBy}
                   />
                 </Col>
                 <Col size="md-4">
@@ -157,8 +153,6 @@ class QAform extends Component {
                     category="Pace"
                     index={2}
                     updateScores={this.updateScores}
-                    reviewedBy={this.state.reviewedBy}
-                    isSubmitted={this.state.submittedBy}
                   />
                 </Col>
               </Row>
@@ -168,8 +162,6 @@ class QAform extends Component {
                     category="Clarity"
                     index={3}
                     updateScores={this.updateScores}
-                    reviewedBy={this.state.reviewedBy}
-                    isSubmitted={this.state.submittedBy}
                   />
                 </Col>
                 <Col size="md-4">
@@ -177,17 +169,13 @@ class QAform extends Component {
                     category="Knowledge"
                     index={4}
                     updateScores={this.updateScores}
-                    reviewedBy={this.state.reviewedBy}
-                    isSubmitted={this.state.submittedBy}
                   />
                 </Col>
                 <Col size="md-4">
                   <Dropdown
-                    category="Industry Knowledge"
+                    category="Industry"
                     index={6}
                     updateScores={this.updateScores}
-                    reviewedBy={this.state.reviewedBy}
-                    isSubmitted={this.state.submittedBy}
                   />
                 </Col>
               </Row>
@@ -197,8 +185,6 @@ class QAform extends Component {
                     category="Responses"
                     index={5}
                     updateScores={this.updateScores}
-                    reviewedBy={this.state.reviewedBy}
-                    isSubmitted={this.state.submittedBy}
                   />
                 </Col>
                 <Col size="md-4">
@@ -206,8 +192,6 @@ class QAform extends Component {
                     category="Coachability"
                     index={7}
                     updateScores={this.updateScores}
-                    reviewedBy={this.state.reviewedBy}
-                    isSubmitted={this.state.submittedBy}
                   />
                 </Col>
                 <Col size="md-4">
