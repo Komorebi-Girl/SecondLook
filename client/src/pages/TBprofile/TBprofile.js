@@ -8,14 +8,13 @@ const jumbotronText = {
   fontFamily: "Montserrat",
   color: "rgb(50, 198, 230)",
   fontSize: "4rem",
-  textAlign: "center",
   textDecoration: "underline",
 };
 
 const bodyText = {
   fontFamily: "Montserrat",
   color: "rgb(0,0,0)",
-  fontSize: "2rem",
+  fontSize: "1.8rem",
   textAlign: "center",
 };
 
@@ -73,49 +72,60 @@ class TBprofile extends Component {
             </Jumbotron>
             <form>
               {/* Input boxes for the data that must be filled-in*/}
-              <label>
-                Candidate Name
-                <Input
-                  value={this.state.candidateName}
-                  name="candidateName"
-                  placeholder="No Candidate Name Found "
-                />
-              </label>
-              <label>
-                Role
-                <Input
-                  value={this.state.role}
-                  name="role"
-                  placeholder="No Role Found"
-                />
-              </label>
-
-              <label>
-                University
-                <Input
-                  value={this.state.university}
-                  name="university"
-                  placeholder="No University Found)"
-                />
-              </label>
-
-              <label>
-                Program Type
-                <Input
-                  value={this.state.programType}
-                  name="programType"
-                  placeholder="No Program Type Found"
-                />
-              </label>
-
-              <label>
-                Zoom Link
-                <Input
-                  value={this.state.zoomLink}
-                  name="zoomLink"
-                  placeholder="No Zoom Link Found"
-                />
-              </label>
+              <Row>
+                <Col size="md-4">
+                  <label>
+                    Candidate Name
+                    <Input
+                      value={this.state.candidateName}
+                      name="candidateName"
+                      placeholder="No Candidate Name Found "
+                    />
+                  </label>
+                </Col>
+                <Col size="md-4">
+                  <label>
+                    Role
+                    <Input
+                      value={this.state.role}
+                      name="role"
+                      placeholder="No Role Found"
+                    />
+                  </label>
+                </Col>
+                <Col size="md-4">
+                  <label>
+                    University
+                    <Input
+                      value={this.state.university}
+                      name="university"
+                      placeholder="No University Found)"
+                    />
+                  </label>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-4">
+                  <label>
+                    Program Type
+                    <Input
+                      value={this.state.programType}
+                      name="programType"
+                      placeholder="No Program Type Found"
+                    />
+                  </label>
+                </Col>
+                <Col size="md-4">
+                  <label>
+                    Zoom Link
+                    <Input
+                      value={this.state.zoomLink}
+                      name="zoomLink"
+                      placeholder="No Zoom Link Found"
+                    />
+                  </label>
+                </Col>
+              </Row>
             </form>
           </Col>
           <Col size="md-6 sm-12">
