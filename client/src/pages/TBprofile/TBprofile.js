@@ -15,7 +15,6 @@ const bodyText = {
   fontFamily: "Montserrat",
   color: "rgb(0,0,0)",
   fontSize: "1.8rem",
-  textAlign: "center",
 };
 
 class TBprofile extends Component {
