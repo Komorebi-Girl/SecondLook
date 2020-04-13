@@ -4,6 +4,21 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input } from "../../components/Form";
 
+const jumbotronText = {
+  fontFamily: "Montserrat",
+  color: "rgb(50, 198, 230)",
+  fontSize: "4rem",
+  textAlign: "center",
+  textDecoration: "underline",
+};
+
+const bodyText = {
+  fontFamily: "Montserrat",
+  color: "rgb(0,0,0)",
+  fontSize: "2rem",
+  textAlign: "center",
+};
+
 class TBprofile extends Component {
   // Setting our component's initial state
   state = {
@@ -18,7 +33,7 @@ class TBprofile extends Component {
     submitterScores: [],
     submitterResult: "",
     reviewerScores: [],
-    reviewerResult: ""
+    reviewerResult: "",
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
@@ -29,7 +44,7 @@ class TBprofile extends Component {
   // Loads all teachbacks and sets them to this.state.teachbacks
   loadSingleTeachback = () => {
     API.getTeachback(this.props.match.params.tbID)
-      .then(res =>
+      .then((res) =>
         this.setState({
           teachbacks: res.data,
           candidateName: res.data.candidateName,
@@ -42,19 +57,19 @@ class TBprofile extends Component {
           submitterScores: res.data.submitterScores,
           reviewerScores: res.data.reviewerScores,
           submitterResult: res.data.submitterResult,
-          reviewerResult: res.data.reviewerResult
+          reviewerResult: res.data.reviewerResult,
         })
       )
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   render() {
     return (
-      <Container fluid>
+      <Container fluid customStyles={bodyText}>
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>Teachback Profile</h1>
+              <h1 style={jumbotronText}>Teachback Profile</h1>
             </Jumbotron>
             <form>
               {/* Input boxes for the data that must be filled-in*/}
@@ -105,90 +120,102 @@ class TBprofile extends Component {
           </Col>
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>Reviewer Scores</h1>
+              <h1 style={jumbotronText}>Reviewer Scores</h1>
             </Jumbotron>
             <form>
               {/* Dropboxes for the data that must be selected */}
               <Row>
-                <Col size="md-3">
+                <Col size="md-4">
                   <label>
                     Positivity
                     <Input
                       value={this.state.reviewerScores[0]}
                       name="Positivity"
-                      placeholder="No Positivity Score Found"
+                      placeholder="No Rating"
                     />
                   </label>
                 </Col>
-                <Col size="md-3">
+                <Col size="md-4">
                   <label>
                     Investment
                     <Input
                       value={this.state.reviewerScores[1]}
                       name="Investment"
-                      placeholder="No Investment Score Found"
+                      placeholder="No Rating"
                     />
                   </label>
                 </Col>
-                <Col size="md-3">
+                <Col size="md-4">
                   <label>
                     Pace
                     <Input
                       value={this.state.reviewerScores[2]}
                       name="Pace"
-                      placeholder="No Pace Score Found"
-                    />
-                  </label>
-                </Col>
-                <Col size="md-3">
-                  <label>
-                    Clarity
-                    <Input
-                      value={this.state.reviewerScores[3]}
-                      name="Clarity"
-                      placeholder="No Clarity Score Found"
+                      placeholder="No Rating"
                     />
                   </label>
                 </Col>
               </Row>
               <Row>
-                <Col size="md-3">
+                <Col size="md-4">
+                  <label>
+                    Clarity
+                    <Input
+                      value={this.state.reviewerScores[3]}
+                      name="Clarity"
+                      placeholder="No Rating"
+                    />
+                  </label>
+                </Col>
+                <Col size="md-4">
                   <label>
                     Knowledge
                     <Input
                       value={this.state.reviewerScores[4]}
                       name="Knowledge"
-                      placeholder="No Knowledge Score Found"
+                      placeholder="No Rating"
                     />
                   </label>
                 </Col>
-                <Col size="md-3">
+                <Col size="md-4">
                   <label>
                     Responses
                     <Input
                       value={this.state.reviewerScores[5]}
                       name="Responses"
-                      placeholder="No Responses Score Found"
+                      placeholder="No Rating"
                     />
                   </label>
                 </Col>
-                <Col size="md-3">
+              </Row>
+              <Row>
+                <Col size="md-4">
                   <label>
                     Industry Knowledge
                     <Input
                       value={this.state.reviewerScores[6]}
                       name="Industry Knowledge"
-                      placeholder="No Industry Knowledge Score Found"
+                      placeholder="No Rating"
                     />
                   </label>
                 </Col>
-                <Col size="md-3">
+                <Col size="md-4">
                   <label>
                     Coachability
                     <Input
                       value={this.state.reviewerScores[7]}
-                      name="Coachability "
-                      placeholder="No Coachability Score Found"
+                      name="Coachability"
+                      placeholder="No Rating"
+                    />
+                  </label>
+                </Col>
+                <Col size="md-4">
+                  <label>
+                    Final Result
+                    <Input
+                      value={this.state.reviewerResult}
+                      name="finalResult"
+                      placeholder="No Rating"
                     />
                   </label>
                 </Col>
