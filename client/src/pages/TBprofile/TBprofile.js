@@ -9,6 +9,7 @@ const jumbotronText = {
   color: "rgb(50, 198, 230)",
   fontSize: "4rem",
   textDecoration: "underline",
+  textAlign: "center",
 };
 
 const bodyText = {
@@ -72,7 +73,7 @@ class TBprofile extends Component {
             <form>
               {/* Input boxes for the data that must be filled-in*/}
               <Row>
-                <Col size="md-4">
+                <Col size="md-5" customStyles="col-md-offset-1">
                   <label>
                     Candidate Name
                     <Input
@@ -82,7 +83,7 @@ class TBprofile extends Component {
                     />
                   </label>
                 </Col>
-                <Col size="md-4">
+                <Col size="md-5">
                   <label>
                     Role
                     <Input
@@ -92,7 +93,9 @@ class TBprofile extends Component {
                     />
                   </label>
                 </Col>
-                <Col size="md-4">
+              </Row>
+              <Row>
+                <Col size="md-5" customStyles="col-md-offset-1">
                   <label>
                     University
                     <Input
@@ -102,9 +105,7 @@ class TBprofile extends Component {
                     />
                   </label>
                 </Col>
-              </Row>
-              <Row>
-                <Col size="md-4">
+                <Col size="md-5">
                   <label>
                     Program Type
                     <Input
@@ -114,7 +115,9 @@ class TBprofile extends Component {
                     />
                   </label>
                 </Col>
-                <Col size="md-4">
+              </Row>
+              <Row>
+                <Col size="md-5" customStyles="col-md-offset-1">
                   <label>
                     Zoom Link
                     <Input
@@ -140,7 +143,7 @@ class TBprofile extends Component {
                     <Input
                       value={this.state.reviewerScores[0]}
                       name="Positivity"
-                      placeholder="No Rating"
+                      placeholder="N/A"
                     />
                   </label>
                 </Col>
@@ -150,7 +153,7 @@ class TBprofile extends Component {
                     <Input
                       value={this.state.reviewerScores[1]}
                       name="Investment"
-                      placeholder="No Rating"
+                      placeholder="N/A"
                     />
                   </label>
                 </Col>
@@ -160,7 +163,7 @@ class TBprofile extends Component {
                     <Input
                       value={this.state.reviewerScores[2]}
                       name="Pace"
-                      placeholder="No Rating"
+                      placeholder="N/A"
                     />
                   </label>
                 </Col>
@@ -172,7 +175,7 @@ class TBprofile extends Component {
                     <Input
                       value={this.state.reviewerScores[3]}
                       name="Clarity"
-                      placeholder="No Rating"
+                      placeholder="N/A"
                     />
                   </label>
                 </Col>
@@ -182,7 +185,7 @@ class TBprofile extends Component {
                     <Input
                       value={this.state.reviewerScores[4]}
                       name="Knowledge"
-                      placeholder="No Rating"
+                      placeholder="N/A"
                     />
                   </label>
                 </Col>
@@ -192,7 +195,7 @@ class TBprofile extends Component {
                     <Input
                       value={this.state.reviewerScores[5]}
                       name="Responses"
-                      placeholder="No Rating"
+                      placeholder="N/A"
                     />
                   </label>
                 </Col>
@@ -204,7 +207,7 @@ class TBprofile extends Component {
                     <Input
                       value={this.state.reviewerScores[6]}
                       name="Industry Knowledge"
-                      placeholder="No Rating"
+                      placeholder="N/A"
                     />
                   </label>
                 </Col>
@@ -214,7 +217,7 @@ class TBprofile extends Component {
                     <Input
                       value={this.state.reviewerScores[7]}
                       name="Coachability"
-                      placeholder="No Rating"
+                      placeholder="N/A"
                     />
                   </label>
                 </Col>
@@ -224,7 +227,7 @@ class TBprofile extends Component {
                     <Input
                       value={this.state.reviewerResult}
                       name="finalResult"
-                      placeholder="No Rating"
+                      placeholder="N/A"
                     />
                   </label>
                 </Col>
