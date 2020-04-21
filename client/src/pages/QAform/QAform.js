@@ -10,7 +10,7 @@ const jumbotronText = {
   color: "rgb(50, 198, 230)",
   fontSize: "4rem",
   textAlign: "center",
-  textDecoration: "underline"
+  textDecoration: "underline",
 };
 
 class QAform extends Component {
@@ -24,7 +24,7 @@ class QAform extends Component {
     submitterScores: [],
     submitterResult: "",
     reviewerScores: [],
-    reviewerResult: ""
+    reviewerResult: "",
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
@@ -35,7 +35,7 @@ class QAform extends Component {
   // Loads all teachbacks and sets them to this.state.teachbacks
   loadSingleTeachback = () => {
     API.getTeachback(this.props.match.params.tbID)
-      .then(res =>
+      .then((res) =>
         this.setState({
           teachbacks: res.data,
           candidateName: res.data.candidateName,
@@ -44,10 +44,10 @@ class QAform extends Component {
           programType: res.data.programType,
           zoomLink: res.data.zoomLink,
           submitterScores: res.data.submitterScores,
-          submitterResult: res.data.submitterResult
+          submitterResult: res.data.submitterResult,
         })
       )
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   /* This function will take the scores selected via the category dropdowns & populate them
@@ -60,34 +60,34 @@ class QAform extends Component {
 
   /* This function will take the score from the final result dropdown & populate 
   the reviewer's final result field with that info*/
-  updateFinalResult = event => {
+  updateFinalResult = (event) => {
     this.setState({
       value: event.target.value,
-      reviewerResult: event.target.value
+      reviewerResult: event.target.value,
     });
   };
 
   /* When the form is submitted, use the API.updateTeachback method to update the teachback data
    with reviewer's score Then reload teachbacks from the database */
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
     if (this.validateAllValues(this.state)) {
       API.updateTeachback(this.props.match.params.tbID, {
         reviewerScores: this.state.reviewerScores,
-        reviewerResult: this.state.reviewerResult
+        reviewerResult: this.state.reviewerResult,
       })
-        .then(res => res.send("Review Submitted"))
-        .catch(err => console.log(err));
+        .then((res) => res.send("Review Submitted"))
+        .catch((err) => console.log(err));
     }
   };
 
-  validateAllValues = obj => {
+  validateAllValues = (obj) => {
     // Grab all of the values saved to this.state in the form of an array
     const valuesArray = Object.values(obj);
     // Loop through the above array create a new array based on whether each value is true (truthy) or false (falsey)
-    const booleanArray = valuesArray.map(val => Boolean(val));
+    const booleanArray = valuesArray.map((val) => Boolean(val));
     // Use "every" method to test if every property in this.state indeed has a value
-    return booleanArray.every(bool => bool === true);
+    return booleanArray.every((bool) => bool === true);
   };
 
   render() {
@@ -205,6 +205,90 @@ class QAform extends Component {
                     <option value="Strong">Strong</option>
                     <option value="Exemplary">Exemplary</option>
                   </select>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-12">
+                  <div className="form-group" style={{ margin: "2rem 0rem" }}>
+                    <label>
+                      Please write 2-4 sentences that explain the reasoning
+                      behind your decision.
+                    </label>
+                    <textarea className="form-control" rows="5"></textarea>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-12">
+                  <div className="form-group" style={{ margin: "2rem 0rem" }}>
+                    <label>
+                      How do you think the interviewers could improve?
+                      (optional)
+                    </label>
+                    <textarea className="form-control" rows="5"></textarea>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-10">
+                  <label for="eq">
+                    When was the EQ completed? (in mins after the recording
+                    began):
+                  </label>
+                  <select id="eq">
+                    <option value="35">35</option>
+                    <option value="36">36</option>
+                    <option value="37">37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                  </select>
+                </Col>
+              </Row>
+              <Row customStyles={{ marginTop: "2.5rem" }}>
+                <Col size="md-12">
+                  <label>
+                    Did the interviewers' notes include the following?
+                  </label>
+                  <br></br>
+                  <form>
+                    <input
+                      type="checkbox"
+                      id="summary"
+                      name="summary"
+                      value="hasSummary"
+                    ></input>
+                    <label for="summary">
+                      A detailed, public-facing summary, 2-3 sentences long
+                    </label>
+                    <br></br>
+                    <input
+                      type="checkbox"
+                      id="bullets"
+                      name="bullets"
+                      value="hasBullets"
+                    ></input>
+                    <label for="bullets">
+                      Bullet-style notes included under each heading
+                    </label>
+                    <br></br>
+                    <input
+                      type="checkbox"
+                      id="notes"
+                      name="notes"
+                      value="hasNotes"
+                    ></input>
+                    <label for="notes">
+                      Descriptive, well-formatted and grammatically correct
+                      notes
+                    </label>
+                    <br></br>
+                  </form>
                 </Col>
               </Row>
               <Row>

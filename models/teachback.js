@@ -11,10 +11,13 @@ const teachbackSchema = new Schema({
   zoomLink: { type: String, required: true },
   cohortStartDate: Date,
   submitterScores: [String],
-  reviewerScores: [String],
   submitterResult: String,
+  reviewerScores: [String],
   reviewerResult: String,
-  notesVerified: [Boolean]
+  reviewerRationale: String,
+  reviewerRecommendations: String,
+  eqDuration: String,
+  notesLacking: [String],
 });
 
 const Teachback = mongoose.model("Teachback", teachbackSchema);

@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -23,7 +24,7 @@ app.use(bodyParser.json());
 app.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
-    keys: [process.env.REACT_APP_SESSION_COOKIE_KEY]
+    keys: [process.env.REACT_APP_SESSION_COOKIE_KEY],
   })
 );
 
@@ -41,11 +42,11 @@ mongoose.connect(
   process.env.MONGODB_URI ||
     `mongodb://${process.env.REACT_APP_MLAB_USERNAME}:${process.env.REACT_APP_MLAB_PASSWORD}@ds159100.mlab.com:59100/heroku_6mc1jvwt`,
   {
-    useMongoClient: true
+    useMongoClient: true,
   }
 );
 
 // Start the API server
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
