@@ -16,7 +16,7 @@ const jumbotronText = {
 const submitBtn = {
   marginTop: "2.7rem",
   marginBottom: "2.7rem",
-  marginLeft: "16rem",
+  marginLeft: "17rem",
   width: "100%",
 };
 
@@ -99,7 +99,7 @@ class QAform extends Component {
 
   render() {
     return (
-      <Container fluid>
+      <Container fluid customStyles={{ fontFamily: "Montserrat" }}>
         <Row>
           <Col size="md-6">
             <Jumbotron>
@@ -269,8 +269,9 @@ class QAform extends Component {
                       id="summary"
                       name="summary"
                       value="hasSummary"
+                      style={{ marginLeft: "3rem" }}
                     ></input>
-                    <label for="summary">
+                    <label for="summary" style={{ marginLeft: "1rem" }}>
                       --> A detailed, public-facing summary, 2-3 sentences long
                     </label>
                     <br></br>
@@ -279,8 +280,9 @@ class QAform extends Component {
                       id="bullets"
                       name="bullets"
                       value="hasBullets"
+                      style={{ marginLeft: "3rem" }}
                     ></input>
-                    <label for="bullets">
+                    <label for="bullets" style={{ marginLeft: "1rem" }}>
                       --> Bullet-style notes included under each heading
                     </label>
                     <br></br>
@@ -289,8 +291,9 @@ class QAform extends Component {
                       id="notes"
                       name="notes"
                       value="hasNotes"
+                      style={{ marginLeft: "3rem" }}
                     ></input>
-                    <label for="notes">
+                    <label for="notes" style={{ marginLeft: "1rem" }}>
                       --> Descriptive, well-formatted and grammatically correct
                       notes
                     </label>
@@ -299,7 +302,7 @@ class QAform extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col size="md-6" customStyles="col-md-offset-8">
+                <Col size="md-6">
                   {/* Submit button */}
                   <FormBtn
                     disabled={!this.validateAllValues(this.state)}
