@@ -13,6 +13,13 @@ const jumbotronText = {
   textDecoration: "underline",
 };
 
+const submitBtn = {
+  marginTop: "2.7rem",
+  marginBottom: "2.7rem",
+  marginLeft: "16rem",
+  width: "100%",
+};
+
 class QAform extends Component {
   // Setting our component's initial state
   state = {
@@ -230,7 +237,7 @@ class QAform extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col size="md-10">
+                <Col size="md-12">
                   <label for="eq">
                     When was the EQ completed? (in mins after the recording
                     began):
@@ -264,7 +271,7 @@ class QAform extends Component {
                       value="hasSummary"
                     ></input>
                     <label for="summary">
-                      A detailed, public-facing summary, 2-3 sentences long
+                      --> A detailed, public-facing summary, 2-3 sentences long
                     </label>
                     <br></br>
                     <input
@@ -274,7 +281,7 @@ class QAform extends Component {
                       value="hasBullets"
                     ></input>
                     <label for="bullets">
-                      Bullet-style notes included under each heading
+                      --> Bullet-style notes included under each heading
                     </label>
                     <br></br>
                     <input
@@ -284,7 +291,7 @@ class QAform extends Component {
                       value="hasNotes"
                     ></input>
                     <label for="notes">
-                      Descriptive, well-formatted and grammatically correct
+                      --> Descriptive, well-formatted and grammatically correct
                       notes
                     </label>
                     <br></br>
@@ -292,11 +299,12 @@ class QAform extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col size="md-4" customStyles="col-md-offset-8">
+                <Col size="md-6" customStyles="col-md-offset-8">
                   {/* Submit button */}
                   <FormBtn
                     disabled={!this.validateAllValues(this.state)}
                     onClick={this.handleFormSubmit}
+                    customStyles={submitBtn}
                   >
                     Submit Teachback
                   </FormBtn>

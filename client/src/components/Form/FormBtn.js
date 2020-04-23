@@ -1,11 +1,7 @@
 import React from "react";
 
-export const FormBtn = props => (
-  <button
-    {...props}
-    style={{ marginTop: 10, marginBottom: 10 }}
-    className="btn btn-success"
-  >
-    {props.children}
+export const FormBtn = ({ children, customStyles }) => (
+  <button style={customStyles} className="btn btn-success">
+    {children}
   </button>
 );
