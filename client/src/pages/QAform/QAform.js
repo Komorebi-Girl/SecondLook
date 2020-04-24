@@ -250,7 +250,13 @@ class QAform extends Component {
                       How do you think the interviewers could improve?
                       (optional)
                     </label>
-                    <textarea className="form-control" rows="5"></textarea>
+                    <textarea
+                      className="form-control"
+                      rows="5"
+                      name="reviewerRecommendations"
+                      value={this.state.reviewerRecommendations}
+                      onChange={this.handleInputChange}
+                    ></textarea>
                   </div>
                 </Col>
               </Row>
@@ -260,7 +266,11 @@ class QAform extends Component {
                     When was the EQ completed? (in mins after the recording
                     began):
                   </label>
-                  <select id="eq">
+                  <select
+                    id="eq"
+                    name="eqDuration"
+                    onClick={this.handleInputChange}
+                  >
                     <option value="35">35</option>
                     <option value="36">36</option>
                     <option value="37">37</option>
