@@ -79,12 +79,12 @@ class QAform extends Component {
 
   /* This function will take the score from the final result dropdown & populate 
   the reviewer's final result field with that info*/
-  updateFinalResult = (event) => {
-    this.setState({
-      value: event.target.value,
-      reviewerResult: event.target.value,
-    });
-  };
+  // updateFinalResult = (event) => {
+  //   this.setState({
+  //     value: event.target.value,
+  //     reviewerResult: event.target.value,
+  //   });
+  // };
 
   /* When the form is submitted, use the API.updateTeachback method to update the teachback data
    with reviewer's score Then reload teachbacks from the database */
@@ -215,7 +215,7 @@ class QAform extends Component {
                 </Col>
                 <Col size="md-4">
                   {/* Stand-alone dropbox to select final result*/}
-                  <select onChange={this.updateFinalResult}>
+                  <select name="finalResult" onChange={this.handleInputChange}>
                     <option selected value="default">
                       Select Final Result:
                     </option>
@@ -269,7 +269,7 @@ class QAform extends Component {
                   <select
                     id="eq"
                     name="eqDuration"
-                    onClick={this.handleInputChange}
+                    onChange={this.handleInputChange}
                   >
                     <option value="35">35</option>
                     <option value="36">36</option>
