@@ -236,7 +236,8 @@ class QAform extends Component {
                     <textarea
                       className="form-control"
                       rows="5"
-                      value="reviewerRationale"
+                      name="reviewerRationale"
+                      value={this.state.reviewerRationale}
                       onChange={this.handleInputChange}
                     ></textarea>
                   </div>
