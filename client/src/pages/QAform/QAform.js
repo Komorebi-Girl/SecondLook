@@ -32,12 +32,24 @@ class QAform extends Component {
     submitterResult: "",
     reviewerScores: [],
     reviewerResult: "",
+    reviewerRationale: "",
+    reviewerRecommendations: "",
+    eqDuration: "",
+    notesLacking: [],
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
   componentDidMount() {
     this.loadSingleTeachback();
   }
+
+  // Handles updating component state when the user types into the input field
+  handleInputChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  };
 
   // Loads all teachbacks and sets them to this.state.teachbacks
   loadSingleTeachback = () => {
@@ -221,7 +233,12 @@ class QAform extends Component {
                       Please write 2-4 sentences that explain the reasoning
                       behind your decision.
                     </label>
-                    <textarea className="form-control" rows="5"></textarea>
+                    <textarea
+                      className="form-control"
+                      rows="5"
+                      value="reviewerRationale"
+                      onChange={this.handleInputChange}
+                    ></textarea>
                   </div>
                 </Col>
               </Row>
