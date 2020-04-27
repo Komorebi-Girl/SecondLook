@@ -77,6 +77,19 @@ class QAform extends Component {
     this.setState({ reviewerScores: savedScores });
   };
 
+  handleCheckboxInput = (value, index) => {
+    let notesArray = [...this.state.notesLacking];
+    if (notesArray[index] === value) {
+      delete notesArray[index];
+    } else {
+      notesArray[index] = value;
+    }
+    let newNotesArray = notesArray.filter(
+      (arrItem) => Boolean(arrItem) === true
+    );
+    this.setState({ notesLacking: newNotesArray });
+  };
+
   /* When the form is submitted, use the API.updateTeachback method to update the teachback data
    with reviewer's score Then reload teachbacks from the database */
   handleFormSubmit = (event) => {
@@ -291,6 +304,12 @@ class QAform extends Component {
                       id="summary"
                       name="summary"
                       value="hasSummary"
+                      onClick={() =>
+                        this.handleCheckboxInput(
+                          "A detailed, public-facing summary, 2-3 sentences long",
+                          0
+                        )
+                      }
                       style={{ marginLeft: "3rem" }}
                     ></input>
                     <label for="summary" style={{ marginLeft: "1rem" }}>
@@ -302,6 +321,12 @@ class QAform extends Component {
                       id="bullets"
                       name="bullets"
                       value="hasBullets"
+                      onClick={() =>
+                        this.handleCheckboxInput(
+                          "Bullet-style notes included under each heading",
+                          1
+                        )
+                      }
                       style={{ marginLeft: "3rem" }}
                     ></input>
                     <label for="bullets" style={{ marginLeft: "1rem" }}>
@@ -313,6 +338,12 @@ class QAform extends Component {
                       id="notes"
                       name="notes"
                       value="hasNotes"
+                      onClick={() =>
+                        this.handleCheckboxInput(
+                          "Descriptive, well-formatted and grammatically correct notes",
+                          2
+                        )
+                      }
                       style={{ marginLeft: "3rem" }}
                     ></input>
                     <label for="notes" style={{ marginLeft: "1rem" }}>
