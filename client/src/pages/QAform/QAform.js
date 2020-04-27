@@ -77,12 +77,13 @@ class QAform extends Component {
     this.setState({ reviewerScores: savedScores });
   };
 
-  handleCheckboxInput = (value, index) => {
+  handleCheckboxInput = (value) => {
     let notesArray = [...this.state.notesLacking];
-    if (notesArray[index] === value) {
-      delete notesArray[index];
+    let valIndex = notesArray.indexOf(value);
+    if (valIndex !== -1) {
+      delete notesArray[valIndex];
     } else {
-      notesArray[index] = value;
+      notesArray.push(value);
     }
     let newNotesArray = notesArray.filter(
       (arrItem) => Boolean(arrItem) === true
@@ -306,8 +307,7 @@ class QAform extends Component {
                       value="hasSummary"
                       onClick={() =>
                         this.handleCheckboxInput(
-                          "A detailed, public-facing summary, 2-3 sentences long",
-                          0
+                          "A detailed, public-facing summary, 2-3 sentences long"
                         )
                       }
                       style={{ marginLeft: "3rem" }}
@@ -323,8 +323,7 @@ class QAform extends Component {
                       value="hasBullets"
                       onClick={() =>
                         this.handleCheckboxInput(
-                          "Bullet-style notes included under each heading",
-                          1
+                          "Bullet-style notes included under each heading"
                         )
                       }
                       style={{ marginLeft: "3rem" }}
@@ -340,8 +339,7 @@ class QAform extends Component {
                       value="hasNotes"
                       onClick={() =>
                         this.handleCheckboxInput(
-                          "Descriptive, well-formatted and grammatically correct notes",
-                          2
+                          "Descriptive, well-formatted and grammatically correct notes"
                         )
                       }
                       style={{ marginLeft: "3rem" }}
