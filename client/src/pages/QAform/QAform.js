@@ -35,7 +35,7 @@ class QAform extends Component {
     reviewerRationale: "",
     reviewerRecommendations: "",
     eqDuration: "",
-    notesLacking: [],
+    notesIncluded: [],
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
@@ -78,7 +78,7 @@ class QAform extends Component {
   };
 
   handleCheckboxInput = (value) => {
-    let notesArray = [...this.state.notesLacking];
+    let notesArray = [...this.state.notesIncluded];
     let valIndex = notesArray.indexOf(value);
     if (valIndex !== -1) {
       delete notesArray[valIndex];
@@ -88,7 +88,7 @@ class QAform extends Component {
     let newNotesArray = notesArray.filter(
       (arrItem) => Boolean(arrItem) === true
     );
-    this.setState({ notesLacking: newNotesArray });
+    this.setState({ notesIncluded: newNotesArray });
   };
 
   /* When the form is submitted, use the API.updateTeachback method to update the teachback data
@@ -99,6 +99,10 @@ class QAform extends Component {
       API.updateTeachback(this.props.match.params.tbID, {
         reviewerScores: this.state.reviewerScores,
         reviewerResult: this.state.reviewerResult,
+        reviewerRationale: this.state.reviewerRationale,
+        reviewerRecommendations: this.state.reviewerRecommendations,
+        eqDuration: this.state.eqDuration,
+        notesIncluded: this.state.notesIncluded,
       })
         .then((res) => res.send("Review Submitted"))
         .catch((err) => console.log(err));
