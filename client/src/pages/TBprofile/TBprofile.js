@@ -266,7 +266,9 @@ class TBprofile extends Component {
                   </select>
                 </Col>
               </Row>
-              <Row customStyles={{ marginTop: "2.5rem" }}>
+              <Row
+                customStyles={{ marginTop: "2.5rem", marginBottom: "2.5rem" }}
+              >
                 <Col size="md-12">
                   <label>
                     Did the interviewers' notes include the following?
@@ -278,12 +280,12 @@ class TBprofile extends Component {
                       id="summary"
                       name="summary"
                       value="hasSummary"
-                      onClick={() =>
-                        this.handleCheckboxInput(
-                          "A detailed, public-facing summary, 2-3 sentences long"
-                        )
-                      }
                       style={{ marginLeft: "3rem" }}
+                      checked={
+                        this.state.notesIncluded.includes("hasSummary")
+                          ? "checked"
+                          : ""
+                      }
                     ></input>
                     <label for="summary" style={{ marginLeft: "1rem" }}>
                       --> A detailed, public-facing summary, 2-3 sentences long
@@ -329,178 +331,6 @@ class TBprofile extends Component {
           </Col>
         </Row>
       </Container>
-      // <Container fluid customStyles={bodyText}>
-      //   <Row>
-      //     <Col size="md-6">
-      //       <Jumbotron>
-      //         <h1 style={jumbotronText}>Teachback Profile</h1>
-      //       </Jumbotron>
-      //       <form>
-      //         {/* Input boxes for the data that must be filled-in*/}
-      //         <Row>
-      //           <Col size="md-5" customStyles="col-md-offset-1">
-      //             <label>
-      //               Candidate Name
-      //               <Input
-      //                 value={this.state.candidateName}
-      //                 name="candidateName"
-      //                 placeholder="No Candidate Name Found "
-      //               />
-      //             </label>
-      //           </Col>
-      //           <Col size="md-5">
-      //             <label>
-      //               Role
-      //               <Input
-      //                 value={this.state.role}
-      //                 name="role"
-      //                 placeholder="No Role Found"
-      //               />
-      //             </label>
-      //           </Col>
-      //         </Row>
-      //         <Row>
-      //           <Col size="md-5" customStyles="col-md-offset-1">
-      //             <label>
-      //               University
-      //               <Input
-      //                 value={this.state.university}
-      //                 name="university"
-      //                 placeholder="No University Found)"
-      //               />
-      //             </label>
-      //           </Col>
-      //           <Col size="md-5">
-      //             <label>
-      //               Program Type
-      //               <Input
-      //                 value={this.state.programType}
-      //                 name="programType"
-      //                 placeholder="No Program Type Found"
-      //               />
-      //             </label>
-      //           </Col>
-      //         </Row>
-      //         <Row>
-      //           <Col size="md-5" customStyles="col-md-offset-1">
-      //             <label>
-      //               Zoom Link
-      //               <Input
-      //                 value={this.state.zoomLink}
-      //                 name="zoomLink"
-      //                 placeholder="No Zoom Link Found"
-      //               />
-      //             </label>
-      //           </Col>
-      //         </Row>
-      //       </form>
-      //     </Col>
-      //     <Col size="md-6 sm-12">
-      //       <Jumbotron>
-      //         <h1 style={jumbotronText}>Reviewer Scores</h1>
-      //       </Jumbotron>
-      //       <form>
-      //         {/* Dropboxes for the data that must be selected */}
-      //         <Row>
-      //           <Col size="md-4">
-      //             <label>
-      //               Positivity
-      //               <Input
-      //                 value={this.state.reviewerScores[0]}
-      //                 name="Positivity"
-      //                 placeholder="N/A"
-      //               />
-      //             </label>
-      //           </Col>
-      //           <Col size="md-4">
-      //             <label>
-      //               Investment
-      //               <Input
-      //                 value={this.state.reviewerScores[1]}
-      //                 name="Investment"
-      //                 placeholder="N/A"
-      //               />
-      //             </label>
-      //           </Col>
-      //           <Col size="md-4">
-      //             <label>
-      //               Pace
-      //               <Input
-      //                 value={this.state.reviewerScores[2]}
-      //                 name="Pace"
-      //                 placeholder="N/A"
-      //               />
-      //             </label>
-      //           </Col>
-      //         </Row>
-      //         <Row>
-      //           <Col size="md-4">
-      //             <label>
-      //               Clarity
-      //               <Input
-      //                 value={this.state.reviewerScores[3]}
-      //                 name="Clarity"
-      //                 placeholder="N/A"
-      //               />
-      //             </label>
-      //           </Col>
-      //           <Col size="md-4">
-      //             <label>
-      //               Knowledge
-      //               <Input
-      //                 value={this.state.reviewerScores[4]}
-      //                 name="Knowledge"
-      //                 placeholder="N/A"
-      //               />
-      //             </label>
-      //           </Col>
-      //           <Col size="md-4">
-      //             <label>
-      //               Responses
-      //               <Input
-      //                 value={this.state.reviewerScores[5]}
-      //                 name="Responses"
-      //                 placeholder="N/A"
-      //               />
-      //             </label>
-      //           </Col>
-      //         </Row>
-      //         <Row>
-      //           <Col size="md-4">
-      //             <label>
-      //               Industry Knowledge
-      //               <Input
-      //                 value={this.state.reviewerScores[6]}
-      //                 name="Industry Knowledge"
-      //                 placeholder="N/A"
-      //               />
-      //             </label>
-      //           </Col>
-      //           <Col size="md-4">
-      //             <label>
-      //               Coachability
-      //               <Input
-      //                 value={this.state.reviewerScores[7]}
-      //                 name="Coachability"
-      //                 placeholder="N/A"
-      //               />
-      //             </label>
-      //           </Col>
-      //           <Col size="md-4">
-      //             <label>
-      //               Final Result
-      //               <Input
-      //                 value={this.state.reviewerResult}
-      //                 name="finalResult"
-      //                 placeholder="N/A"
-      //               />
-      //             </label>
-      //           </Col>
-      //         </Row>
-      //       </form>
-      //     </Col>
-      //   </Row>
-      // </Container>
     );
   }
 }

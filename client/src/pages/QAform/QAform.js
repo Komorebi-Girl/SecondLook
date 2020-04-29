@@ -297,7 +297,9 @@ class QAform extends Component {
                   </select>
                 </Col>
               </Row>
-              <Row customStyles={{ marginTop: "2.5rem" }}>
+              <Row
+                customStyles={{ marginTop: "2.5rem", marginBottom: "2.5rem" }}
+              >
                 <Col size="md-12">
                   <label>
                     Did the interviewers' notes include the following?
@@ -309,11 +311,7 @@ class QAform extends Component {
                       id="summary"
                       name="summary"
                       value="hasSummary"
-                      onClick={() =>
-                        this.handleCheckboxInput(
-                          "A detailed, public-facing summary, 2-3 sentences long"
-                        )
-                      }
+                      onClick={() => this.handleCheckboxInput("hasSummary")}
                       style={{ marginLeft: "3rem" }}
                     ></input>
                     <label for="summary" style={{ marginLeft: "1rem" }}>
@@ -325,11 +323,7 @@ class QAform extends Component {
                       id="bullets"
                       name="bullets"
                       value="hasBullets"
-                      onClick={() =>
-                        this.handleCheckboxInput(
-                          "Bullet-style notes included under each heading"
-                        )
-                      }
+                      onClick={() => this.handleCheckboxInput("hasBullets")}
                       style={{ marginLeft: "3rem" }}
                     ></input>
                     <label for="bullets" style={{ marginLeft: "1rem" }}>
@@ -341,11 +335,7 @@ class QAform extends Component {
                       id="notes"
                       name="notes"
                       value="hasNotes"
-                      onClick={() =>
-                        this.handleCheckboxInput(
-                          "Descriptive, well-formatted and grammatically correct notes"
-                        )
-                      }
+                      onClick={() => this.handleCheckboxInput("hasNotes")}
                       style={{ marginLeft: "3rem" }}
                     ></input>
                     <label for="notes" style={{ marginLeft: "1rem" }}>
