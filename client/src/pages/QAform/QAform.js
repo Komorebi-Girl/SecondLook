@@ -33,7 +33,7 @@ class QAform extends Component {
     reviewerScores: [],
     reviewerResult: "",
     reviewerRationale: "",
-    reviewerRecommendations: "",
+    reviewerRecommendations: "N/A",
     eqDuration: "",
     notesIncluded: [],
   };
@@ -113,7 +113,9 @@ class QAform extends Component {
     // Grab all of the values saved to this.state in the form of an array
     const valuesArray = Object.values(obj);
     // Loop through the above array create a new array based on whether each value is true (truthy) or false (falsey)
-    const booleanArray = valuesArray.map((val) => Boolean(val));
+    const booleanArray = valuesArray.map((val) =>
+      val.length > 0 ? true : false
+    );
     // Use "every" method to test if every property in this.state indeed has a value
     return booleanArray.every((bool) => bool === true);
   };
