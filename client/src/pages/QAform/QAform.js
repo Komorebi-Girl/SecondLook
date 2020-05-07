@@ -34,7 +34,7 @@ class QAform extends Component {
     reviewerResult: "",
     reviewerRationale: "",
     reviewerRecommendations: "N/A",
-    eqDuration: "",
+    eqDuration: "35",
     notesIncluded: [],
   };
 
@@ -56,7 +56,6 @@ class QAform extends Component {
     API.getTeachback(this.props.match.params.tbID)
       .then((res) =>
         this.setState({
-          teachbacks: res.data,
           candidateName: res.data.candidateName,
           role: res.data.role,
           university: res.data.university,
@@ -116,7 +115,6 @@ class QAform extends Component {
     const booleanArray = valuesArray.map((val) =>
       val.length > 0 ? true : false
     );
-    console.log("Here", booleanArray);
     // Use "every" method to test if every property in this.state indeed has a value
     return booleanArray.every((bool) => bool === true);
   };
