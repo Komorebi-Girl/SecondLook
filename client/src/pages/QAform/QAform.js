@@ -33,7 +33,7 @@ class QAform extends Component {
     reviewerScores: [],
     reviewerResult: "",
     reviewerRationale: "",
-    reviewerRecommendations: "N/A",
+    reviewerRecommendations: "",
     eqDuration: "35",
     notesIncluded: [],
   };
@@ -260,8 +260,8 @@ class QAform extends Component {
                 <Col size="md-12">
                   <div className="form-group" style={{ margin: "2rem 0rem" }}>
                     <label>
-                      How do you think the interviewers could improve?
-                      (optional)
+                      How do you think the interviewers could improve? (if none,
+                      type "N/A")
                     </label>
                     <textarea
                       className="form-control"
