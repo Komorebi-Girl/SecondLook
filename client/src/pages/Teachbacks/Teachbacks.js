@@ -73,6 +73,7 @@ class Teachbacks extends Component {
         reviewerScores: this.state.reviewerScores,
         submitterResult: this.state.submitterResult,
         reviewerResult: this.state.reviewerResult,
+        isVisible: this.state.isVisible,
       })
         .then((res) => res.status(200).send("Teachback Saved"))
         .catch((err) => console.log(err));
