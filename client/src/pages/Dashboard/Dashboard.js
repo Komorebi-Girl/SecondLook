@@ -85,8 +85,7 @@ class Dashboard extends Component {
       }
     }
 
-    // reverse the arrays to ensure that more recently submitted TBs are listed first
-    assignedTBs = assignedTBs.reverse();
+    // reverse the array to ensure that more recently submitted TBs are listed first
     submittedTBs = submittedTBs.reverse();
 
     this.setState({

@@ -150,7 +150,11 @@ class QAform extends Component {
                 placeholder="Program Type (required)"
               />
               <Input
-                value={this.state.zoomLink}
+                value={
+                  <a href={this.state.zoomLink} target="_blank">
+                    {this.state.zoomLink}
+                  </a>
+                }
                 name="zoomLink"
                 placeholder="Zoom Link (required)"
               />
