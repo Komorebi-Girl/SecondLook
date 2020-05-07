@@ -116,6 +116,7 @@ class QAform extends Component {
     const booleanArray = valuesArray.map((val) =>
       val.length > 0 ? true : false
     );
+    console.log("Here", booleanArray);
     // Use "every" method to test if every property in this.state indeed has a value
     return booleanArray.every((bool) => bool === true);
   };
