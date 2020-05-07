@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
-import { Input } from "../../components/Form";
+import { Input, FormBtn } from "../../components/Form";
 
 const jumbotronText = {
   fontFamily: "Montserrat",
@@ -16,6 +16,14 @@ const bodyText = {
   fontFamily: "Montserrat",
   color: "rgb(0,0,0)",
   fontSize: "1.8rem",
+};
+
+const removeBtn = {
+  backgroundColor: "rgb(255,0,0)",
+  marginTop: "2.7rem",
+  marginBottom: "2.7rem",
+  marginLeft: "17rem",
+  width: "100%",
 };
 
 class TBprofile extends Component {
@@ -37,6 +45,7 @@ class TBprofile extends Component {
     reviewerRecommendations: "",
     eqDuration: "",
     notesIncluded: [],
+    isVisible: "",
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
@@ -65,11 +74,19 @@ class TBprofile extends Component {
           reviewerRecommendations: res.data.reviewerRecommendations,
           eqDuration: res.data.eqDuration,
           notesIncluded: res.data.notesIncluded,
+          isVisible: res.data.isVisible,
         })
       )
       .catch((err) => console.log(err));
   };
 
+  removeTeachback = () => {
+    API.updateTeachback(this.props.match.params.tbID, {
+      isVisible: "False",
+    })
+      .then((res) => res.send("Teachback Removed"))
+      .catch((err) => console.log(err));
+  };
   render() {
     return (
       <Container fluid customStyles={{ fontFamily: "Montserrat" }}>
@@ -104,6 +121,9 @@ class TBprofile extends Component {
                 value={this.state.zoomLink}
                 name="zoomLink"
                 placeholder="Zoom Link (required)"
+                onClick={() =>
+                  window.open(`//${this.state.zoomLink}`, "_blank")
+                }
               />
             </form>
           </Col>
@@ -325,6 +345,17 @@ class TBprofile extends Component {
                     </label>
                     <br></br>
                   </form>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-6">
+                  {/* Submit button */}
+                  <FormBtn
+                    onClick={this.removeTeachback}
+                    customStyles={removeBtn}
+                  >
+                    Remove This Teachback
+                  </FormBtn>
                 </Col>
               </Row>
             </form>

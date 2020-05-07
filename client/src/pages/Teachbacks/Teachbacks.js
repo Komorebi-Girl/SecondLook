@@ -10,7 +10,7 @@ const jumbotronText = {
   color: "rgb(50, 198, 230)",
   fontSize: "4rem",
   textAlign: "center",
-  textDecoration: "underline"
+  textDecoration: "underline",
 };
 
 class Teachbacks extends Component {
@@ -27,14 +27,15 @@ class Teachbacks extends Component {
     submitterScores: [],
     submitterResult: "",
     reviewerScores: [],
-    reviewerResult: "N/A"
+    reviewerResult: "N/A",
+    isVisible: "True",
   };
 
   // Handles updating component state when the user types into the input field
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -47,17 +48,17 @@ class Teachbacks extends Component {
     this.setState({ submitterScores: savedScores });
   };
 
-  updateFinalResult = event => {
+  updateFinalResult = (event) => {
     // Save the final result to submitterResult
     this.setState({
       value: event.target.value,
-      submitterResult: event.target.value
+      submitterResult: event.target.value,
     });
   };
 
   /* When the form is submitted, use the API.saveTeachback method to save the teachback data
  Then reload teachbacks from the database */
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     if (this.validateAllValues(this.state)) {
       API.saveTeachback({
         candidateName: this.state.candidateName,
@@ -71,20 +72,20 @@ class Teachbacks extends Component {
         submitterScores: this.state.submitterScores,
         reviewerScores: this.state.reviewerScores,
         submitterResult: this.state.submitterResult,
-        reviewerResult: this.state.reviewerResult
+        reviewerResult: this.state.reviewerResult,
       })
-        .then(res => res.status(200).send("Teachback Saved"))
-        .catch(err => console.log(err));
+        .then((res) => res.status(200).send("Teachback Saved"))
+        .catch((err) => console.log(err));
     }
   };
 
-  validateAllValues = obj => {
+  validateAllValues = (obj) => {
     // Grab all of the values saved to this.state in the form of an array
     const valuesArray = Object.values(obj);
     // Loop through the above array create a new array based on whether each value is true (truthy) or false (falsey)
-    const booleanArray = valuesArray.map(val => Boolean(val));
+    const booleanArray = valuesArray.map((val) => Boolean(val));
     // Use "every" method to test if every property in this.state indeed has a value
-    return booleanArray.every(bool => bool === true);
+    return booleanArray.every((bool) => bool === true);
   };
 
   render() {

@@ -80,7 +80,10 @@ class Dashboard extends Component {
         teachbackArr[i].reviewerResult === "N/A"
       ) {
         assignedTBs.push(teachbackArr[i]);
-      } else if (teachbackArr[i].submittedBy === this.state.userID) {
+      } else if (
+        teachbackArr[i].submittedBy === this.state.userID &&
+        teachbackArr[i].isVisible === "True"
+      ) {
         submittedTBs.push(teachbackArr[i]);
       }
     }

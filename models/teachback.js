@@ -18,6 +18,7 @@ const teachbackSchema = new Schema({
   reviewerRecommendations: String,
   eqDuration: String,
   notesIncluded: [String],
+  isVisible: String,
 });
 
 const Teachback = mongoose.model("Teachback", teachbackSchema);
