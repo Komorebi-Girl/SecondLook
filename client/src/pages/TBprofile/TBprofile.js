@@ -109,7 +109,7 @@ class TBprofile extends Component {
           </Col>
           <Col size="md-6">
             <Jumbotron>
-              <h1 style={jumbotronText}>Reviewer Scores</h1>
+              <h1 style={jumbotronText}>Reviewer's Scores</h1>
             </Jumbotron>
             <form>
               <Row>
@@ -296,12 +296,12 @@ class TBprofile extends Component {
                       id="bullets"
                       name="bullets"
                       value="hasBullets"
-                      onClick={() =>
-                        this.handleCheckboxInput(
-                          "Bullet-style notes included under each heading"
-                        )
-                      }
                       style={{ marginLeft: "3rem" }}
+                      checked={
+                        this.state.notesIncluded.includes("hasBullets")
+                          ? "checked"
+                          : ""
+                      }
                     ></input>
                     <label for="bullets" style={{ marginLeft: "1rem" }}>
                       --> Bullet-style notes included under each heading
@@ -312,12 +312,12 @@ class TBprofile extends Component {
                       id="notes"
                       name="notes"
                       value="hasNotes"
-                      onClick={() =>
-                        this.handleCheckboxInput(
-                          "Descriptive, well-formatted and grammatically correct notes"
-                        )
-                      }
                       style={{ marginLeft: "3rem" }}
+                      checked={
+                        this.state.notesIncluded.includes("hasNotes")
+                          ? "checked"
+                          : ""
+                      }
                     ></input>
                     <label for="notes" style={{ marginLeft: "1rem" }}>
                       --> Descriptive, well-formatted and grammatically correct
