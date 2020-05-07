@@ -153,7 +153,9 @@ class QAform extends Component {
                 value={this.state.zoomLink}
                 name="zoomLink"
                 placeholder="Zoom Link (required)"
-                onClick={() => window.open(this.state.zoomLink)}
+                onClick={() =>
+                  window.open(`//${this.state.zoomLink}`, "_blank")
+                }
               />
             </form>
           </Col>
