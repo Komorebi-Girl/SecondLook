@@ -9,7 +9,7 @@ const jumbotronText = {
   color: "rgb(50, 198, 230)",
   fontSize: "4rem",
   textAlign: "center",
-  textDecoration: "underline"
+  textDecoration: "underline",
 };
 
 const completedBtn = {
@@ -20,7 +20,7 @@ const completedBtn = {
   fontSize: "1.75rem",
   height: "50%",
   marginTop: "25%",
-  marginBottom: "25%"
+  marginBottom: "25%",
 };
 
 const pendingBtn = {
@@ -31,7 +31,7 @@ const pendingBtn = {
   fontSize: "1.75rem",
   height: "50%",
   marginTop: "25%",
-  marginBottom: "25%"
+  marginBottom: "25%",
 };
 
 const tbHeader = {
@@ -39,14 +39,14 @@ const tbHeader = {
   color: "rgb(0,0,0)",
   fontSize: "2rem",
   textAlign: "center",
-  fontWeight: 700
+  fontWeight: 700,
 };
 
 const tbText = {
   fontFamily: "Montserrat",
   color: "rgb(0,0,0)",
   fontSize: "2rem",
-  textAlign: "center"
+  textAlign: "center",
 };
 
 class Dashboard extends Component {
@@ -54,7 +54,7 @@ class Dashboard extends Component {
   state = {
     assignedTeachbacks: [],
     submittedTeachbacks: [],
-    userID: this.props.match.params.userID
+    userID: this.props.match.params.userID,
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
@@ -65,28 +65,35 @@ class Dashboard extends Component {
   // Loads all teachbacks and sets them to this.state.teachbacks
   loadTeachbacks = () => {
     API.getUserTeachbacks(this.state.userID)
-      .then(res => {
+      .then((res) => {
         this.sortTeachbacks(res.data);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
-  sortTeachbacks = teachbackArr => {
-    const assignedTBs = [];
-    const submittedTBs = [];
+  sortTeachbacks = (teachbackArr) => {
+    let assignedTBs = [];
+    let submittedTBs = [];
     for (let i = 0; i < teachbackArr.length; i++) {
       if (
         teachbackArr[i].reviewedBy === this.state.userID &&
         teachbackArr[i].reviewerResult === "N/A"
       ) {
         assignedTBs.push(teachbackArr[i]);
-      } else if (teachbackArr[i].submittedBy === this.state.userID) {
+      } else if (
+        teachbackArr[i].submittedBy === this.state.userID &&
+        teachbackArr[i].isVisible === "True"
+      ) {
         submittedTBs.push(teachbackArr[i]);
       }
     }
+
+    // reverse the array to ensure that more recently submitted TBs are listed first
+    submittedTBs = submittedTBs.reverse();
+
     this.setState({
       assignedTeachbacks: assignedTBs,
-      submittedTeachbacks: submittedTBs
+      submittedTeachbacks: submittedTBs,
     });
   };
 
@@ -109,7 +116,7 @@ class Dashboard extends Component {
           <Col size="md-6">
             {this.state.assignedTeachbacks.length ? (
               <List>
-                {this.state.assignedTeachbacks.map(teachback => {
+                {this.state.assignedTeachbacks.map((teachback) => {
                   return (
                     <Row>
                       <Col size="md-12">
@@ -140,7 +147,7 @@ class Dashboard extends Component {
           <Col size="md-6">
             {this.state.submittedTeachbacks.length ? (
               <List>
-                {this.state.submittedTeachbacks.map(teachback => {
+                {this.state.submittedTeachbacks.map((teachback) => {
                   return (
                     <Row>
                       <Col size="md-9">

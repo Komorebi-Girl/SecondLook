@@ -10,7 +10,14 @@ const jumbotronText = {
   color: "rgb(50, 198, 230)",
   fontSize: "4rem",
   textAlign: "center",
-  textDecoration: "underline"
+  textDecoration: "underline",
+};
+
+const submitBtn = {
+  marginTop: "2.7rem",
+  marginBottom: "2.7rem",
+  marginLeft: "17rem",
+  width: "100%",
 };
 
 class QAform extends Component {
@@ -24,7 +31,11 @@ class QAform extends Component {
     submitterScores: [],
     submitterResult: "",
     reviewerScores: [],
-    reviewerResult: ""
+    reviewerResult: "",
+    reviewerRationale: "",
+    reviewerRecommendations: "",
+    eqDuration: "35",
+    notesIncluded: [],
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
@@ -32,22 +43,29 @@ class QAform extends Component {
     this.loadSingleTeachback();
   }
 
+  // Handles updating component state when the user types into the input field
+  handleInputChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
   // Loads all teachbacks and sets them to this.state.teachbacks
   loadSingleTeachback = () => {
     API.getTeachback(this.props.match.params.tbID)
-      .then(res =>
+      .then((res) =>
         this.setState({
-          teachbacks: res.data,
           candidateName: res.data.candidateName,
           role: res.data.role,
           university: res.data.university,
           programType: res.data.programType,
           zoomLink: res.data.zoomLink,
           submitterScores: res.data.submitterScores,
-          submitterResult: res.data.submitterResult
+          submitterResult: res.data.submitterResult,
         })
       )
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   /* This function will take the scores selected via the category dropdowns & populate them
@@ -58,41 +76,52 @@ class QAform extends Component {
     this.setState({ reviewerScores: savedScores });
   };
 
-  /* This function will take the score from the final result dropdown & populate 
-  the reviewer's final result field with that info*/
-  updateFinalResult = event => {
-    this.setState({
-      value: event.target.value,
-      reviewerResult: event.target.value
-    });
+  handleCheckboxInput = (value) => {
+    let notesArray = [...this.state.notesIncluded];
+    let valIndex = notesArray.indexOf(value);
+    if (valIndex !== -1) {
+      delete notesArray[valIndex];
+    } else {
+      notesArray.push(value);
+    }
+    let newNotesArray = notesArray.filter(
+      (arrItem) => Boolean(arrItem) === true
+    );
+    this.setState({ notesIncluded: newNotesArray });
   };
 
   /* When the form is submitted, use the API.updateTeachback method to update the teachback data
    with reviewer's score Then reload teachbacks from the database */
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
     if (this.validateAllValues(this.state)) {
       API.updateTeachback(this.props.match.params.tbID, {
         reviewerScores: this.state.reviewerScores,
-        reviewerResult: this.state.reviewerResult
+        reviewerResult: this.state.reviewerResult,
+        reviewerRationale: this.state.reviewerRationale,
+        reviewerRecommendations: this.state.reviewerRecommendations,
+        eqDuration: this.state.eqDuration,
+        notesIncluded: this.state.notesIncluded,
       })
-        .then(res => res.send("Review Submitted"))
-        .catch(err => console.log(err));
+        .then((res) => res.send("Review Submitted"))
+        .catch((err) => console.log(err));
     }
   };
 
-  validateAllValues = obj => {
+  validateAllValues = (obj) => {
     // Grab all of the values saved to this.state in the form of an array
     const valuesArray = Object.values(obj);
     // Loop through the above array create a new array based on whether each value is true (truthy) or false (falsey)
-    const booleanArray = valuesArray.map(val => Boolean(val));
+    const booleanArray = valuesArray.map((val) =>
+      val.length > 0 ? true : false
+    );
     // Use "every" method to test if every property in this.state indeed has a value
-    return booleanArray.every(bool => bool === true);
+    return booleanArray.every((bool) => bool === true);
   };
 
   render() {
     return (
-      <Container fluid>
+      <Container fluid customStyles={{ fontFamily: "Montserrat" }}>
         <Row>
           <Col size="md-6">
             <Jumbotron>
@@ -124,6 +153,9 @@ class QAform extends Component {
                 value={this.state.zoomLink}
                 name="zoomLink"
                 placeholder="Zoom Link (required)"
+                onClick={() =>
+                  window.open(`//${this.state.zoomLink}`, "_blank")
+                }
               />
             </form>
           </Col>
@@ -196,7 +228,10 @@ class QAform extends Component {
                 </Col>
                 <Col size="md-4">
                   {/* Stand-alone dropbox to select final result*/}
-                  <select onChange={this.updateFinalResult}>
+                  <select
+                    name="reviewerResult"
+                    onChange={this.handleInputChange}
+                  >
                     <option selected value="default">
                       Select Final Result:
                     </option>
@@ -208,11 +243,120 @@ class QAform extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col size="md-4" customStyles="col-md-offset-8">
+                <Col size="md-12">
+                  <div className="form-group" style={{ margin: "2rem 0rem" }}>
+                    <label>
+                      Please write 2-4 sentences that explain the reasoning
+                      behind your decision.
+                    </label>
+                    <textarea
+                      className="form-control"
+                      rows="5"
+                      name="reviewerRationale"
+                      value={this.state.reviewerRationale}
+                      onChange={this.handleInputChange}
+                    ></textarea>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-12">
+                  <div className="form-group" style={{ margin: "2rem 0rem" }}>
+                    <label>
+                      How do you think the interviewers could improve? (if none,
+                      type "N/A")
+                    </label>
+                    <textarea
+                      className="form-control"
+                      rows="5"
+                      name="reviewerRecommendations"
+                      value={this.state.reviewerRecommendations}
+                      onChange={this.handleInputChange}
+                    ></textarea>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-12">
+                  <label for="eq">
+                    When was the EQ completed? (in mins after the recording
+                    began):
+                  </label>
+                  <select
+                    id="eq"
+                    name="eqDuration"
+                    onChange={this.handleInputChange}
+                  >
+                    <option value="35">35</option>
+                    <option value="36">36</option>
+                    <option value="37">37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                  </select>
+                </Col>
+              </Row>
+              <Row
+                customStyles={{ marginTop: "2.5rem", marginBottom: "2.5rem" }}
+              >
+                <Col size="md-12">
+                  <label>
+                    Did the interviewers' notes include the following?
+                  </label>
+                  <br></br>
+                  <form>
+                    <input
+                      type="checkbox"
+                      id="summary"
+                      name="summary"
+                      value="hasSummary"
+                      onClick={() => this.handleCheckboxInput("hasSummary")}
+                      style={{ marginLeft: "3rem" }}
+                    ></input>
+                    <label for="summary" style={{ marginLeft: "1rem" }}>
+                      --> A detailed, public-facing summary, 2-3 sentences long
+                    </label>
+                    <br></br>
+                    <input
+                      type="checkbox"
+                      id="bullets"
+                      name="bullets"
+                      value="hasBullets"
+                      onClick={() => this.handleCheckboxInput("hasBullets")}
+                      style={{ marginLeft: "3rem" }}
+                    ></input>
+                    <label for="bullets" style={{ marginLeft: "1rem" }}>
+                      --> Bullet-style notes included under each heading
+                    </label>
+                    <br></br>
+                    <input
+                      type="checkbox"
+                      id="notes"
+                      name="notes"
+                      value="hasNotes"
+                      onClick={() => this.handleCheckboxInput("hasNotes")}
+                      style={{ marginLeft: "3rem" }}
+                    ></input>
+                    <label for="notes" style={{ marginLeft: "1rem" }}>
+                      --> Descriptive, well-formatted and grammatically correct
+                      notes
+                    </label>
+                    <br></br>
+                  </form>
+                </Col>
+              </Row>
+              <Row>
+                <Col size="md-6">
                   {/* Submit button */}
                   <FormBtn
                     disabled={!this.validateAllValues(this.state)}
                     onClick={this.handleFormSubmit}
+                    customStyles={submitBtn}
                   >
                     Submit Teachback
                   </FormBtn>

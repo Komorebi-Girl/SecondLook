@@ -10,19 +10,19 @@ const jumbotronText = {
   color: "rgb(50, 198, 230)",
   fontSize: "4rem",
   textAlign: "center",
-  textDecoration: "underline"
+  textDecoration: "underline",
 };
 
 const tbText = {
   fontFamily: "Montserrat",
   color: "rgb(0,0,0)",
-  fontSize: "2rem"
+  fontSize: "2rem",
 };
 
 class AssignView extends Component {
   state = {
     teachbacks: [],
-    users: []
+    users: [],
   };
 
   componentDidMount() {
@@ -31,7 +31,7 @@ class AssignView extends Component {
 
   loadAssignInfo = () => {
     Promise.all([API.getTeachbacks(), API.returnAllUsers()])
-      .then(res => {
+      .then((res) => {
         const noReviewerArr = [];
         const tbArr = res[0].data;
 
@@ -42,15 +42,15 @@ class AssignView extends Component {
         }
         this.setState({ teachbacks: noReviewerArr, users: res[1].data });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   assignReviewer = (event, tbID) => {
     API.updateTeachback(tbID, {
-      reviewedBy: event.target.value
+      reviewedBy: event.target.value,
     })
-      .then(res => res.status(200))
-      .catch(err => console.log(err));
+      .then((res) => res.status(200))
+      .catch((err) => console.log(err));
   };
 
   render() {
@@ -67,7 +67,7 @@ class AssignView extends Component {
           <Col size="md-12">
             {this.state.teachbacks.length ? (
               <List>
-                {this.state.teachbacks.map(teachback => {
+                {this.state.teachbacks.map((teachback) => {
                   return (
                     <Row>
                       <Col size="md-10">
@@ -93,7 +93,7 @@ class AssignView extends Component {
                 })}
               </List>
             ) : (
-              <h3>No Teachbacks to Display</h3>
+              <h3 style={tbText}>No Teachbacks to Display</h3>
             )}
           </Col>
         </Row>
