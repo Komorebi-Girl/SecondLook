@@ -64,7 +64,7 @@ class TBprofile extends Component {
   onCloseModal = () => {
     this.setState({ open: false });
     window.location.replace(
-      `//https://secondlook-2u.herokuapp.com/dashboard/${this.props.match.params.userID}`
+      `//secondlook-2u.herokuapp.com/dashboard/${this.props.match.params.userID}`
     );
   };
 
