@@ -59,6 +59,9 @@ class QAform extends Component {
 
   onCloseModal = () => {
     this.setState({ open: false });
+    window.location.replace(
+      `//secondlook-2u.herokuapp.com/dashboard/${this.props.match.params.userID}`
+    );
   };
 
   // Handles updating component state when the user types into the input field
