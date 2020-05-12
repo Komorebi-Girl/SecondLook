@@ -87,9 +87,11 @@ class Teachbacks extends Component {
         reviewerResult: this.state.reviewerResult,
         isVisible: this.state.isVisible,
       })
-        .then((res) => res.status(200).send("Teachback Saved"))
+        .then((res) => {
+          res.status(200).send("Teachback Saved");
+          this.onOpenModal();
+        })
         .catch((err) => console.log(err));
-      this.onOpenModal();
     }
   };
 
