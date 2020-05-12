@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { Modal } from "react-responsive-modal";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
 import Dropdown from "../../components/Form/Dropdown";
+import "react-responsive-modal/styles.css";
 
 const jumbotronText = {
   fontFamily: "Montserrat",
@@ -18,6 +20,13 @@ const submitBtn = {
   marginBottom: "2.7rem",
   marginLeft: "17rem",
   width: "100%",
+};
+
+const modalText = {
+  fontFamily: "Montserrat",
+  textAlign: "center",
+  fontSize: "2.75rem",
+  padding: "3.2rem",
 };
 
 class QAform extends Component {
@@ -36,12 +45,21 @@ class QAform extends Component {
     reviewerRecommendations: "",
     eqDuration: "35",
     notesIncluded: [],
+    open: false,
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
   componentDidMount() {
     this.loadSingleTeachback();
   }
+
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
 
   // Handles updating component state when the user types into the input field
   handleInputChange = (event) => {
@@ -95,6 +113,7 @@ class QAform extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
     if (this.validateAllValues(this.state)) {
+      this.onOpenModal();
       API.updateTeachback(this.props.match.params.tbID, {
         reviewerScores: this.state.reviewerScores,
         reviewerResult: this.state.reviewerResult,
@@ -113,15 +132,23 @@ class QAform extends Component {
     const valuesArray = Object.values(obj);
     // Loop through the above array create a new array based on whether each value is true (truthy) or false (falsey)
     const booleanArray = valuesArray.map((val) =>
-      val.length > 0 ? true : false
+      val.length > 0 || val === false ? true : false
     );
     // Use "every" method to test if every property in this.state indeed has a value
     return booleanArray.every((bool) => bool === true);
   };
 
   render() {
+    const { open } = this.state;
     return (
       <Container fluid customStyles={{ fontFamily: "Montserrat" }}>
+        <Modal
+          open={open}
+          onClose={this.onCloseModal}
+          styles={{ modal: modalText }}
+        >
+          <h2>Your review has been successfully submitted!</h2>
+        </Modal>
         <Row>
           <Col size="md-6">
             <Jumbotron>

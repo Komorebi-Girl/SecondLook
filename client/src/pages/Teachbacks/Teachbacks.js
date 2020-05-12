@@ -17,7 +17,6 @@ const jumbotronText = {
 
 const modalText = {
   fontFamily: "Montserrat",
-  color: "rgb(50, 198, 230)",
   textAlign: "center",
   fontSize: "2.75rem",
   padding: "3.2rem",
