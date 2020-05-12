@@ -12,12 +12,6 @@ const jumbotronText = {
   textAlign: "center",
 };
 
-const bodyText = {
-  fontFamily: "Montserrat",
-  color: "rgb(0,0,0)",
-  fontSize: "1.8rem",
-};
-
 const removeBtn = {
   backgroundColor: "rgb(255,0,0)",
   marginTop: "2.7rem",

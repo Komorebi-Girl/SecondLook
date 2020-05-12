@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 import { Modal } from "react-responsive-modal";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
@@ -14,6 +13,12 @@ const jumbotronText = {
   fontSize: "4rem",
   textAlign: "center",
   textDecoration: "underline",
+};
+
+const modalText = {
+  fontFamily: "Montserrat",
+  color: "rgb(50, 198, 230)",
+  textAlign: "center",
 };
 
 class Teachbacks extends Component {
@@ -112,12 +117,9 @@ class Teachbacks extends Component {
     return (
       <Container fluid>
         <Modal open={open} onClose={this.onCloseModal}>
-          <h2>Simple centered modal</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-            pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
-            hendrerit risus, sed porttitor quam.
-          </p>
+          <h2 style={modalText}>
+            Your teachback has been successfully submitted!
+          </h2>
         </Modal>
         <Row>
           <Col size="md-6" customStyles="col-md-offset-3">
@@ -206,7 +208,7 @@ class Teachbacks extends Component {
                 </Col>
                 <Col size="md-4">
                   <Dropdown
-                    category="Industry Knowledge"
+                    category="Industry"
                     index={6}
                     updateScores={this.updateScores}
                   />
