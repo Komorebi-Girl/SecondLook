@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import { render } from "react-dom";
+import { Modal } from "react-responsive-modal";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
 import Dropdown from "../../components/Form/Dropdown";
+import "react-responsive-modal/styles.css";
 
 const jumbotronText = {
   fontFamily: "Montserrat",
@@ -26,9 +29,18 @@ class Teachbacks extends Component {
     cohortStartDate: "",
     submitterScores: [],
     submitterResult: "",
-    reviewerScores: [],
+    reviewerScores: ["N/A"],
     reviewerResult: "N/A",
     isVisible: "True",
+    open: false,
+  };
+
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: false });
   };
 
   // Handles updating component state when the user types into the input field
@@ -77,6 +89,7 @@ class Teachbacks extends Component {
       })
         .then((res) => res.status(200).send("Teachback Saved"))
         .catch((err) => console.log(err));
+      this.onOpenModal();
     }
   };
 
@@ -84,14 +97,25 @@ class Teachbacks extends Component {
     // Grab all of the values saved to this.state in the form of an array
     const valuesArray = Object.values(obj);
     // Loop through the above array create a new array based on whether each value is true (truthy) or false (falsey)
-    const booleanArray = valuesArray.map((val) => Boolean(val));
+    const booleanArray = valuesArray.map((val) =>
+      val.length > 0 ? true : false
+    );
     // Use "every" method to test if every property in this.state indeed has a value
     return booleanArray.every((bool) => bool === true);
   };
 
   render() {
+    const { open } = this.state;
     return (
       <Container fluid>
+        <Modal open={open} onClose={this.onCloseModal}>
+          <h2>Simple centered modal</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+            pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
+            hendrerit risus, sed porttitor quam.
+          </p>
+        </Modal>
         <Row>
           <Col size="md-6" customStyles="col-md-offset-3">
             <Jumbotron>
