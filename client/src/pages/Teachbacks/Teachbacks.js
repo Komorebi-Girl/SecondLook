@@ -90,6 +90,7 @@ class Teachbacks extends Component {
       })
         .then((res) => {
           res.status(200).send("Teachback Saved");
+          Location.reload();
         })
         .catch((err) => console.log(err));
     }
