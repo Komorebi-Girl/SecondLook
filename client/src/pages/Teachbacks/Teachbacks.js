@@ -90,7 +90,6 @@ class Teachbacks extends Component {
       })
         .then((res) => {
           res.status(200).send("Teachback Saved");
-          Location.reload();
         })
         .catch((err) => console.log(err));
     }
@@ -118,6 +117,7 @@ class Teachbacks extends Component {
             pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
             hendrerit risus, sed porttitor quam.
           </p>
+          <button onClick={() => Location.reload()}>Okay,thanks!</button>
         </Modal>
         <Row>
           <Col size="md-6" customStyles="col-md-offset-3">
