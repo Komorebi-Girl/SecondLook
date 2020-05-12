@@ -98,7 +98,7 @@ class Teachbacks extends Component {
     const valuesArray = Object.values(obj);
     // Loop through the above array create a new array based on whether each value is true (truthy) or false (falsey)
     const booleanArray = valuesArray.map((val) =>
-      val.length > 0 ? true : false
+      val.length > 0 || val === false ? true : false
     );
     // Use "every" method to test if every property in this.state indeed has a value
     return booleanArray.every((bool) => bool === true);
