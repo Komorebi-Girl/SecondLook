@@ -41,6 +41,7 @@ class Teachbacks extends Component {
 
   onCloseModal = () => {
     this.setState({ open: false });
+    Location.reload();
   };
 
   // Handles updating component state when the user types into the input field
@@ -117,7 +118,6 @@ class Teachbacks extends Component {
             pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
             hendrerit risus, sed porttitor quam.
           </p>
-          <button onClick={() => Location.reload()}>Okay,thanks!</button>
         </Modal>
         <Row>
           <Col size="md-6" customStyles="col-md-offset-3">
