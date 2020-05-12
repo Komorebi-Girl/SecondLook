@@ -72,6 +72,7 @@ class Teachbacks extends Component {
  Then reload teachbacks from the database */
   handleFormSubmit = (event) => {
     if (this.validateAllValues(this.state)) {
+      this.onOpenModal();
       API.saveTeachback({
         candidateName: this.state.candidateName,
         role: this.state.role,
@@ -89,7 +90,6 @@ class Teachbacks extends Component {
       })
         .then((res) => {
           res.status(200).send("Teachback Saved");
-          this.onOpenModal();
         })
         .catch((err) => console.log(err));
     }
