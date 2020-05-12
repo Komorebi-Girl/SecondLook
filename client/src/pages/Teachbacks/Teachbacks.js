@@ -19,6 +19,8 @@ const modalText = {
   fontFamily: "Montserrat",
   color: "rgb(50, 198, 230)",
   textAlign: "center",
+  fontSize: "2.75rem",
+  padding: "3.2rem",
 };
 
 class Teachbacks extends Component {
@@ -116,10 +118,12 @@ class Teachbacks extends Component {
     const { open } = this.state;
     return (
       <Container fluid>
-        <Modal open={open} onClose={this.onCloseModal}>
-          <h2 style={modalText}>
-            Your teachback has been successfully submitted!
-          </h2>
+        <Modal
+          open={open}
+          onClose={this.onCloseModal}
+          styles={{ modal: modalText }}
+        >
+          <h2>Your teachback has been successfully submitted!</h2>
         </Modal>
         <Row>
           <Col size="md-6" customStyles="col-md-offset-3">
