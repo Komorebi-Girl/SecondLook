@@ -92,7 +92,8 @@ class TBprofile extends Component {
       .catch((err) => console.log(err));
   };
 
-  removeTeachback = () => {
+  removeTeachback = (event) => {
+    event.preventDefault();
     this.onOpenModal();
     API.updateTeachback(this.props.match.params.tbID, {
       isVisible: "False",
@@ -372,7 +373,7 @@ class TBprofile extends Component {
                 <Col size="md-6">
                   {/* Submit button */}
                   <FormBtn
-                    onClick={this.removeTeachback}
+                    onClick={(event) => this.removeTeachback(event)}
                     customStyles={removeBtn}
                   >
                     Remove This Teachback
