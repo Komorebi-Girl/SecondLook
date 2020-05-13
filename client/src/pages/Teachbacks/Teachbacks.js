@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { Modal } from "react-responsive-modal";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
 import Dropdown from "../../components/Form/Dropdown";
+import "react-responsive-modal/styles.css";
 
 const jumbotronText = {
   fontFamily: "Montserrat",
@@ -11,6 +13,13 @@ const jumbotronText = {
   fontSize: "4rem",
   textAlign: "center",
   textDecoration: "underline",
+};
+
+const modalText = {
+  fontFamily: "Montserrat",
+  textAlign: "center",
+  fontSize: "2.75rem",
+  padding: "3.2rem",
 };
 
 class Teachbacks extends Component {
@@ -26,9 +35,19 @@ class Teachbacks extends Component {
     cohortStartDate: "",
     submitterScores: [],
     submitterResult: "",
-    reviewerScores: [],
+    reviewerScores: ["N/A"],
     reviewerResult: "N/A",
     isVisible: "True",
+    open: false,
+  };
+
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: false });
+    window.location.reload();
   };
 
   // Handles updating component state when the user types into the input field
@@ -60,6 +79,7 @@ class Teachbacks extends Component {
  Then reload teachbacks from the database */
   handleFormSubmit = (event) => {
     if (this.validateAllValues(this.state)) {
+      this.onOpenModal();
       API.saveTeachback({
         candidateName: this.state.candidateName,
         role: this.state.role,
@@ -75,7 +95,9 @@ class Teachbacks extends Component {
         reviewerResult: this.state.reviewerResult,
         isVisible: this.state.isVisible,
       })
-        .then((res) => res.status(200).send("Teachback Saved"))
+        .then((res) => {
+          res.status(200).send("Teachback Saved");
+        })
         .catch((err) => console.log(err));
     }
   };
@@ -84,14 +106,24 @@ class Teachbacks extends Component {
     // Grab all of the values saved to this.state in the form of an array
     const valuesArray = Object.values(obj);
     // Loop through the above array create a new array based on whether each value is true (truthy) or false (falsey)
-    const booleanArray = valuesArray.map((val) => Boolean(val));
+    const booleanArray = valuesArray.map((val) =>
+      val.length > 0 || val === false ? true : false
+    );
     // Use "every" method to test if every property in this.state indeed has a value
     return booleanArray.every((bool) => bool === true);
   };
 
   render() {
+    const { open } = this.state;
     return (
       <Container fluid>
+        <Modal
+          open={open}
+          onClose={this.onCloseModal}
+          styles={{ modal: modalText }}
+        >
+          <h2>Your teachback has been successfully submitted!</h2>
+        </Modal>
         <Row>
           <Col size="md-6" customStyles="col-md-offset-3">
             <Jumbotron>
@@ -179,7 +211,7 @@ class Teachbacks extends Component {
                 </Col>
                 <Col size="md-4">
                   <Dropdown
-                    category="Industry Knowledge"
+                    category="Industry"
                     index={6}
                     updateScores={this.updateScores}
                   />

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { Modal } from "react-responsive-modal";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
+import "react-responsive-modal/styles.css";
 
 const jumbotronText = {
   fontFamily: "Montserrat",
@@ -12,18 +14,19 @@ const jumbotronText = {
   textAlign: "center",
 };
 
-const bodyText = {
-  fontFamily: "Montserrat",
-  color: "rgb(0,0,0)",
-  fontSize: "1.8rem",
-};
-
 const removeBtn = {
   backgroundColor: "rgb(255,0,0)",
   marginTop: "2.7rem",
   marginBottom: "2.7rem",
   marginLeft: "17rem",
   width: "100%",
+};
+
+const modalText = {
+  fontFamily: "Montserrat",
+  textAlign: "center",
+  fontSize: "2.75rem",
+  padding: "3.2rem",
 };
 
 class TBprofile extends Component {
@@ -46,12 +49,24 @@ class TBprofile extends Component {
     eqDuration: "",
     notesIncluded: [],
     isVisible: "",
+    open: false,
   };
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
   componentDidMount() {
     this.loadSingleTeachback();
   }
+
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: false });
+    window.location.replace(
+      `//secondlook-2u.herokuapp.com/dashboard/${this.props.match.params.userID}`
+    );
+  };
 
   // Loads all teachbacks and sets them to this.state.teachbacks
   loadSingleTeachback = () => {
@@ -80,7 +95,9 @@ class TBprofile extends Component {
       .catch((err) => console.log(err));
   };
 
-  removeTeachback = () => {
+  removeTeachback = (event) => {
+    event.preventDefault();
+    this.onOpenModal();
     API.updateTeachback(this.props.match.params.tbID, {
       isVisible: "False",
     })
@@ -88,8 +105,16 @@ class TBprofile extends Component {
       .catch((err) => console.log(err));
   };
   render() {
+    const { open } = this.state;
     return (
       <Container fluid customStyles={{ fontFamily: "Montserrat" }}>
+        <Modal
+          open={open}
+          onClose={this.onCloseModal}
+          styles={{ modal: modalText }}
+        >
+          <h2>This teachback has been successfully removed.</h2>
+        </Modal>
         <Row>
           <Col size="md-6">
             <Jumbotron>
@@ -351,7 +376,7 @@ class TBprofile extends Component {
                 <Col size="md-6">
                   {/* Submit button */}
                   <FormBtn
-                    onClick={this.removeTeachback}
+                    onClick={(event) => this.removeTeachback(event)}
                     customStyles={removeBtn}
                   >
                     Remove This Teachback
