@@ -16,8 +16,10 @@ const navText = {
 const Nav = (props) => (
   <div className="container-fluid">
     <div className="row" style={navStyles}>
-      <div className="col-xs-12 col-sm-1" style={navText}>
-        <a href="/">SecondLook</a>
+      <div className="col-xs-12 col-sm-1">
+        <a href="/" style={navText}>
+          SecondLook
+        </a>
       </div>
       {props.userID ? (
         <div>
@@ -41,7 +43,6 @@ const Nav = (props) => (
         </div>
       ) : null}
     </div>
-    )
   </div>
 );
 
