@@ -1,27 +1,40 @@
 import React from "react";
-import NavOptions from "../NavOptions";
-import "./Nav.css";
 
-const Nav = props => (
-  <nav id="mainNav" className="navbar navbar-inverse navbar-top">
-    <div className="container-fluid">
-      <div className="navbar-header">
-        <button
-          type="button"
-          id="toggleNav"
-          className="collapsed navbar-toggle"
-        >
-          <span className="sr-only">Toggle navigation</span>
-          <span className="icon-bar" /> <span className="icon-bar" />
-          <span className="icon-bar" />
-        </button>
-        <a href="/" className="navbar-brand">
-          SecondLook
+const navStyles = {
+  backgroundColor: "rgb(50, 198, 230)",
+  borderColor: "rgb(50, 198, 230)",
+};
+
+const navText = {
+  fontFamily: "Montserrat",
+  fontSize: "2rem",
+};
+
+const Nav = (props) => (
+  <div className="container-fluid">
+    <div className="row" style={navStyles}>
+      <div className="col-xs-12 col-sm-2" style={navText}>
+        <a href="/">SecondLook</a>
+      </div>
+      <div className="col-xs-12 col-sm-2 col-sm-offset-4">
+        <a href={`/submit/${props.userID}`} style={navText}>
+          Submit
         </a>
       </div>
-      {props.userID ? <NavOptions userID={props.userID} /> : null}
+      <div className="col-xs-12 col-sm-2">
+        {props.userID === "5e83630b5fce490017a3930e" ? (
+          <a href={`/assign/${props.userID}`} style={navText}>
+            Assign
+          </a>
+        ) : null}
+      </div>
+      <div className="col-xs-12 col-sm-2">
+        <a href="/auth/logout" style={navText}>
+          Logout
+        </a>
+      </div>
     </div>
-  </nav>
+  </div>
 );
 
 export default Nav;
