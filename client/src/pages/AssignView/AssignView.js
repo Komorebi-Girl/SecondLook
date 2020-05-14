@@ -70,7 +70,7 @@ class AssignView extends Component {
                 {this.state.teachbacks.map((teachback) => {
                   return (
                     <Row>
-                      <Col size="xs-6" customStyles="col-sm-8">
+                      <Col size="xs-5" customStyles="col-sm-8">
                         <ListItem key={teachback._id}>
                           <strong style={tbText}>
                             {teachback.candidateName}
@@ -81,7 +81,10 @@ class AssignView extends Component {
                           </div>
                         </ListItem>
                       </Col>
-                      <Col size="xs-2" customStyles="col-sm-2">
+                      <Col
+                        size="xs-2"
+                        customStyles="col-sm-2 col-md-2 col-md-push-1"
+                      >
                         <AssignDropdown
                           tbID={teachback._id}
                           users={this.state.users}

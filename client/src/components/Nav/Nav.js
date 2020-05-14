@@ -25,7 +25,7 @@ const Nav = (props) => (
       {props.userID ? (
         <div>
           <div
-            className="col-xs-12 col-sm-1 col-sm-push-5"
+            className="col-xs-12 col-sm-2 col-sm-push-5 col-md-1 col-md-push-6"
             style={{ textAlign: "center" }}
           >
             <a href={`/submit/${props.userID}`} style={navText}>
@@ -34,7 +34,7 @@ const Nav = (props) => (
           </div>
           {props.userID === "5e83630b5fce490017a3930e" ? (
             <div
-              className="col-xs-12 col-sm-1 col-sm-push-6"
+              className="col-xs-12 col-sm-2 col-sm-push-5 col-md-3 col-md-push-6"
               style={{ textAlign: "center" }}
             >
               <a href={`/assign/${props.userID}`} style={navText}>
@@ -43,7 +43,7 @@ const Nav = (props) => (
             </div>
           ) : null}
           <div
-            className="col-xs-12 col-sm-1 col-sm-push-7"
+            className="col-xs-12 col-sm-2 col-sm-push-5 col-md-2 col-md-push-5"
             style={{ textAlign: "center" }}
           >
             <a href="/auth/logout" style={navText}>
