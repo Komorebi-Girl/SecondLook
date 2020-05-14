@@ -83,7 +83,7 @@ class AssignView extends Component {
                       </Col>
                       <Col
                         size="xs-2"
-                        customStyles="col-sm-2 col-md-2 col-md-push-1"
+                        customStyles="col-sm-2 col-md-2 col-md-push-1 col-lg-2 col-lg-push-2"
                       >
                         <AssignDropdown
                           tbID={teachback._id}
