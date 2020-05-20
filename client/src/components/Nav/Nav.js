@@ -22,28 +22,28 @@ const Nav = (props) => (
           SecondLook
         </a>
       </div>
+      {props.userID === "5e83630b5fce490017a3930e" ? (
+        <div
+          className="col-xs-12 col-sm-2 col-sm-push-5 col-md-1 col-md-push-8 col-lg-1 col-lg-push-8"
+          style={{ textAlign: "center" }}
+        >
+          <a href={`/assign/${props.userID}`} style={navText}>
+            Assign
+          </a>
+        </div>
+      ) : null}
       {props.userID ? (
         <div>
           <div
-            className="col-xs-12 col-sm-2 col-sm-push-5 col-md-1 col-md-push-6 col-lg-1 col-lg-push-8"
+            className="col-xs-12 col-sm-2 col-sm-push-5 col-md-1 col-md-push-8 col-lg-1 col-lg-push-8"
             style={{ textAlign: "center" }}
           >
             <a href={`/submit/${props.userID}`} style={navText}>
               Submit
             </a>
           </div>
-          {props.userID === "5e83630b5fce490017a3930e" ? (
-            <div
-              className="col-xs-12 col-sm-2 col-sm-push-5 col-md-3 col-md-push-6 col-lg-1 col-lg-push-8"
-              style={{ textAlign: "center" }}
-            >
-              <a href={`/assign/${props.userID}`} style={navText}>
-                Assign
-              </a>
-            </div>
-          ) : null}
           <div
-            className="col-xs-12 col-sm-2 col-sm-push-5 col-md-2 col-md-push-5 col-lg-1 col-lg-push-8"
+            className="col-xs-12 col-sm-2 col-sm-push-5 col-md-1 col-md-push-8 col-lg-1 col-lg-push-8"
             style={{ textAlign: "center" }}
           >
             <a href="/auth/logout" style={navText}>
