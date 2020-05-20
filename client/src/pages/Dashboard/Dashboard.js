@@ -18,9 +18,9 @@ const completedBtn = {
   fontFamily: "Montserrat",
   fontWeight: 600,
   fontSize: "1.75rem",
-  width: "100%",
   position: "relative",
   top: "24px",
+  right: "10px",
 };
 
 const pendingBtn = {
@@ -29,9 +29,9 @@ const pendingBtn = {
   fontFamily: "Montserrat",
   fontWeight: 600,
   fontSize: "1.75rem",
-  height: "50%",
-  marginTop: "25%",
-  marginBottom: "25%",
+  position: "relative",
+  top: "24px",
+  right: "10px",
 };
 
 const tbHeader = {
@@ -144,7 +144,7 @@ class Dashboard extends Component {
                 {this.state.submittedTeachbacks.map((teachback) => {
                   return (
                     <Row>
-                      <Col size="md-9">
+                      <Col size="md-9" customStyles="col-sm-8">
                         <ListItem key={teachback._id}>
                           <a
                             href={`/view/${this.state.userID}/${teachback._id}`}
@@ -159,7 +159,7 @@ class Dashboard extends Component {
                           </a>
                         </ListItem>
                       </Col>
-                      <Col size="md-3">
+                      <Col size="md-3" customStyles="col-sm-4">
                         {teachback.reviewerResult === "N/A" ? (
                           <button style={pendingBtn} type="button">
                             Review Pending
