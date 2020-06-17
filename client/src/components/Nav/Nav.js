@@ -30,6 +30,9 @@ const Nav = (props) => (
           <a href={`/assign/${props.userID}`} style={navText}>
             Assign
           </a>
+          <a href={`/manage/${props.userID}`} style={navText}>
+            Assign
+          </a>
         </div>
       ) : null}
       {props.userID ? (
