@@ -57,6 +57,11 @@ class ManagerView extends Component {
       .catch((err) => console.log(err));
   };
 
+  deleteTeachback = (id) => {
+    API.deleteTeachback(id);
+    window.location.reload();
+  };
+
   render() {
     return (
       <Container fluid>
@@ -86,20 +91,29 @@ class ManagerView extends Component {
                         </ListItem>
                       </Col>
                       <Col size="md-3" customStyles="col-xs-4">
-                        <button style={viewBtn} type="button">
-                          <a
+                        <button
+                          style={viewBtn}
+                          type="button"
+                          onClick={() =>
+                            window.location.replace(
+                              `//secondlook-2u.herokuapp.com/view/${this.state.userID}/${teachback._id}`
+                            )
+                          }
+                        >
+                          {/* <a
                             style={{ color: "rgb(255,255,255)" }}
                             href={`/view/${this.state.userID}/${teachback._id}`}
                           >
                             View Teachback
-                          </a>
+                          </a> */}
+                          View Teachback
                         </button>
                       </Col>
                       <Col size="md-3" customStyles="col-xs-4">
                         <button
                           style={deleteBtn}
                           type="button"
-                          onClick={() => API.deleteTeachback(teachback._id)}
+                          onClick={() => this.deleteTeachback(teachback._id)}
                         >
                           Delete Teachback
                         </button>
