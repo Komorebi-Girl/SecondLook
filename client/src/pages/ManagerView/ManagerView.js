@@ -20,6 +20,16 @@ const tbText = {
 
 const viewBtn = {
   backgroundColor: "rgb(50, 198, 230)",
+  fontFamily: "Montserrat",
+  fontWeight: 600,
+  fontSize: "1.75rem",
+  position: "relative",
+  top: "24px",
+  right: "10px",
+};
+
+const deleteBtn = {
+  backgroundColor: "rgb(255,0,0)",
   color: "rgb(255,255,255)",
   fontFamily: "Montserrat",
   fontWeight: 600,
@@ -78,10 +88,20 @@ class ManagerView extends Component {
                       <Col size="md-3" customStyles="col-xs-4">
                         <button style={viewBtn} type="button">
                           <a
+                            style={{ color: "rgb(255,255,255)" }}
                             href={`/view/${this.state.userID}/${teachback._id}`}
                           >
                             View Teachback
                           </a>
+                        </button>
+                      </Col>
+                      <Col size="md-3" customStyles="col-xs-4">
+                        <button
+                          style={deleteBtn}
+                          type="button"
+                          onClick={() => API.deleteTeachback(teachback._id)}
+                        >
+                          Delete Teachback
                         </button>
                       </Col>
                     </Row>

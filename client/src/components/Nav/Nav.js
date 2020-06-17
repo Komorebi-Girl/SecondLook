@@ -31,7 +31,7 @@ const Nav = (props) => (
             Assign
           </a>
           <a href={`/manage/${props.userID}`} style={navText}>
-            Assign
+            Manage
           </a>
         </div>
       ) : null}
