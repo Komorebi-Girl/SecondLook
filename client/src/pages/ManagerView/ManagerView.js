@@ -20,6 +20,7 @@ const tbText = {
 
 const viewBtn = {
   backgroundColor: "rgb(50, 198, 230)",
+  color: "rgb(255,255,255)",
   fontFamily: "Montserrat",
   fontWeight: 600,
   fontSize: "1.75rem",
@@ -62,6 +63,12 @@ class ManagerView extends Component {
     window.location.reload();
   };
 
+  viewTeachback = (userID, tbID) => {
+    window.location.replace(
+      `//secondlook-2u.herokuapp.com/view/${userID}/${tbID}`
+    );
+  };
+
   render() {
     return (
       <Container fluid>
@@ -95,9 +102,7 @@ class ManagerView extends Component {
                           style={viewBtn}
                           type="button"
                           onClick={() =>
-                            window.location.replace(
-                              `//secondlook-2u.herokuapp.com/view/${this.state.userID}/${teachback._id}`
-                            )
+                            this.viewTeachback(this.state.userID, teachback._id)
                           }
                         >
                           {/* <a
