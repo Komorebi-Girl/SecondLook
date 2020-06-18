@@ -30,6 +30,13 @@ const Nav = (props) => (
           <a href={`/assign/${props.userID}`} style={navText}>
             Assign
           </a>
+        </div>
+      ) : null}
+      {props.userID === "5e83630b5fce490017a3930e" ? (
+        <div
+          className="col-xs-12 col-sm-2 col-sm-push-5 col-md-1 col-md-push-8 col-lg-1 col-lg-push-8"
+          style={{ textAlign: "center" }}
+        >
           <a href={`/manage/${props.userID}`} style={navText}>
             Manage
           </a>

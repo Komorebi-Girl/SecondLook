@@ -25,7 +25,7 @@ const viewBtn = {
   fontWeight: 600,
   fontSize: "1.75rem",
   position: "relative",
-  top: "24px",
+  top: "14px",
   right: "10px",
   height: "57px",
 };
