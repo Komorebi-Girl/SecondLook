@@ -36,8 +36,9 @@ const deleteBtn = {
   fontWeight: 600,
   fontSize: "1.75rem",
   position: "relative",
-  top: "24px",
+  top: "14px",
   right: "10px",
+  height: "57px",
 };
 
 class ManagerView extends Component {
@@ -86,7 +87,7 @@ class ManagerView extends Component {
                 {this.state.teachbacks.map((teachback) => {
                   return (
                     <Row>
-                      <Col size="xs-5" customStyles="col-sm-8">
+                      <Col size="xs-6" customStyles="">
                         <ListItem key={teachback._id}>
                           <strong style={tbText}>
                             {teachback.candidateName}
@@ -97,31 +98,40 @@ class ManagerView extends Component {
                           </div>
                         </ListItem>
                       </Col>
-                      <Col size="md-3" customStyles="col-xs-4">
-                        <button
-                          style={viewBtn}
-                          type="button"
-                          onClick={() =>
-                            this.viewTeachback(this.state.userID, teachback._id)
-                          }
-                        >
-                          {/* <a
-                            style={{ color: "rgb(255,255,255)" }}
-                            href={`/view/${this.state.userID}/${teachback._id}`}
+                      <Col size="xs-6">
+                        <Row>
+                          <Col
+                            size="xs-12"
+                            customStyles="col-sm-6 col-md-4 col-md-push-3 col-lg-4 col-lg-push-5"
                           >
-                            View Teachback
-                          </a> */}
-                          View Teachback
-                        </button>
-                      </Col>
-                      <Col size="md-3" customStyles="col-xs-4">
-                        <button
-                          style={deleteBtn}
-                          type="button"
-                          onClick={() => this.deleteTeachback(teachback._id)}
-                        >
-                          Delete Teachback
-                        </button>
+                            <button
+                              style={viewBtn}
+                              type="button"
+                              onClick={() =>
+                                this.viewTeachback(
+                                  this.state.userID,
+                                  teachback._id
+                                )
+                              }
+                            >
+                              View Teachback
+                            </button>
+                          </Col>
+                          <Col
+                            size="xs-12"
+                            customStyles="col-sm-6 col-md-4 col-md-push-3 col-lg-4 col-lg-push-4"
+                          >
+                            <button
+                              style={deleteBtn}
+                              type="button"
+                              onClick={() =>
+                                this.deleteTeachback(teachback._id)
+                              }
+                            >
+                              Delete Teachback
+                            </button>
+                          </Col>
+                        </Row>
                       </Col>
                     </Row>
                   );
