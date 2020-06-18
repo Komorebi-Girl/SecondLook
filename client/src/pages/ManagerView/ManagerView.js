@@ -27,6 +27,7 @@ const viewBtn = {
   position: "relative",
   top: "24px",
   right: "10px",
+  height: "57px",
 };
 
 const deleteBtn = {
