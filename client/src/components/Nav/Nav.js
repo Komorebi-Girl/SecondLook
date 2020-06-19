@@ -59,7 +59,7 @@ const Nav = (props) => (
         </div>
       ) : null}
 
-      {props.userID ? (
+      {props.userID && props.userID !== "5e83630b5fce490017a3930e" ? (
         <div>
           <div
             className="col-xs-12 col-sm-2 col-sm-push-7 col-md-1 col-md-push-7 col-lg-1 col-lg-push-9"
