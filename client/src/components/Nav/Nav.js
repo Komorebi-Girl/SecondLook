@@ -1,27 +1,86 @@
 import React from "react";
-import NavOptions from "../NavOptions";
-import "./Nav.css";
 
-const Nav = props => (
-  <nav id="mainNav" className="navbar navbar-inverse navbar-top">
-    <div className="container-fluid">
-      <div className="navbar-header">
-        <button
-          type="button"
-          id="toggleNav"
-          className="collapsed navbar-toggle"
-        >
-          <span className="sr-only">Toggle navigation</span>
-          <span className="icon-bar" /> <span className="icon-bar" />
-          <span className="icon-bar" />
-        </button>
-        <a href="/" className="navbar-brand">
+const navStyles = {
+  backgroundColor: "rgb(50, 198, 230)",
+  borderColor: "rgb(50, 198, 230)",
+  padding: "22px 0px",
+};
+
+const navText = {
+  fontFamily: "Montserrat",
+  fontSize: "2rem",
+  color: "rgb(255,255,255)",
+  textDecoration: "none",
+  fontWeight: 600,
+};
+
+const Nav = (props) => (
+  <div className="container-fluid">
+    <div className="row" style={navStyles}>
+      <div className="col-xs-12 col-sm-1" style={{ textAlign: "center" }}>
+        <a href="/" style={navText}>
           SecondLook
         </a>
       </div>
-      {props.userID ? <NavOptions userID={props.userID} /> : null}
+      {props.userID === "5e83630b5fce490017a3930e" ? (
+        <div>
+          <div
+            className="col-xs-12 col-sm-2 col-sm-push-3 col-md-1 col-md-push-6 col-lg-1 col-lg-push-7"
+            style={{ textAlign: "center" }}
+          >
+            <a href={`/assign/${props.userID}`} style={navText}>
+              Assign
+            </a>
+          </div>
+          <div
+            className="col-xs-12 col-sm-2 col-sm-push-3 col-md-1 col-md-push-6 col-lg-1 col-lg-push-7"
+            style={{ textAlign: "center" }}
+          >
+            <a href={`/manage/${props.userID}`} style={navText}>
+              Manage
+            </a>
+          </div>
+          <div
+            className="col-xs-12 col-sm-2 col-sm-push-3 col-md-1 col-md-push-6 col-lg-1 col-lg-push-7"
+            style={{ textAlign: "center" }}
+          >
+            <a href={`/submit/${props.userID}`} style={navText}>
+              Submit
+            </a>
+          </div>
+          <div
+            className="col-xs-12 col-sm-2 col-sm-push-3 col-md-1 col-md-push-6 col-lg-1 col-lg-push-7"
+            style={{ textAlign: "center" }}
+          >
+            <a href="/auth/logout" style={navText}>
+              Logout
+            </a>
+          </div>
+        </div>
+      ) : null}
+
+      {props.userID && props.userID !== "5e83630b5fce490017a3930e" ? (
+        <div>
+          <div
+            className="col-xs-12 col-sm-2 col-sm-push-7 col-md-1 col-md-push-7 col-lg-1 col-lg-push-9"
+            style={{ textAlign: "center" }}
+          >
+            <a href={`/submit/${props.userID}`} style={navText}>
+              Submit
+            </a>
+          </div>
+          <div
+            className="col-xs-12 col-sm-2 col-sm-push-7 col-md-1 col-md-push-8 col-lg-1 col-lg-push-9"
+            style={{ textAlign: "center" }}
+          >
+            <a href="/auth/logout" style={navText}>
+              Logout
+            </a>
+          </div>
+        </div>
+      ) : null}
     </div>
-  </nav>
+  </div>
 );
 
 export default Nav;

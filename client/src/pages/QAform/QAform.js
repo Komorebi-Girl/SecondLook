@@ -18,7 +18,6 @@ const jumbotronText = {
 const submitBtn = {
   marginTop: "2.7rem",
   marginBottom: "2.7rem",
-  marginLeft: "17rem",
   width: "100%",
 };
 
@@ -153,9 +152,9 @@ class QAform extends Component {
           <h2>Your review has been successfully submitted!</h2>
         </Modal>
         <Row>
-          <Col size="md-6">
+          <Col size="md-4" customStyles="col-lg-6">
             <Jumbotron>
-              <h1 style={jumbotronText}>Teachback Profile</h1>
+              <h1 style={jumbotronText}>TB Info</h1>
             </Jumbotron>
             <form>
               {/* Input boxes for the data that must be filled-in*/}
@@ -189,7 +188,7 @@ class QAform extends Component {
               />
             </form>
           </Col>
-          <Col size="md-6">
+          <Col size="md-8" customStyles="col-lg-6">
             <Jumbotron>
               <h1 style={jumbotronText}>Submit Your Scores</h1>
             </Jumbotron>
@@ -348,7 +347,10 @@ class QAform extends Component {
                       onClick={() => this.handleCheckboxInput("hasSummary")}
                       style={{ marginLeft: "3rem" }}
                     ></input>
-                    <label for="summary" style={{ marginLeft: "1rem" }}>
+                    <label
+                      for="summary"
+                      style={{ marginLeft: "1rem", display: "inline" }}
+                    >
                       --> A detailed, public-facing summary, 2-3 sentences long
                     </label>
                     <br></br>
@@ -360,7 +362,10 @@ class QAform extends Component {
                       onClick={() => this.handleCheckboxInput("hasBullets")}
                       style={{ marginLeft: "3rem" }}
                     ></input>
-                    <label for="bullets" style={{ marginLeft: "1rem" }}>
+                    <label
+                      for="bullets"
+                      style={{ marginLeft: "1rem", display: "inline" }}
+                    >
                       --> Bullet-style notes included under each heading
                     </label>
                     <br></br>
@@ -372,7 +377,10 @@ class QAform extends Component {
                       onClick={() => this.handleCheckboxInput("hasNotes")}
                       style={{ marginLeft: "3rem" }}
                     ></input>
-                    <label for="notes" style={{ marginLeft: "1rem" }}>
+                    <label
+                      for="notes"
+                      style={{ marginLeft: "1rem", display: "inline" }}
+                    >
                       --> Descriptive, well-formatted and grammatically correct
                       notes
                     </label>
@@ -381,7 +389,7 @@ class QAform extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col size="md-6">
+                <Col size="sm-10" customStyles="col-xs-12 col-sm-push-1">
                   {/* Submit button */}
                   <FormBtn
                     disabled={!this.validateAllValues(this.state)}

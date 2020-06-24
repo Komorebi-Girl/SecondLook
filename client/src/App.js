@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 import API from "./utils/API";
 import Nav from "./components/Nav";
@@ -13,10 +13,11 @@ import QAform from "./pages/QAform";
 import Login from "./pages/Login";
 import TBprofile from "./pages/TBprofile";
 import AssignView from "./pages/AssignView";
+import ManagerView from "./pages/ManagerView";
 
 class App extends Component {
   state = {
-    userID: ""
+    userID: "",
   };
 
   componentDidMount() {
@@ -24,7 +25,7 @@ class App extends Component {
   }
 
   loadUser = () => {
-    API.returnUser().then(res => this.setState({ userID: res.data._id }));
+    API.returnUser().then((res) => this.setState({ userID: res.data._id }));
   };
 
   render() {
@@ -45,6 +46,7 @@ class App extends Component {
             <Route path="/submit/:userID" component={Teachbacks} />
             <Route path="/review/:userID/:tbID" component={QAform} />
             <Route path="/view/:userID/:tbID" component={TBprofile} />
+            <Route path="/manage/:userID" component={ManagerView} />
           </Switch>
         </div>
       </Router>
