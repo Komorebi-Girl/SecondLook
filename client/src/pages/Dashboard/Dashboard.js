@@ -144,7 +144,7 @@ class Dashboard extends Component {
                 {this.state.submittedTeachbacks.map((teachback) => {
                   return (
                     <Row>
-                      <Col size="md-9" customStyles="col-xs-8">
+                      <Col size="xs-8" customStyles="col-md-8">
                         <ListItem key={teachback._id}>
                           <a
                             href={`/view/${this.state.userID}/${teachback._id}`}
@@ -159,7 +159,7 @@ class Dashboard extends Component {
                           </a>
                         </ListItem>
                       </Col>
-                      <Col size="md-3" customStyles="col-xs-4">
+                      <Col size="xs-4" customStyles="col-md-3 col-md-push-1">
                         {teachback.reviewerResult === "N/A" ? (
                           <button style={pendingBtn} type="button">
                             Review Pending
