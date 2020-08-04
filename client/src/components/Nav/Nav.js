@@ -14,6 +14,16 @@ const navText = {
   fontWeight: 600,
 };
 
+// Close the dropdown if the user clicks outside of it
+window.onclick = function (e) {
+  if (!e.target.matches(".dropbtn")) {
+    var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains("show")) {
+      myDropdown.classList.remove("show");
+    }
+  }
+};
+
 const Nav = (props) => (
   <div className="container-fluid">
     <div className="row" style={navStyles}>
@@ -61,13 +71,32 @@ const Nav = (props) => (
 
       {props.userID && props.userID !== "5e83630b5fce490017a3930e" ? (
         <div>
-          <div
+          {/* <div
             className="col-xs-12 col-sm-2 col-sm-push-7 col-md-1 col-md-push-7 col-lg-1 col-lg-push-9"
             style={{ textAlign: "center" }}
           >
             <a href={`/submit/${props.userID}`} style={navText}>
               Submit
             </a>
+          </div> */}
+          <div
+            className="col-xs-12 col-sm-2 col-sm-push-7 col-md-1 col-md-push-7 col-lg-1 col-lg-push-9 dropdown"
+            style={{ textAlign: "center" }}
+          >
+            <button
+              class="dropbtn"
+              onClick={() =>
+                document.getElementById("myDropdown").classList.toggle("show")
+              }
+              style={navText}
+            >
+              Submit
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content" id="myDropdown">
+              <a href={`/submit/${props.userID}`}>Submit TB</a>
+              <a href="#">Submit TA Final</a>
+            </div>
           </div>
           <div
             className="col-xs-12 col-sm-2 col-sm-push-7 col-md-1 col-md-push-8 col-lg-1 col-lg-push-9"

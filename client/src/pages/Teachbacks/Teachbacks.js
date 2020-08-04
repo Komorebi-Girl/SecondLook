@@ -39,6 +39,7 @@ class Teachbacks extends Component {
     reviewerResult: "N/A",
     isVisible: "True",
     open: false,
+    isTAreview: false,
   };
 
   onOpenModal = () => {
@@ -48,6 +49,10 @@ class Teachbacks extends Component {
   onCloseModal = () => {
     this.setState({ open: false });
     window.location.reload();
+  };
+
+  switchForm = () => {
+    this.setState({ isTAreview: true });
   };
 
   // Handles updating component state when the user types into the input field
