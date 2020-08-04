@@ -51,12 +51,23 @@ const Nav = (props) => (
             </a>
           </div>
           <div
-            className="col-xs-12 col-sm-2 col-sm-push-3 col-md-1 col-md-push-6 col-lg-1 col-lg-push-7"
+            className="col-xs-12 col-sm-2 col-sm-push-7 col-md-1 col-md-push-7 col-lg-1 col-lg-push-9 dropdown"
             style={{ textAlign: "center" }}
           >
-            <a href={`/submit/${props.userID}`} style={navText}>
+            <button
+              class="dropbtn"
+              onClick={() =>
+                document.getElementById("myDropdown").classList.toggle("show")
+              }
+              style={navText}
+            >
               Submit
-            </a>
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content" id="myDropdown">
+              <a href={`/submit/${props.userID}`}>Submit TB</a>
+              <a href="#">Submit TA Final</a>
+            </div>
           </div>
           <div
             className="col-xs-12 col-sm-2 col-sm-push-3 col-md-1 col-md-push-6 col-lg-1 col-lg-push-7"
