@@ -68,6 +68,7 @@ class Teachbacks extends Component {
   };
 
   updateFinalResult = (event) => {
+    console.log("here", this.state);
     // Save the final result to submitterResult
     this.setState({
       value: event.target.value,
@@ -79,27 +80,48 @@ class Teachbacks extends Component {
  Then reload teachbacks from the database */
   handleFormSubmit = (event) => {
     if (this.validateAllValues(this.state)) {
-      console.log("here", this.state);
       this.onOpenModal();
-      API.saveTeachback({
-        candidateName: this.state.candidateName,
-        role: this.state.role,
-        university: this.state.university,
-        programType: this.state.programType,
-        reviewedBy: this.state.reviewedBy,
-        submittedBy: this.state.submittedBy,
-        zoomLink: this.state.zoomLink,
-        cohortStartDate: this.state.cohortStartDate,
-        submitterScores: this.state.submitterScores,
-        reviewerScores: this.state.reviewerScores,
-        submitterResult: this.state.submitterResult,
-        reviewerResult: this.state.reviewerResult,
-        isVisible: this.state.isVisible,
-      })
-        .then((res) => {
-          res.status(200).send("Teachback Saved");
+      if (this.state.role === "Instructor") {
+        API.saveTeachback({
+          candidateName: this.state.candidateName,
+          role: this.state.role,
+          university: this.state.university,
+          programType: this.state.programType,
+          reviewedBy: this.state.reviewedBy,
+          submittedBy: this.state.submittedBy,
+          zoomLink: this.state.zoomLink,
+          cohortStartDate: this.state.cohortStartDate,
+          submitterScores: this.state.submitterScores,
+          reviewerScores: this.state.reviewerScores,
+          submitterResult: this.state.submitterResult,
+          reviewerResult: this.state.reviewerResult,
+          isVisible: this.state.isVisible,
         })
-        .catch((err) => console.log(err));
+          .then((res) => {
+            res.status(200).send("Info Saved");
+          })
+          .catch((err) => console.log(err));
+      } else if (this.state.role === "TA") {
+        API.saveTAFinal({
+          candidateName: this.state.candidateName,
+          role: this.state.role,
+          university: this.state.university,
+          programType: this.state.programType,
+          reviewedBy: this.state.reviewedBy,
+          submittedBy: this.state.submittedBy,
+          zoomLink: this.state.zoomLink,
+          cohortStartDate: this.state.cohortStartDate,
+          submitterScores: this.state.submitterScores,
+          reviewerScores: this.state.reviewerScores,
+          submitterResult: this.state.submitterResult,
+          reviewerResult: this.state.reviewerResult,
+          isVisible: this.state.isVisible,
+        })
+          .then((res) => {
+            res.status(200).send("Info Saved");
+          })
+          .catch((err) => console.log(err));
+      }
     }
   };
 
@@ -123,13 +145,17 @@ class Teachbacks extends Component {
           onClose={this.onCloseModal}
           styles={{ modal: modalText }}
         >
-          <h2>Your teachback has been successfully submitted!</h2>
+          <h2>
+            Your {this.state.role === "Instructor" ? "Teachback!" : "TA Final"}{" "}
+            has been successfully submitted!
+          </h2>
         </Modal>
         <Row>
           <Col size="md-6" customStyles="col-md-offset-3">
             <Jumbotron>
               <h1 style={jumbotronText}>
-                Submit a {this.state.role === "ins" ? "Teachback!" : "TA Final"}
+                Submit a{" "}
+                {this.state.role === "Instructor" ? "Teachback!" : "TA Final"}
               </h1>
             </Jumbotron>
           </Col>
@@ -190,7 +216,7 @@ class Teachbacks extends Component {
                   />
                 </Col>
                 <Col size="md-4">
-                  {this.state.role === "ins" ? (
+                  {this.state.role === "Instructor" ? (
                     <Dropdown
                       category="Pace"
                       index={2}
@@ -230,7 +256,7 @@ class Teachbacks extends Component {
                 </Col>
               </Row>
               <Row>
-                {this.state.role === "ins" ? (
+                {this.state.role === "Instructor" ? (
                   <div>
                     <Col size="md-4">
                       <Dropdown
@@ -274,7 +300,10 @@ class Teachbacks extends Component {
                     disabled={!this.validateAllValues(this.state)}
                     onClick={this.handleFormSubmit}
                   >
-                    Submit Teachback
+                    Submit{" "}
+                    {this.state.role === "Instructor"
+                      ? "Teachback!"
+                      : "TA Final"}
                   </FormBtn>
                 </Col>
               </Row>

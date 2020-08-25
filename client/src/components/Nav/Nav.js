@@ -64,8 +64,8 @@ const Nav = (props) => (
               Submit
             </button>
             <div class="dropdown-content" id="myDropdown">
-              <a href={`/submit/${props.userID}`}>Submit TB</a>
-              <a href="#">Submit TA Final</a>
+              <a href={`/submit/${props.userID}/Instructor`}>Submit TB</a>
+              <a href={`/submit/${props.userID}/TA`}>Submit TA Final</a>
             </div>
           </div>
           <div
@@ -95,8 +95,8 @@ const Nav = (props) => (
               Submit
             </button>
             <div class="dropdown-content" id="myDropdown">
-              <a href={`/submit/${props.userID}`}>Submit TB</a>
-              <a href="#">Submit TA Final</a>
+              <a href={`/submit/${props.userID}/Instructor`}>Submit TB</a>
+              <a href={`/submit/${props.userID}/TA`}>Submit TA Final</a>
             </div>
           </div>
           <div
