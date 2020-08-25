@@ -43,7 +43,7 @@ class App extends Component {
             </Route>
             <Route path="/dashboard/:userID" component={Dashboard} />
             <Route path="/assign/:userID" component={AssignView} />
-            <Route path="/submit/:userID" component={Teachbacks} />
+            <Route path="/submit/:userID/:role" component={Teachbacks} />
             <Route path="/review/:userID/:tbID" component={QAform} />
             <Route path="/view/:userID/:tbID" component={TBprofile} />
             <Route path="/manage/:userID" component={ManagerView} />

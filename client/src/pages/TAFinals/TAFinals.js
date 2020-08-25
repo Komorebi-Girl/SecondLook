@@ -22,11 +22,11 @@ const modalText = {
   padding: "3.2rem",
 };
 
-class Teachbacks extends Component {
+class TAFinals extends Component {
   // Setting our component's initial state
   state = {
     candidateName: "",
-    role: this.props.match.params.role,
+    role: "",
     university: "",
     programType: "",
     submittedBy: this.props.match.params.userID,
@@ -79,7 +79,6 @@ class Teachbacks extends Component {
  Then reload teachbacks from the database */
   handleFormSubmit = (event) => {
     if (this.validateAllValues(this.state)) {
-      console.log("here", this.state);
       this.onOpenModal();
       API.saveTeachback({
         candidateName: this.state.candidateName,
@@ -97,7 +96,7 @@ class Teachbacks extends Component {
         isVisible: this.state.isVisible,
       })
         .then((res) => {
-          res.status(200).send("Teachback Saved");
+          res.status(200).send("TA Final Saved");
         })
         .catch((err) => console.log(err));
     }
@@ -123,14 +122,12 @@ class Teachbacks extends Component {
           onClose={this.onCloseModal}
           styles={{ modal: modalText }}
         >
-          <h2>Your teachback has been successfully submitted!</h2>
+          <h2>Your TA Final review has been successfully submitted!</h2>
         </Modal>
         <Row>
           <Col size="md-6" customStyles="col-md-offset-3">
             <Jumbotron>
-              <h1 style={jumbotronText}>
-                Submit a {this.state.role === "ins" ? "Teachback!" : "TA Final"}
-              </h1>
+              <h1 style={jumbotronText}>Submit a TA Final Review!</h1>
             </Jumbotron>
           </Col>
         </Row>
@@ -190,23 +187,14 @@ class Teachbacks extends Component {
                   />
                 </Col>
                 <Col size="md-4">
-                  {this.state.role === "ins" ? (
-                    <Dropdown
-                      category="Pace"
-                      index={2}
-                      updateScores={this.updateScores}
-                    />
-                  ) : (
-                    <Dropdown
-                      category="Guidance"
-                      index={2}
-                      updateScores={this.updateScores}
-                    />
-                  )}
+                  <Dropdown
+                    category="Pace"
+                    index={2}
+                    updateScores={this.updateScores}
+                  />
                 </Col>
               </Row>
               <Row>
-                {}
                 <Col size="md-4">
                   <Dropdown
                     category="Clarity"
@@ -223,39 +211,27 @@ class Teachbacks extends Component {
                 </Col>
                 <Col size="md-4">
                   <Dropdown
-                    category="Responses"
-                    index={5}
+                    category="Industry"
+                    index={6}
                     updateScores={this.updateScores}
                   />
                 </Col>
               </Row>
               <Row>
-                {this.state.role === "ins" ? (
-                  <div>
-                    <Col size="md-4">
-                      <Dropdown
-                        category="Industry"
-                        index={6}
-                        updateScores={this.updateScores}
-                      />
-                    </Col>
-                    <Col size="md-4">
-                      <Dropdown
-                        category="Coachability"
-                        index={7}
-                        updateScores={this.updateScores}
-                      />
-                    </Col>
-                  </div>
-                ) : (
-                  <Col size="md-4">
-                    <Dropdown
-                      category="Coachability"
-                      index={6}
-                      updateScores={this.updateScores}
-                    />
-                  </Col>
-                )}
+                <Col size="md-4">
+                  <Dropdown
+                    category="Responses"
+                    index={5}
+                    updateScores={this.updateScores}
+                  />
+                </Col>
+                <Col size="md-4">
+                  <Dropdown
+                    category="Coachability"
+                    index={7}
+                    updateScores={this.updateScores}
+                  />
+                </Col>
                 <Col size="md-4">
                   <select onChange={this.updateFinalResult}>
                     <option selected value="default">
