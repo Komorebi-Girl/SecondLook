@@ -25,7 +25,7 @@ export default {
     return axios.post("/api/taFinals", taFinalData);
   },
   getTeachbacks: function () {
-    return axios.get("/api/taFinals");
+    return axios.get("/api/teachbacks");
   },
   // Gets all teachbacks associated with a particular user
   getUserTeachbacks: function (userID) {
