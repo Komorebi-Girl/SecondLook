@@ -22,7 +22,7 @@ const modalText = {
   padding: "3.2rem",
 };
 
-class Teachbacks extends Component {
+class SubmitForm extends Component {
   // Setting our component's initial state
   state = {
     candidateName: "",
@@ -68,7 +68,6 @@ class Teachbacks extends Component {
   };
 
   updateFinalResult = (event) => {
-    console.log("here", this.state);
     // Save the final result to submitterResult
     this.setState({
       value: event.target.value,
@@ -76,8 +75,7 @@ class Teachbacks extends Component {
     });
   };
 
-  /* When the form is submitted, use the API.saveTeachback method to save the teachback data
- Then reload teachbacks from the database */
+  // When the form is submitted, use the API.saveTeachback or API.saveTAFinal method to save the data to the appropriate table
   handleFormSubmit = (event) => {
     if (this.validateAllValues(this.state)) {
       this.onOpenModal();
@@ -98,7 +96,7 @@ class Teachbacks extends Component {
           isVisible: this.state.isVisible,
         })
           .then((res) => {
-            res.status(200).send("Info Saved");
+            res.status(200).send("Teachback Saved");
           })
           .catch((err) => console.log(err));
       } else if (this.state.role === "TA") {
@@ -118,7 +116,7 @@ class Teachbacks extends Component {
           isVisible: this.state.isVisible,
         })
           .then((res) => {
-            res.status(200).send("Info Saved");
+            res.status(200).send("TA Final Saved");
           })
           .catch((err) => console.log(err));
       }
@@ -315,4 +313,4 @@ class Teachbacks extends Component {
   }
 }
 
-export default Teachbacks;
+export default SubmitForm;
