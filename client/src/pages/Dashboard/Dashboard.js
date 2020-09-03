@@ -75,8 +75,6 @@ class Dashboard extends Component {
         // To make things clearer semantically, save the arrays of TB and TA Final objs into appropriately labelled variables
         userTBs = res[0].data;
         userTAFinals = res[1].data;
-        console.log("here", userTAFinals);
-        console.log("here too", userTBs);
         // Combine the all user's TBs and all user's TA Finals into a single array
         allFinalItems = userTBs.concat(userTAFinals);
         // Sort all these items into two groups: assigned and submitted items
@@ -134,7 +132,9 @@ class Dashboard extends Component {
                     <Row>
                       <Col size="md-12">
                         <ListItem key={item._id}>
-                          <a href={`/review/${this.state.userID}/${item._id}`}>
+                          <a
+                            href={`/review/${this.state.userID}/${item._id}/${item.role}`}
+                          >
                             <div style={tbHeader}>{item.candidateName}</div>
                             <div style={tbText}>
                               {item.role} role for {item.programType} program at{" "}
@@ -164,7 +164,9 @@ class Dashboard extends Component {
                     <Row>
                       <Col size="xs-8" customStyles="col-md-8">
                         <ListItem key={item._id}>
-                          <a href={`/view/${this.state.userID}/${item._id}`}>
+                          <a
+                            href={`/view/${this.state.userID}/${item._id}/${item.role}`}
+                          >
                             <div style={tbHeader}>{item.candidateName}</div>
                             <div style={tbText}>
                               {item.role} role for {item.programType} program at{" "}
