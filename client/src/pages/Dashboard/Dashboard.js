@@ -66,21 +66,26 @@ class Dashboard extends Component {
     let allFinalItems = [];
     let userTBs = [];
     let userTAFinals = [];
-    Promise.all([
-      API.getUserTeachbacks(this.state.userID),
-      API.getUserTAFinals(this.state.userID),
-    ])
+    API.getUserTAFinals(this.state.userID)
       .then((res) => {
-        // To make things clearer semantically, save the arrays of TB and TA Final objs into appropriately labelled variables
-        userTBs = res.data[0];
-        userTAFinals = res.data[1];
-        console.log("here", userTAFinals);
-        // Combine the all user's TBs and all user's TA Finals into a single array
-        allFinalItems = userTBs.concat(userTAFinals);
-        // Sort all these items into two groups: assigned and submitted items
-        this.sortItems(allFinalItems);
+        console.log("here", res.data);
       })
       .catch((err) => console.log(err));
+    // Promise.all([
+    //   API.getUserTeachbacks(this.state.userID),
+    //   API.getUserTAFinals(this.state.userID),
+    // ])
+    //   .then((res) => {
+    //     // To make things clearer semantically, save the arrays of TB and TA Final objs into appropriately labelled variables
+    //     userTBs = res.data[0];
+    //     userTAFinals = res.data[1];
+    //     console.log("here", userTAFinals);
+    //     // Combine the all user's TBs and all user's TA Finals into a single array
+    //     allFinalItems = userTBs.concat(userTAFinals);
+    //     // Sort all these items into two groups: assigned and submitted items
+    //     this.sortItems(allFinalItems);
+    //   })
+    //   .catch((err) => console.log(err));
   };
 
   sortItems = (allFinalItemsArr) => {
