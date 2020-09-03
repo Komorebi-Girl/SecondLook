@@ -73,8 +73,8 @@ class Dashboard extends Component {
     ])
       .then((res) => {
         // To make things clearer semantically, save the arrays of TB and TA Final objs into appropriately labelled variables
-        userTBs = res.data[0];
-        userTAFinals = res.data[1];
+        userTBs = res[0].data;
+        userTAFinals = res[1].data;
         console.log("here", userTAFinals);
         console.log("here too", userTBs);
         // Combine the all user's TBs and all user's TA Finals into a single array
