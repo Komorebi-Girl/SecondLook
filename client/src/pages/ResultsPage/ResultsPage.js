@@ -69,7 +69,7 @@ class ResultsPage extends Component {
     );
   };
 
-  // Loads all teachbacks and sets them to this.state.teachbacks
+  // Loads either a TA Final or Teachback profile object based on the value of role
   loadSingleItem = () => {
     if (this.state.role === "Instructor") {
       API.getTeachback(this.props.match.params.itemID)
@@ -154,7 +154,7 @@ class ResultsPage extends Component {
           <Col size="md-6">
             <Jumbotron>
               <h1 style={jumbotronText}>
-                {this.state.role === "Instructor" ? "Teachback!" : "TA Final"}{" "}
+                {this.state.role === "Instructor" ? "Teachback" : "TA Final"}{" "}
                 Profile
               </h1>
             </Jumbotron>

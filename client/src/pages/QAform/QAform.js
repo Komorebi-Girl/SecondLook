@@ -32,7 +32,7 @@ class QAform extends Component {
   // Setting our component's initial state
   state = {
     candidateName: "",
-    role: "",
+    role: this.props.match.params.role,
     university: "",
     programType: "",
     zoomLink: "",
@@ -49,7 +49,7 @@ class QAform extends Component {
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
   componentDidMount() {
-    this.loadSingleTeachback();
+    this.loadSingleItem();
   }
 
   onOpenModal = () => {
@@ -71,21 +71,57 @@ class QAform extends Component {
     });
   };
 
-  // Loads all teachbacks and sets them to this.state.teachbacks
-  loadSingleTeachback = () => {
-    API.getTeachback(this.props.match.params.tbID)
-      .then((res) =>
-        this.setState({
-          candidateName: res.data.candidateName,
-          role: res.data.role,
-          university: res.data.university,
-          programType: res.data.programType,
-          zoomLink: res.data.zoomLink,
-          submitterScores: res.data.submitterScores,
-          submitterResult: res.data.submitterResult,
-        })
-      )
-      .catch((err) => console.log(err));
+  // Loads either a TA Final or Teachback profile object based on the value of role
+  loadSingleItem = () => {
+    if (this.state.role === "Instructor") {
+      API.getTeachback(this.props.match.params.itemID)
+        .then((res) =>
+          this.setState({
+            data: res.data,
+            candidateName: res.data.candidateName,
+            role: res.data.role,
+            university: res.data.university,
+            programType: res.data.programType,
+            submittedBy: res.data.submittedBy,
+            zoomLink: res.data.zoomLink,
+            cohortStartDate: res.data.cohortStartDate,
+            submitterScores: res.data.submitterScores,
+            submitterResult: res.data.submitterResult,
+            reviewerScores: res.data.reviewerScores,
+            reviewerResult: res.data.reviewerResult,
+            reviewerRationale: res.data.reviewerRationale,
+            reviewerRecommendations: res.data.reviewerRecommendations,
+            eqDuration: res.data.eqDuration,
+            notesIncluded: res.data.notesIncluded,
+            isVisible: res.data.isVisible,
+          })
+        )
+        .catch((err) => console.log(err));
+    } else if (this.state.role === "TA") {
+      API.getTAFinal(this.props.match.params.itemID)
+        .then((res) =>
+          this.setState({
+            data: res.data,
+            candidateName: res.data.candidateName,
+            role: res.data.role,
+            university: res.data.university,
+            programType: res.data.programType,
+            submittedBy: res.data.submittedBy,
+            zoomLink: res.data.zoomLink,
+            cohortStartDate: res.data.cohortStartDate,
+            submitterScores: res.data.submitterScores,
+            submitterResult: res.data.submitterResult,
+            reviewerScores: res.data.reviewerScores,
+            reviewerResult: res.data.reviewerResult,
+            reviewerRationale: res.data.reviewerRationale,
+            reviewerRecommendations: res.data.reviewerRecommendations,
+            eqDuration: res.data.eqDuration,
+            notesIncluded: res.data.notesIncluded,
+            isVisible: res.data.isVisible,
+          })
+        )
+        .catch((err) => console.log(err));
+    }
   };
 
   /* This function will take the scores selected via the category dropdowns & populate them
@@ -116,16 +152,29 @@ class QAform extends Component {
     event.preventDefault();
     if (this.validateAllValues(this.state)) {
       this.onOpenModal();
-      API.updateTeachback(this.props.match.params.tbID, {
-        reviewerScores: this.state.reviewerScores,
-        reviewerResult: this.state.reviewerResult,
-        reviewerRationale: this.state.reviewerRationale,
-        reviewerRecommendations: this.state.reviewerRecommendations,
-        eqDuration: this.state.eqDuration,
-        notesIncluded: this.state.notesIncluded,
-      })
-        .then((res) => res.send("Review Submitted"))
-        .catch((err) => console.log(err));
+      if (this.state.role === "Instructor") {
+        API.updateTeachback(this.props.match.params.itemID, {
+          reviewerScores: this.state.reviewerScores,
+          reviewerResult: this.state.reviewerResult,
+          reviewerRationale: this.state.reviewerRationale,
+          reviewerRecommendations: this.state.reviewerRecommendations,
+          eqDuration: this.state.eqDuration,
+          notesIncluded: this.state.notesIncluded,
+        })
+          .then((res) => res.send("Review Submitted"))
+          .catch((err) => console.log(err));
+      } else if (this.state.role === "TA") {
+        API.updateTAFinal(this.props.match.params.itemID, {
+          reviewerScores: this.state.reviewerScores,
+          reviewerResult: this.state.reviewerResult,
+          reviewerRationale: this.state.reviewerRationale,
+          reviewerRecommendations: this.state.reviewerRecommendations,
+          eqDuration: this.state.eqDuration,
+          notesIncluded: this.state.notesIncluded,
+        })
+          .then((res) => res.send("Review Submitted"))
+          .catch((err) => console.log(err));
+      }
     }
   };
 
@@ -154,7 +203,10 @@ class QAform extends Component {
         <Row>
           <Col size="md-4" customStyles="col-lg-6">
             <Jumbotron>
-              <h1 style={jumbotronText}>TB Info</h1>
+              <h1 style={jumbotronText}>
+                {this.state.role === "Instructor" ? "Teachback" : "TA Final"}{" "}
+                Info
+              </h1>
             </Jumbotron>
             <form>
               {/* Input boxes for the data that must be filled-in*/}
@@ -211,7 +263,9 @@ class QAform extends Component {
                 </Col>
                 <Col size="md-4">
                   <Dropdown
-                    category="Pace"
+                    category={
+                      this.state.role === "Instructor" ? "Pace" : "Guidance"
+                    }
                     index={2}
                     updateScores={this.updateScores}
                   />
@@ -234,27 +288,39 @@ class QAform extends Component {
                 </Col>
                 <Col size="md-4">
                   <Dropdown
-                    category="Industry"
-                    index={6}
-                    updateScores={this.updateScores}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col size="md-4">
-                  <Dropdown
                     category="Responses"
                     index={5}
                     updateScores={this.updateScores}
                   />
                 </Col>
-                <Col size="md-4">
-                  <Dropdown
-                    category="Coachability"
-                    index={7}
-                    updateScores={this.updateScores}
-                  />
-                </Col>
+              </Row>
+              <Row>
+                {this.state.role === "Instructor" ? (
+                  <div>
+                    <Col size="md-4">
+                      <Dropdown
+                        category="Industry"
+                        index={6}
+                        updateScores={this.updateScores}
+                      />
+                    </Col>
+                    <Col size="md-4">
+                      <Dropdown
+                        category="Coachability"
+                        index={7}
+                        updateScores={this.updateScores}
+                      />
+                    </Col>
+                  </div>
+                ) : (
+                  <Col size="md-4">
+                    <Dropdown
+                      category="Coachability"
+                      index={6}
+                      updateScores={this.updateScores}
+                    />
+                  </Col>
+                )}
                 <Col size="md-4">
                   {/* Stand-alone dropbox to select final result*/}
                   <select
@@ -292,8 +358,8 @@ class QAform extends Component {
                 <Col size="md-12">
                   <div className="form-group" style={{ margin: "2rem 0rem" }}>
                     <label>
-                      How do you think the interviewers could improve? (if none,
-                      type "N/A")
+                      How do you think the interviewer(s) could improve? (if
+                      none, type "N/A")
                     </label>
                     <textarea
                       className="form-control"
