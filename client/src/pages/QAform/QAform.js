@@ -50,7 +50,6 @@ class QAform extends Component {
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
   componentDidMount() {
     this.loadSingleItem();
-    console.log("success mounting comp", this.state.role);
   }
 
   onOpenModal = () => {
@@ -92,20 +91,15 @@ class QAform extends Component {
             reviewerResult: res.data.reviewerResult,
             reviewerRationale: res.data.reviewerRationale,
             reviewerRecommendations: res.data.reviewerRecommendations,
-            eqDuration: res.data.eqDuration,
+            eqDuration: "35",
             notesIncluded: res.data.notesIncluded,
             isVisible: res.data.isVisible,
           })
         )
         .catch((err) => console.log(err));
     } else if (this.state.role === "TA") {
-      console.log(
-        "success - about to grab TA Final",
-        this.props.match.params.itemID
-      );
       API.getTAFinal(this.props.match.params.itemID)
         .then((res) => {
-          console.log("success grabbing TA Final", res.data);
           this.setState({
             data: res.data,
             candidateName: res.data.candidateName,
@@ -187,12 +181,10 @@ class QAform extends Component {
   validateAllValues = (obj) => {
     // Grab all of the values saved to this.state in the form of an array
     const valuesArray = Object.values(obj);
-    console.log("values of the state", Object.entries(obj));
     // Loop through the above array create a new array based on whether each value is true (truthy) or false (falsey)
     const booleanArray = valuesArray.map((val) =>
       val === undefined || val === "" || val === [] ? false : true
     );
-    console.log("here too", booleanArray);
     // Use "every" method to test if every property in this.state indeed has a value
     return booleanArray.every((bool) => bool === true);
   };
@@ -470,7 +462,7 @@ class QAform extends Component {
                     onClick={this.handleFormSubmit}
                     customStyles={submitBtn}
                   >
-                    Submit Teachback
+                    Submit Review
                   </FormBtn>
                 </Col>
               </Row>
