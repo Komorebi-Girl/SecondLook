@@ -466,7 +466,7 @@ class QAform extends Component {
                 <Col size="sm-10" customStyles="col-xs-12 col-sm-push-1">
                   {/* Submit button */}
                   <FormBtn
-                    // disabled={!this.validateAllValues(this.state)}
+                    disabled={!this.validateAllValues(this.state)}
                     onClick={this.handleFormSubmit}
                     customStyles={submitBtn}
                   >
