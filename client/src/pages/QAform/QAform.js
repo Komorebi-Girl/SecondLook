@@ -190,7 +190,7 @@ class QAform extends Component {
     console.log("values of the state", Object.entries(obj));
     // Loop through the above array create a new array based on whether each value is true (truthy) or false (falsey)
     const booleanArray = valuesArray.map((val) =>
-      val.length > 0 || val === false ? true : false
+      val === undefined || val === "" || val === [] ? false : true
     );
     console.log("here too", booleanArray);
     // Use "every" method to test if every property in this.state indeed has a value
