@@ -187,10 +187,12 @@ class QAform extends Component {
   validateAllValues = (obj) => {
     // Grab all of the values saved to this.state in the form of an array
     const valuesArray = Object.values(obj);
+    console.log("here", valuesArray);
     // Loop through the above array create a new array based on whether each value is true (truthy) or false (falsey)
     const booleanArray = valuesArray.map((val) =>
       val.length > 0 || val === false ? true : false
     );
+    console.log("here too", booleanArray);
     // Use "every" method to test if every property in this.state indeed has a value
     return booleanArray.every((bool) => bool === true);
   };
@@ -464,7 +466,7 @@ class QAform extends Component {
                 <Col size="sm-10" customStyles="col-xs-12 col-sm-push-1">
                   {/* Submit button */}
                   <FormBtn
-                    disabled={!this.validateAllValues(this.state)}
+                    // disabled={!this.validateAllValues(this.state)}
                     onClick={this.handleFormSubmit}
                     customStyles={submitBtn}
                   >
