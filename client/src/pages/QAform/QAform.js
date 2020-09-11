@@ -50,6 +50,7 @@ class QAform extends Component {
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
   componentDidMount() {
     this.loadSingleItem();
+    console.log("success mounting comp", this.state.role);
   }
 
   onOpenModal = () => {
@@ -98,6 +99,7 @@ class QAform extends Component {
         )
         .catch((err) => console.log(err));
     } else if (this.state.role === "TA") {
+      console.log("success grabbing TA Final", this.props.match.params.itemID);
       API.getTAFinal(this.props.match.params.itemID)
         .then((res) =>
           this.setState({

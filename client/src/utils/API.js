@@ -4,23 +4,23 @@ export default {
   getTAFinals: function () {
     return axios.get("/api/taFinals");
   },
-  // Gets all teachbacks associated with a particular user
+  // Gets all TA finals associated with a particular user
   getUserTAFinals: function (userID) {
     return axios.get("/api/taFinals/mytaFinals/" + userID);
   },
-  // Gets the teachback with the given id
+  // Gets the TA final with the given id
   getTAFinal: function (id) {
     return axios.get("/api/taFinals/" + id);
   },
-  // Deletes the teachback with the given id
+  // Deletes the TA final with the given id
   deleteTAFinal: function (id) {
     return axios.delete("/api/taFinals/" + id);
   },
-  // Updates the teachback with the given id
+  // Updates the TA final with the given id
   updateTAFinal: function (id, taFinalData) {
     return axios.put("/api/taFinals/" + id, taFinalData);
   },
-  // Saves a teachback to the database
+  // Saves a TA final to the database
   saveTAFinal: function (taFinalData) {
     return axios.post("/api/taFinals", taFinalData);
   },
