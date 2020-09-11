@@ -99,9 +99,13 @@ class QAform extends Component {
         )
         .catch((err) => console.log(err));
     } else if (this.state.role === "TA") {
-      console.log("success grabbing TA Final", this.props.match.params.itemID);
+      console.log(
+        "success - about to grab TA Final",
+        this.props.match.params.itemID
+      );
       API.getTAFinal(this.props.match.params.itemID)
-        .then((res) =>
+        .then((res) => {
+          console.log("success grabbing TA Final", res.data);
           this.setState({
             data: res.data,
             candidateName: res.data.candidateName,
@@ -120,8 +124,8 @@ class QAform extends Component {
             eqDuration: res.data.eqDuration,
             notesIncluded: res.data.notesIncluded,
             isVisible: res.data.isVisible,
-          })
-        )
+          });
+        })
         .catch((err) => console.log(err));
     }
   };
