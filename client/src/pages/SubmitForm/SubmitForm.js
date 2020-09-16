@@ -5,6 +5,7 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
 import Dropdown from "../../components/Form/Dropdown";
+import ParticipantDrop from "../../components/Form/ParticipantDrop";
 import "react-responsive-modal/styles.css";
 
 const jumbotronText = {
@@ -25,6 +26,8 @@ const modalText = {
 class SubmitForm extends Component {
   // Setting our component's initial state
   state = {
+    users: [],
+    participantID: "",
     candidateName: "",
     role: this.props.match.params.role,
     university: "",
@@ -41,6 +44,21 @@ class SubmitForm extends Component {
     open: false,
   };
 
+  componentDidMount() {
+    this.loadParticipants();
+  }
+
+  loadParticipants = () => {
+    API.returnAllUsers()
+      .then((res) => {
+        this.setState({ users: res.data });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  assignParticipant = (event) => {
+    this.setState({ participantID: event.target.value });
+  };
   onOpenModal = () => {
     this.setState({ open: true });
   };
@@ -73,6 +91,7 @@ class SubmitForm extends Component {
       value: event.target.value,
       submitterResult: event.target.value,
     });
+    console.log("state before submit", this.state);
   };
 
   // When the form is submitted, use the API.saveTeachback or API.saveTAFinal method to save the data to the appropriate table
@@ -198,6 +217,12 @@ class SubmitForm extends Component {
                 name="cohortStartDate"
                 placeholder="Cohort Start Date (required)"
               />
+              {this.state.role === "Instructor" ? (
+                <ParticipantDrop
+                  users={this.state.users}
+                  assignParticipant={this.assignParticipant}
+                />
+              ) : null}
               <Row>
                 <Col size="md-4">
                   <Dropdown
