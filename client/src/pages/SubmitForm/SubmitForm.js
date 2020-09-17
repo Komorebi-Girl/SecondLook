@@ -162,7 +162,7 @@ class SubmitForm extends Component {
           styles={{ modal: modalText }}
         >
           <h2>
-            Your {this.state.role === "Instructor" ? "Teachback!" : "TA Final"}{" "}
+            Your {this.state.role === "Instructor" ? "Teachback" : "TA Final"}{" "}
             has been successfully submitted!
           </h2>
         </Modal>
@@ -171,7 +171,7 @@ class SubmitForm extends Component {
             <Jumbotron>
               <h1 style={jumbotronText}>
                 Submit a{" "}
-                {this.state.role === "Instructor" ? "Teachback!" : "TA Final"}
+                {this.state.role === "Instructor" ? "Teachback!" : "TA Final!"}
               </h1>
             </Jumbotron>
           </Col>
