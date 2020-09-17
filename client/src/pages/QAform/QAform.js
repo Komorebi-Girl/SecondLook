@@ -83,7 +83,7 @@ class QAform extends Component {
             university: res.data.university,
             programType: res.data.programType,
             submittedBy: res.data.submittedBy,
-            zoomLink: res.data.zoomLink.slice(8), // need to cut off the "https://" for the link to work
+            zoomLink: res.data.zoomLink,
             cohortStartDate: res.data.cohortStartDate,
             submitterScores: res.data.submitterScores,
             submitterResult: res.data.submitterResult,

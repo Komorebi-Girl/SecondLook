@@ -91,7 +91,6 @@ class SubmitForm extends Component {
       value: event.target.value,
       submitterResult: event.target.value,
     });
-    console.log("state before submit", this.state);
   };
 
   // When the form is submitted, use the API.saveTeachback or API.saveTAFinal method to save the data to the appropriate table
@@ -106,7 +105,7 @@ class SubmitForm extends Component {
           programType: this.state.programType,
           reviewedBy: this.state.reviewedBy,
           submittedBy: this.state.submittedBy,
-          zoomLink: this.state.zoomLink,
+          zoomLink: this.state.zoomLink.slice(8), // need to cut off the "https://" for the link to work
           cohortStartDate: this.state.cohortStartDate,
           submitterScores: this.state.submitterScores,
           reviewerScores: this.state.reviewerScores,
@@ -126,7 +125,7 @@ class SubmitForm extends Component {
           programType: this.state.programType,
           reviewedBy: this.state.reviewedBy,
           submittedBy: this.state.submittedBy,
-          zoomLink: this.state.zoomLink,
+          zoomLink: this.state.zoomLink.slice(8), // need to cut off the "https://" for the link to work
           cohortStartDate: this.state.cohortStartDate,
           submitterScores: this.state.submitterScores,
           reviewerScores: this.state.reviewerScores,
@@ -163,7 +162,7 @@ class SubmitForm extends Component {
           styles={{ modal: modalText }}
         >
           <h2>
-            Your {this.state.role === "Instructor" ? "Teachback!" : "TA Final"}{" "}
+            Your {this.state.role === "Instructor" ? "Teachback" : "TA Final"}{" "}
             has been successfully submitted!
           </h2>
         </Modal>
@@ -172,7 +171,7 @@ class SubmitForm extends Component {
             <Jumbotron>
               <h1 style={jumbotronText}>
                 Submit a{" "}
-                {this.state.role === "Instructor" ? "Teachback!" : "TA Final"}
+                {this.state.role === "Instructor" ? "Teachback!" : "TA Final!"}
               </h1>
             </Jumbotron>
           </Col>
