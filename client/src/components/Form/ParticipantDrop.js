@@ -2,8 +2,9 @@ import React from "react";
 
 const dropdownStyles = {
   fontSize: "1.8rem",
-  position: "relative",
-  top: "30px",
+  top: "3.0rem",
+  width: "100%",
+  marginBottom: "1.5rem",
 };
 
 const ParticipantDrop = (props) => (
