@@ -179,6 +179,16 @@ class SubmitForm extends Component {
         </Row>
         <Row>
           <Col size="md-6" customStyles="col-md-offset-3">
+            {this.state.role === "Instructor" ? (
+              <ParticipantDrop
+                users={this.state.users}
+                assignParticipant={this.assignParticipant}
+              />
+            ) : null}
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-6" customStyles="col-md-offset-3">
             <form>
               {/* Input boxes for the data that must be filled-in*/}
               <Input
@@ -217,12 +227,6 @@ class SubmitForm extends Component {
                 name="cohortStartDate"
                 placeholder="Cohort Start Date (required)"
               />
-              {this.state.role === "Instructor" ? (
-                <ParticipantDrop
-                  users={this.state.users}
-                  assignParticipant={this.assignParticipant}
-                />
-              ) : null}
               <Row>
                 <Col size="md-4">
                   <Dropdown
@@ -255,7 +259,6 @@ class SubmitForm extends Component {
                 </Col>
               </Row>
               <Row>
-                {}
                 <Col size="md-4">
                   <Dropdown
                     category="Clarity"
