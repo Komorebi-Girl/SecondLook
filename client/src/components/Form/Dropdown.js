@@ -1,8 +1,9 @@
 import React from "react";
 
-const Dropdown = props => (
+const Dropdown = (props) => (
   <select
-    onChange={event => props.updateScores(event.target.value, props.index)}
+    onChange={(event) => props.updateScores(event.target.value, props.index)}
+    style={{ width: "100%" }}
   >
     <option selected value={props.category}>
       {`Select ${props.category} Score`}:

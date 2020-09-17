@@ -309,7 +309,10 @@ class SubmitForm extends Component {
                   </Col>
                 )}
                 <Col size="md-4">
-                  <select onChange={this.updateFinalResult}>
+                  <select
+                    onChange={this.updateFinalResult}
+                    style={{ width: "100%" }}
+                  >
                     <option selected value="default">
                       Select Final Result:
                     </option>
@@ -325,6 +328,7 @@ class SubmitForm extends Component {
                   <FormBtn
                     disabled={!this.validateAllValues(this.state)}
                     onClick={this.handleFormSubmit}
+                    customStyles={{ marginTop: "1.5rem" }}
                   >
                     Submit{" "}
                     {this.state.role === "Instructor"

@@ -1,10 +1,12 @@
 import React from "react";
 
 const dropdownStyles = {
-  fontSize: "1.8rem",
+  fontSize: "1.5rem",
   top: "3.0rem",
   width: "100%",
   marginBottom: "1.5rem",
+  padding: "0.8rem 0.9rem",
+  border: "0.1rem solid #cccccc",
 };
 
 const ParticipantDrop = (props) => (
