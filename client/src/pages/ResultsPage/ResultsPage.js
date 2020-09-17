@@ -29,11 +29,12 @@ const modalText = {
   padding: "3.2rem",
 };
 
-class TBprofile extends Component {
+class ResultsPage extends Component {
   // Setting our component's initial state
   state = {
+    data: [],
     candidateName: "",
-    role: "",
+    role: this.props.match.params.role,
     university: "",
     programType: "",
     submittedBy: "",
@@ -54,7 +55,7 @@ class TBprofile extends Component {
 
   // When the component mounts, load all teachbacks and save them to this.state.teachbacks
   componentDidMount() {
-    this.loadSingleTeachback();
+    this.loadSingleItem();
   }
 
   onOpenModal = () => {
@@ -68,41 +69,75 @@ class TBprofile extends Component {
     );
   };
 
-  // Loads all teachbacks and sets them to this.state.teachbacks
-  loadSingleTeachback = () => {
-    API.getTeachback(this.props.match.params.tbID)
-      .then((res) =>
-        this.setState({
-          teachbacks: res.data,
-          candidateName: res.data.candidateName,
-          role: res.data.role,
-          university: res.data.university,
-          programType: res.data.programType,
-          submittedBy: res.data.submittedBy,
-          zoomLink: res.data.zoomLink,
-          cohortStartDate: res.data.cohortStartDate,
-          submitterScores: res.data.submitterScores,
-          submitterResult: res.data.submitterResult,
-          reviewerScores: res.data.reviewerScores,
-          reviewerResult: res.data.reviewerResult,
-          reviewerRationale: res.data.reviewerRationale,
-          reviewerRecommendations: res.data.reviewerRecommendations,
-          eqDuration: res.data.eqDuration,
-          notesIncluded: res.data.notesIncluded,
-          isVisible: res.data.isVisible,
-        })
-      )
-      .catch((err) => console.log(err));
+  // Loads either a TA Final or Teachback profile object based on the value of role
+  loadSingleItem = () => {
+    if (this.state.role === "Instructor") {
+      API.getTeachback(this.props.match.params.itemID)
+        .then((res) =>
+          this.setState({
+            data: res.data,
+            candidateName: res.data.candidateName,
+            role: res.data.role,
+            university: res.data.university,
+            programType: res.data.programType,
+            submittedBy: res.data.submittedBy,
+            zoomLink: res.data.zoomLink,
+            cohortStartDate: res.data.cohortStartDate,
+            submitterScores: res.data.submitterScores,
+            submitterResult: res.data.submitterResult,
+            reviewerScores: res.data.reviewerScores,
+            reviewerResult: res.data.reviewerResult,
+            reviewerRationale: res.data.reviewerRationale,
+            reviewerRecommendations: res.data.reviewerRecommendations,
+            eqDuration: res.data.eqDuration,
+            notesIncluded: res.data.notesIncluded,
+            isVisible: res.data.isVisible,
+          })
+        )
+        .catch((err) => console.log(err));
+    } else if (this.state.role === "TA") {
+      API.getTAFinal(this.props.match.params.itemID)
+        .then((res) =>
+          this.setState({
+            data: res.data,
+            candidateName: res.data.candidateName,
+            role: res.data.role,
+            university: res.data.university,
+            programType: res.data.programType,
+            submittedBy: res.data.submittedBy,
+            zoomLink: res.data.zoomLink,
+            cohortStartDate: res.data.cohortStartDate,
+            submitterScores: res.data.submitterScores,
+            submitterResult: res.data.submitterResult,
+            reviewerScores: res.data.reviewerScores,
+            reviewerResult: res.data.reviewerResult,
+            reviewerRationale: res.data.reviewerRationale,
+            reviewerRecommendations: res.data.reviewerRecommendations,
+            eqDuration: res.data.eqDuration,
+            notesIncluded: res.data.notesIncluded,
+            isVisible: res.data.isVisible,
+          })
+        )
+        .catch((err) => console.log(err));
+    }
   };
 
-  removeTeachback = (event) => {
+  removeItem = (event) => {
     event.preventDefault();
     this.onOpenModal();
-    API.updateTeachback(this.props.match.params.tbID, {
-      isVisible: "False",
-    })
-      .then((res) => res.send("Teachback Removed"))
-      .catch((err) => console.log(err));
+    if (this.state.role === "Instructor") {
+      API.updateTeachback(this.props.match.params.itemID, {
+        isVisible: "False",
+      })
+        .then((res) => res.send("Teachback Removed"))
+        .catch((err) => console.log(err));
+    } else if (this.state.role === "TA") {
+      API.updateTAFinal(this.props.match.params.itemID, {
+        isVisible: "False",
+      })
+        .then((res) => res.send("TA Final Removed"))
+        .catch((err) => console.log(err));
+    }
   };
   render() {
     const { open } = this.state;
@@ -113,12 +148,15 @@ class TBprofile extends Component {
           onClose={this.onCloseModal}
           styles={{ modal: modalText }}
         >
-          <h2>This teachback has been successfully removed.</h2>
+          <h2>This item has been successfully removed.</h2>
         </Modal>
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1 style={jumbotronText}>Teachback Profile</h1>
+              <h1 style={jumbotronText}>
+                {this.state.role === "Instructor" ? "Teachback" : "TA Final"}{" "}
+                Profile
+              </h1>
             </Jumbotron>
             <form>
               {/* Input boxes for the data that must be filled-in*/}
@@ -180,10 +218,12 @@ class TBprofile extends Component {
                 </Col>
                 <Col size="md-4">
                   <label>
-                    Pace
+                    {this.state.role === "Instructor" ? "Pace" : "Guidance"}
                     <Input
                       value={this.state.reviewerScores[2]}
-                      name="Pace"
+                      name={
+                        this.state.role === "Instructor" ? "Pace" : "Guidance"
+                      }
                       placeholder="N/A"
                     />
                   </label>
@@ -222,26 +262,41 @@ class TBprofile extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col size="md-4">
-                  <label>
-                    Industry Knowledge
-                    <Input
-                      value={this.state.reviewerScores[6]}
-                      name="Industry Knowledge"
-                      placeholder="N/A"
-                    />
-                  </label>
-                </Col>
-                <Col size="md-4">
-                  <label>
-                    Coachability
-                    <Input
-                      value={this.state.reviewerScores[7]}
-                      name="Coachability"
-                      placeholder="N/A"
-                    />
-                  </label>
-                </Col>
+                {this.state.role === "Instructor" ? (
+                  <div>
+                    <Col size="md-4">
+                      <label>
+                        Industry Knowledge
+                        <Input
+                          value={this.state.reviewerScores[6]}
+                          name="Industry Knowledge"
+                          placeholder="N/A"
+                        />
+                      </label>
+                    </Col>
+                    <Col size="md-4">
+                      <label>
+                        Coachability
+                        <Input
+                          value={this.state.reviewerScores[7]}
+                          name="Coachability"
+                          placeholder="N/A"
+                        />
+                      </label>
+                    </Col>{" "}
+                  </div>
+                ) : (
+                  <Col size="md-4">
+                    <label>
+                      Coachability
+                      <Input
+                        value={this.state.reviewerScores[6]}
+                        name="Coachability"
+                        placeholder="N/A"
+                      />
+                    </label>
+                  </Col>
+                )}
                 <Col size="md-4">
                   <label>
                     Final Result
@@ -376,10 +431,10 @@ class TBprofile extends Component {
                 <Col size="md-6">
                   {/* Submit button */}
                   <FormBtn
-                    onClick={(event) => this.removeTeachback(event)}
+                    onClick={(event) => this.removeItem(event)}
                     customStyles={removeBtn}
                   >
-                    Remove This Teachback
+                    Remove This Item
                   </FormBtn>
                 </Col>
               </Row>
@@ -391,4 +446,4 @@ class TBprofile extends Component {
   }
 }
 
-export default TBprofile;
+export default ResultsPage;

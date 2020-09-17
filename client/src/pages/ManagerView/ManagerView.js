@@ -45,29 +45,37 @@ const deleteBtn = {
 class ManagerView extends Component {
   state = {
     teachbacks: [],
+    taFinals: [],
     userID: this.props.match.params.userID,
   };
 
   componentDidMount() {
-    this.loadTeachbackInfo();
+    this.loadAllFinalsInfo();
   }
 
-  loadTeachbackInfo = () => {
-    API.getTeachbacks()
+  loadAllFinalsInfo = () => {
+    // Make two calls to database to get all of teachback and TA final data for all users
+    Promise.all([API.getTeachbacks(), API.getTAFinals()])
       .then((res) => {
-        this.setState({ teachbacks: res.data });
+        this.setState({ teachbacks: res[0].data, taFinals: res[1].data });
       })
       .catch((err) => console.log(err));
   };
 
-  deleteTeachback = (id) => {
-    API.deleteTeachback(id);
+  deleteItem = (itemID, role) => {
+    if (role === "Instructor") {
+      API.deleteTeachback(itemID);
+    } else if (role === "TA") {
+      API.deleteTAFinal(itemID);
+    } else {
+      return;
+    }
     window.location.reload();
   };
 
-  viewTeachback = (userID, tbID) => {
+  viewItem = (userID, itemID, role) => {
     window.location.replace(
-      `//secondlook-2u.herokuapp.com/view/${userID}/${tbID}`
+      `//secondlook-2u.herokuapp.com/view/${userID}/${itemID}/${role}`
     );
   };
 
@@ -109,9 +117,10 @@ class ManagerView extends Component {
                               style={viewBtn}
                               type="button"
                               onClick={() =>
-                                this.viewTeachback(
+                                this.viewItem(
                                   this.state.userID,
-                                  teachback._id
+                                  teachback._id,
+                                  teachback.role
                                 )
                               }
                             >
@@ -126,7 +135,7 @@ class ManagerView extends Component {
                               style={deleteBtn}
                               type="button"
                               onClick={() =>
-                                this.deleteTeachback(teachback._id)
+                                this.deleteItem(teachback._id, teachback.role)
                               }
                             >
                               Delete Teachback
@@ -140,6 +149,76 @@ class ManagerView extends Component {
               </List>
             ) : (
               <h3 style={tbText}>No Teachbacks to Display</h3>
+            )}
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-12">
+            <Jumbotron>
+              <h1 style={jumbotronText}>View All TA Finals</h1>
+            </Jumbotron>
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-12">
+            {this.state.taFinals.length ? (
+              <List>
+                {this.state.taFinals.map((taFinal) => {
+                  return (
+                    <Row>
+                      <Col size="xs-6" customStyles="">
+                        <ListItem key={taFinal._id}>
+                          <strong style={tbText}>
+                            {taFinal.candidateName}
+                          </strong>
+                          <div style={tbText}>
+                            {taFinal.role} role for {taFinal.programType}{" "}
+                            program at {taFinal.university}
+                          </div>
+                        </ListItem>
+                      </Col>
+                      <Col size="xs-6">
+                        <Row>
+                          <Col
+                            size="xs-12"
+                            customStyles="col-sm-6 col-md-4 col-md-push-3 col-lg-4 col-lg-push-5"
+                          >
+                            <button
+                              style={viewBtn}
+                              type="button"
+                              onClick={() =>
+                                this.viewItem(
+                                  this.state.userID,
+                                  taFinal._id,
+                                  taFinal.role
+                                )
+                              }
+                            >
+                              View TA Final
+                            </button>
+                          </Col>
+                          <Col
+                            size="xs-12"
+                            customStyles="col-sm-6 col-md-4 col-md-push-3 col-lg-4 col-lg-push-4"
+                          >
+                            <button
+                              style={deleteBtn}
+                              type="button"
+                              onClick={() =>
+                                this.deleteItem(taFinal._id, taFinal.role)
+                              }
+                            >
+                              Delete TA Final
+                            </button>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                  );
+                })}
+              </List>
+            ) : (
+              <h3 style={tbText}>No TA Finals to Display</h3>
             )}
           </Col>
         </Row>

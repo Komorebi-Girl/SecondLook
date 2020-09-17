@@ -52,48 +52,68 @@ const tbText = {
 class Dashboard extends Component {
   // Setting our component's initial state
   state = {
-    assignedTeachbacks: [],
-    submittedTeachbacks: [],
+    assignedItems: [],
+    submittedItems: [],
     userID: this.props.match.params.userID,
   };
 
-  // When the component mounts, load all teachbacks and save them to this.state.teachbacks
+  // When the component mounts, load (retrive all final interview items related to the user)
   componentDidMount() {
-    this.loadTeachbacks();
+    this.loadItems();
   }
 
-  // Loads all teachbacks and sets them to this.state.teachbacks
-  loadTeachbacks = () => {
-    API.getUserTeachbacks(this.state.userID)
+  loadItems = () => {
+    let allFinalItems = [];
+    let userTBs = [];
+    let userTAFinals = [];
+
+    Promise.all([
+      API.getUserTeachbacks(this.state.userID),
+      API.getUserTAFinals(this.state.userID),
+    ])
       .then((res) => {
-        this.sortTeachbacks(res.data);
+        // To make things clearer semantically, save the arrays of TB and TA Final objs into appropriately labelled variables
+        userTBs = res[0].data;
+        userTAFinals = res[1].data;
+        // Combine the all user's TBs and all user's TA Finals into a single array
+        allFinalItems = userTBs.concat(userTAFinals);
+        // Sort all these items into two groups: assigned and submitted items
+        this.sortItems(allFinalItems);
       })
       .catch((err) => console.log(err));
   };
 
-  sortTeachbacks = (teachbackArr) => {
-    let assignedTBs = [];
-    let submittedTBs = [];
-    for (let i = 0; i < teachbackArr.length; i++) {
+  sortItems = (allFinalItemsArr) => {
+    // Use arrays as empty containers to hold TBs the user has assigned & TBs the user has submitted
+    let assignedObjs = [];
+    let submittedObjs = [];
+
+    // Iterate through all of the items associated with the user
+    for (let i = 0; i < allFinalItemsArr.length; i++) {
+      // If the logged in user has been assigned that item to review but hasn't done it yet
       if (
-        teachbackArr[i].reviewedBy === this.state.userID &&
-        teachbackArr[i].reviewerResult === "N/A"
+        allFinalItemsArr[i].reviewedBy === this.state.userID &&
+        allFinalItemsArr[i].reviewerResult === "N/A"
       ) {
-        assignedTBs.push(teachbackArr[i]);
+        // push it into the "assigned" array
+        assignedObjs.push(allFinalItemsArr[i]);
       } else if (
-        teachbackArr[i].submittedBy === this.state.userID &&
-        teachbackArr[i].isVisible === "True"
+        // if the user hasn't removed that item from their dash and has submitted it themselves
+        allFinalItemsArr[i].submittedBy === this.state.userID &&
+        allFinalItemsArr[i].isVisible === "True"
       ) {
-        submittedTBs.push(teachbackArr[i]);
+        // push it into the "submitted" array
+        submittedObjs.push(allFinalItemsArr[i]);
       }
     }
 
     // reverse the array to ensure that more recently submitted TBs are listed first
-    submittedTBs = submittedTBs.reverse();
+    submittedObjs = submittedObjs.reverse();
 
+    // save each group of teachbacks to the component's state
     this.setState({
-      assignedTeachbacks: assignedTBs,
-      submittedTeachbacks: submittedTBs,
+      assignedItems: assignedObjs,
+      submittedItems: submittedObjs,
     });
   };
 
@@ -103,24 +123,22 @@ class Dashboard extends Component {
         <Row>
           <Col size="sm-6">
             <Jumbotron>
-              <h1 style={jumbotronText}>Teachbacks To QA</h1>
+              <h1 style={jumbotronText}>Items To QA</h1>
             </Jumbotron>
-            {this.state.assignedTeachbacks.length ? (
+            {this.state.assignedItems.length ? (
               <List>
-                {this.state.assignedTeachbacks.map((teachback) => {
+                {this.state.assignedItems.map((item) => {
                   return (
                     <Row>
                       <Col size="md-12">
-                        <ListItem key={teachback._id}>
+                        <ListItem key={item._id}>
                           <a
-                            href={`/review/${this.state.userID}/${teachback._id}`}
+                            href={`/review/${this.state.userID}/${item._id}/${item.role}`}
                           >
-                            <div style={tbHeader}>
-                              {teachback.candidateName}
-                            </div>
+                            <div style={tbHeader}>{item.candidateName}</div>
                             <div style={tbText}>
-                              {teachback.role} role for {teachback.programType}{" "}
-                              program at {teachback.university}
+                              {item.role} role for {item.programType} program at{" "}
+                              {item.university}
                             </div>
                           </a>
                         </ListItem>
@@ -131,36 +149,34 @@ class Dashboard extends Component {
               </List>
             ) : (
               <div>
-                <h3 style={tbText}>No Teachbacks to Display</h3>
+                <h3 style={tbText}>No Items to Display</h3>
               </div>
             )}
           </Col>
           <Col size="sm-6">
             <Jumbotron>
-              <h1 style={jumbotronText}>My Teachbacks</h1>
+              <h1 style={jumbotronText}>My Submissions</h1>
             </Jumbotron>
-            {this.state.submittedTeachbacks.length ? (
+            {this.state.submittedItems.length ? (
               <List>
-                {this.state.submittedTeachbacks.map((teachback) => {
+                {this.state.submittedItems.map((item) => {
                   return (
                     <Row>
                       <Col size="xs-8" customStyles="col-md-8">
-                        <ListItem key={teachback._id}>
+                        <ListItem key={item._id}>
                           <a
-                            href={`/view/${this.state.userID}/${teachback._id}`}
+                            href={`/view/${this.state.userID}/${item._id}/${item.role}`}
                           >
-                            <div style={tbHeader}>
-                              {teachback.candidateName}
-                            </div>
+                            <div style={tbHeader}>{item.candidateName}</div>
                             <div style={tbText}>
-                              {teachback.role} role for {teachback.programType}{" "}
-                              program at {teachback.university}
+                              {item.role} role for {item.programType} program at{" "}
+                              {item.university}
                             </div>
                           </a>
                         </ListItem>
                       </Col>
                       <Col size="xs-4" customStyles="col-md-3 col-md-push-1">
-                        {teachback.reviewerResult === "N/A" ? (
+                        {item.reviewerResult === "N/A" ? (
                           <button style={pendingBtn} type="button">
                             Review Pending
                           </button>
@@ -175,7 +191,7 @@ class Dashboard extends Component {
                 })}
               </List>
             ) : (
-              <h3 style={tbText}>No Teachbacks to Display</h3>
+              <h3 style={tbText}>No Items to Display</h3>
             )}
           </Col>
         </Row>

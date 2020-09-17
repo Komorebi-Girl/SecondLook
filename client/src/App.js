@@ -7,11 +7,11 @@ import {
 } from "react-router-dom";
 import API from "./utils/API";
 import Nav from "./components/Nav";
-import Teachbacks from "./pages/Teachbacks";
+import SubmitForm from "./pages/SubmitForm";
 import Dashboard from "./pages/Dashboard";
 import QAform from "./pages/QAform";
 import Login from "./pages/Login";
-import TBprofile from "./pages/TBprofile";
+import ResultsPage from "./pages/ResultsPage";
 import AssignView from "./pages/AssignView";
 import ManagerView from "./pages/ManagerView";
 
@@ -43,9 +43,9 @@ class App extends Component {
             </Route>
             <Route path="/dashboard/:userID" component={Dashboard} />
             <Route path="/assign/:userID" component={AssignView} />
-            <Route path="/submit/:userID" component={Teachbacks} />
-            <Route path="/review/:userID/:tbID" component={QAform} />
-            <Route path="/view/:userID/:tbID" component={TBprofile} />
+            <Route path="/submit/:userID/:role" component={SubmitForm} />
+            <Route path="/review/:userID/:itemID/:role" component={QAform} />
+            <Route path="/view/:userID/:itemID/:role" component={ResultsPage} />
             <Route path="/manage/:userID" component={ManagerView} />
           </Switch>
         </div>
