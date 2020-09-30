@@ -58,7 +58,31 @@ class SubmitForm extends Component {
 
   assignParticipant = (event) => {
     this.setState({ participantID: event.target.value });
+    this.assignReviewer();
   };
+
+  assignReviewer = () => {
+    let leadID = this.state.submittedBy;
+    let participantID = this.state.participantID;
+    let users = this.state.users;
+
+    // Create new array of userIDs minus leadID and participantID
+    let possibleReviewers = users.filter((userObj) => {
+      if (userObj._id !== leadID && userObj._id !== participantID) {
+        return userObj._id;
+      }
+    });
+
+    // Randomly choose an index
+    let reviewerIndex = Math.floor(Math.random() * possibleReviewers.length);
+
+    // Set state of reviewedBy to value of that random index
+    this.setState(
+      { reviewedBy: possibleReviewers[reviewerIndex] },
+      console.log("reviewedBy", this.state.reviewedBy)
+    );
+  };
+
   onOpenModal = () => {
     this.setState({ open: true });
   };
