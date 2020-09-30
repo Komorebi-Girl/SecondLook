@@ -57,8 +57,7 @@ class SubmitForm extends Component {
   };
 
   assignParticipant = (event) => {
-    this.setState({ participantID: event.target.value });
-    this.assignReviewer();
+    this.setState({ participantID: event.target.value }, this.assignReviewer());
   };
 
   assignReviewer = () => {
