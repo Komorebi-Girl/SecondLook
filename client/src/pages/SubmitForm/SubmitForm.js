@@ -57,7 +57,7 @@ class SubmitForm extends Component {
   };
 
   assignParticipant = (event) => {
-    this.setState({ participantID: event }, this.assignReviewer());
+    this.setState({ participantID: event }, () => this.assignReviewer());
   };
 
   assignReviewer = () => {
@@ -76,8 +76,7 @@ class SubmitForm extends Component {
     let reviewerIndex = Math.floor(Math.random() * possibleReviewers.length);
 
     // Set state of reviewedBy to value of that random index
-    this.setState(
-      { reviewedBy: possibleReviewers[reviewerIndex] },
+    this.setState({ reviewedBy: possibleReviewers[reviewerIndex] }, () =>
       console.log("reviewedBy", this.state.reviewedBy)
     );
   };
