@@ -70,6 +70,7 @@ class SubmitForm extends Component {
     // Create new array of userIDs minus leadID and participantID
     let possibleReviewers = users.filter((userObj) => {
       if (userObj._id !== leadID && userObj._id !== participantID) {
+        console.log("userObj", userObj);
         return userObj._id;
       }
     });
