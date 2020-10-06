@@ -70,8 +70,7 @@ class SubmitForm extends Component {
     // Create new array of userIDs minus leadID and participantID
     let possibleReviewers = users.filter((userObj) => {
       if (userObj._id !== leadID && userObj._id !== participantID) {
-        console.log("userObj", userObj);
-        return userObj._id;
+        return userObj;
       }
     });
 
@@ -79,7 +78,7 @@ class SubmitForm extends Component {
     let reviewerIndex = Math.floor(Math.random() * possibleReviewers.length);
 
     // Set state of reviewedBy to value of that random index
-    this.setState({ reviewedBy: possibleReviewers[reviewerIndex] }, () =>
+    this.setState({ reviewedBy: possibleReviewers[reviewerIndex]._id }, () =>
       console.log("reviewedBy", this.state.reviewedBy)
     );
   };
