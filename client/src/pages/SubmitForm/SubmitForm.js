@@ -26,7 +26,7 @@ const modalText = {
 class SubmitForm extends Component {
   // Setting our component's initial state
   state = {
-    reviewers: [],
+    participants: [],
     participantID: "",
     candidateName: "",
     role: this.props.match.params.role,
@@ -52,10 +52,10 @@ class SubmitForm extends Component {
     API.returnAllUsers()
       .then((res) => {
         const allUsers = [...res.data];
-        const allReviewers = allUsers.filter((user) => {
+        const participantsList = allUsers.filter((user) => {
           if (user.isAdmin === "N") return user;
         });
-        this.setState({ reviewers: allReviewers });
+        this.setState({ participants: participantsList });
       })
       .catch((err) => console.log(err));
   };
@@ -69,10 +69,10 @@ class SubmitForm extends Component {
   assignReviewer = () => {
     let leadID = this.state.submittedBy;
     let participantID = this.state.participantID;
-    let reviewers = [...this.state.reviewers];
+    let reviewersList = [...this.state.participants];
 
     // Create new array of userIDs minus leadID and participantID
-    let possibleReviewers = reviewers.filter((reviewerObj) => {
+    let possibleReviewers = reviewersList.filter((reviewerObj) => {
       if (reviewerObj._id !== leadID && reviewerObj._id !== participantID) {
         return reviewerObj;
       }
@@ -208,7 +208,7 @@ class SubmitForm extends Component {
           <Col size="md-6" customStyles="col-md-offset-3">
             {this.state.role === "Instructor" ? (
               <ParticipantDrop
-                users={this.state.users}
+                participants={this.state.participants}
                 assignParticipant={this.assignParticipant}
               />
             ) : null}
