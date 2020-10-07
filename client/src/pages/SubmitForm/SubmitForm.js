@@ -27,7 +27,7 @@ class SubmitForm extends Component {
   // Setting our component's initial state
   state = {
     participants: [],
-    participantID: "",
+    participantID: "N/A",
     candidateName: "",
     role: this.props.match.params.role,
     university: "",
@@ -80,7 +80,9 @@ class SubmitForm extends Component {
     let reviewerIndex = Math.floor(Math.random() * possibleReviewers.length);
 
     // Set state of reviewedBy to value of that random index
-    this.setState({ reviewedBy: possibleReviewers[reviewerIndex]._id });
+    this.setState({ reviewedBy: possibleReviewers[reviewerIndex]._id }, () =>
+      console.log("the current state", this.state)
+    );
   };
 
   onOpenModal = () => {
@@ -118,7 +120,6 @@ class SubmitForm extends Component {
       },
       () => this.assignReviewer()
     );
-    console.log("the current state", this.state);
   };
 
   // When the form is submitted, use the API.saveTeachback or API.saveTAFinal method to save the data to the appropriate table
