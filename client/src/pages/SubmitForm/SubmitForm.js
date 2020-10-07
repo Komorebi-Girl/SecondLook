@@ -26,7 +26,7 @@ const modalText = {
 class SubmitForm extends Component {
   // Setting our component's initial state
   state = {
-    users: [],
+    reviewers: [],
     participantID: "",
     candidateName: "",
     role: this.props.match.params.role,
@@ -51,7 +51,11 @@ class SubmitForm extends Component {
   loadParticipants = () => {
     API.returnAllUsers()
       .then((res) => {
-        this.setState({ users: res.data });
+        const allUsers = [...res.data];
+        const allReviewers = allUsers.filter((user) => {
+          if (user.isAdmin === "N") return user;
+        });
+        this.setState({ reviewers: allReviewers });
       })
       .catch((err) => console.log(err));
   };
@@ -65,12 +69,12 @@ class SubmitForm extends Component {
   assignReviewer = () => {
     let leadID = this.state.submittedBy;
     let participantID = this.state.participantID;
-    let users = this.state.users;
+    let reviewers = [...this.state.reviewers];
 
     // Create new array of userIDs minus leadID and participantID
-    let possibleReviewers = users.filter((userObj) => {
-      if (userObj._id !== leadID && userObj._id !== participantID) {
-        return userObj;
+    let possibleReviewers = reviewers.filter((reviewerObj) => {
+      if (reviewerObj._id !== leadID && reviewerObj._id !== participantID) {
+        return reviewerObj;
       }
     });
 
@@ -79,7 +83,7 @@ class SubmitForm extends Component {
 
     // Set state of reviewedBy to value of that random index
     this.setState({ reviewedBy: possibleReviewers[reviewerIndex]._id }, () =>
-      console.log("reviewedBy", this.state.reviewedBy)
+      console.log("possibleReviewers Array", possibleReviewers)
     );
   };
 
