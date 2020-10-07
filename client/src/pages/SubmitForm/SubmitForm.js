@@ -61,9 +61,7 @@ class SubmitForm extends Component {
   };
 
   assignParticipant = (event) => {
-    this.setState({ participantID: event.target.value }, () =>
-      this.assignReviewer()
-    );
+    this.setState({ participantID: event.target.value });
   };
 
   assignReviewer = () => {
@@ -82,9 +80,7 @@ class SubmitForm extends Component {
     let reviewerIndex = Math.floor(Math.random() * possibleReviewers.length);
 
     // Set state of reviewedBy to value of that random index
-    this.setState({ reviewedBy: possibleReviewers[reviewerIndex]._id }, () =>
-      console.log("possibleReviewers Array", possibleReviewers)
-    );
+    this.setState({ reviewedBy: possibleReviewers[reviewerIndex]._id });
   };
 
   onOpenModal = () => {
@@ -115,10 +111,14 @@ class SubmitForm extends Component {
 
   updateFinalResult = (event) => {
     // Save the final result to submitterResult
-    this.setState({
-      value: event.target.value,
-      submitterResult: event.target.value,
-    });
+    this.setState(
+      {
+        value: event.target.value,
+        submitterResult: event.target.value,
+      },
+      () => this.assignReviewer()
+    );
+    console.log("the current state", this.state);
   };
 
   // When the form is submitted, use the API.saveTeachback or API.saveTAFinal method to save the data to the appropriate table
