@@ -16,7 +16,6 @@ const taFinalSchema = new Schema({
   reviewerResult: String,
   reviewerRationale: String,
   reviewerRecommendations: String,
-  eqDuration: String,
   notesIncluded: [String],
   isVisible: String,
 });

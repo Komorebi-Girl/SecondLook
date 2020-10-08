@@ -115,7 +115,6 @@ class QAform extends Component {
             reviewerResult: res.data.reviewerResult,
             reviewerRationale: res.data.reviewerRationale,
             reviewerRecommendations: res.data.reviewerRecommendations,
-            eqDuration: res.data.eqDuration,
             notesIncluded: res.data.notesIncluded,
             isVisible: res.data.isVisible,
           });
@@ -371,31 +370,35 @@ class QAform extends Component {
                   </div>
                 </Col>
               </Row>
-              <Row>
-                <Col size="md-12">
-                  <label for="eq">
-                    When was the EQ completed? (in mins after the recording
-                    began):
-                  </label>
-                  <select
-                    id="eq"
-                    name="eqDuration"
-                    onChange={this.handleInputChange}
-                  >
-                    <option value="35">35</option>
-                    <option value="36">36</option>
-                    <option value="37">37</option>
-                    <option value="38">38</option>
-                    <option value="39">39</option>
-                    <option value="40">40</option>
-                    <option value="41">41</option>
-                    <option value="42">42</option>
-                    <option value="43">43</option>
-                    <option value="44">44</option>
-                    <option value="45">45</option>
-                  </select>
-                </Col>
-              </Row>
+
+              {this.state.role === "Instructor" ? (
+                <Row>
+                  <Col size="md-12">
+                    <label for="eq">
+                      When was the EQ completed? (in mins after the recording
+                      began):
+                    </label>
+                    <select
+                      id="eq"
+                      name="eqDuration"
+                      onChange={this.handleInputChange}
+                    >
+                      <option value="35">35</option>
+                      <option value="36">36</option>
+                      <option value="37">37</option>
+                      <option value="38">38</option>
+                      <option value="39">39</option>
+                      <option value="40">40</option>
+                      <option value="41">41</option>
+                      <option value="42">42</option>
+                      <option value="43">43</option>
+                      <option value="44">44</option>
+                      <option value="45">45</option>
+                    </select>
+                  </Col>
+                </Row>
+              ) : null}
+
               <Row
                 customStyles={{ marginTop: "2.5rem", marginBottom: "2.5rem" }}
               >
