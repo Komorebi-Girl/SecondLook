@@ -36,15 +36,7 @@ const Nav = (props) => (
       "5e83a00dbf9b8f0017fb0333" ? (
         <div>
           <div
-            className="col-xs-12 col-sm-2 col-sm-push-3 col-md-1 col-md-push-6 col-lg-1 col-lg-push-7"
-            style={{ textAlign: "center" }}
-          >
-            <a href={`/assign/${props.userID}`} style={navText}>
-              Assign
-            </a>
-          </div>
-          <div
-            className="col-xs-12 col-sm-2 col-sm-push-3 col-md-1 col-md-push-6 col-lg-1 col-lg-push-7"
+            className="col-xs-12 col-sm-2 col-sm-push-5 col-md-1 col-md-push-7 col-lg-1 col-lg-push-8"
             style={{ textAlign: "center" }}
           >
             <a href={`/manage/${props.userID}`} style={navText}>
@@ -52,7 +44,7 @@ const Nav = (props) => (
             </a>
           </div>
           <div
-            className="col-xs-12 col-sm-2 col-sm-push-3 col-md-1 col-md-push-6 col-lg-1 col-lg-push-7 dropdown"
+            className="col-xs-12 col-sm-2 col-sm-push-5 col-md-1 col-md-push-7 col-lg-1 col-lg-push-8 dropdown"
             style={{ textAlign: "center" }}
           >
             <button
@@ -70,7 +62,7 @@ const Nav = (props) => (
             </div>
           </div>
           <div
-            className="col-xs-12 col-sm-2 col-sm-push-3 col-md-1 col-md-push-6 col-lg-1 col-lg-push-7"
+            className="col-xs-12 col-sm-2 col-sm-push-5 col-md-1 col-md-push-7 col-lg-1 col-lg-push-8"
             style={{ textAlign: "center" }}
           >
             <a href="/auth/logout" style={navText}>

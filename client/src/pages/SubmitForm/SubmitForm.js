@@ -51,25 +51,30 @@ class SubmitForm extends Component {
   loadParticipants = () => {
     API.returnAllUsers()
       .then((res) => {
+        // Create an array that contains all the users in the database
         const allUsers = [...res.data];
+
+        // Keep only the users that aren't admins and filter everyone else out
         const participantsList = allUsers.filter((user) => {
           if (user.isAdmin === "N") return user;
         });
+        // Assign the final list of possible participants to the state
         this.setState({ participants: participantsList });
       })
       .catch((err) => console.log(err));
   };
 
   assignParticipant = (event) => {
+    // Whoever is chosen from the participant dropdown, set their ID number as the value of this.state.participantID
     this.setState({ participantID: event.target.value });
   };
 
   assignReviewer = () => {
     let leadID = this.state.submittedBy;
     let participantID = this.state.participantID;
-    let reviewersList = [...this.state.participants];
+    let reviewersList = [...this.state.participants]; // A list of all reviewers, Lead and Participant aren't excluded yet
 
-    // Create new array of userIDs minus leadID and participantID
+    // A list of possible reviewers, lead and participant are filtered out here
     let possibleReviewers = reviewersList.filter((reviewerObj) => {
       if (reviewerObj._id !== leadID && reviewerObj._id !== participantID) {
         return reviewerObj;
@@ -79,10 +84,8 @@ class SubmitForm extends Component {
     // Randomly choose an index
     let reviewerIndex = Math.floor(Math.random() * possibleReviewers.length);
 
-    // Set state of reviewedBy to value of that random index
-    this.setState({ reviewedBy: possibleReviewers[reviewerIndex]._id }, () =>
-      console.log("the current state", this.state)
-    );
+    // Set state of reviewedBy to value of the ID located at that random index
+    this.setState({ reviewedBy: possibleReviewers[reviewerIndex]._id });
   };
 
   onOpenModal = () => {
