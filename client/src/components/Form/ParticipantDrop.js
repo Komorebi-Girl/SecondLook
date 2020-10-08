@@ -17,12 +17,12 @@ const ParticipantDrop = (props) => (
     <option selected value="default">
       Select Your Participant:
     </option>
-    {props.users.map((user) => {
+    {props.participants.map((participant) => {
       return (
         <option
-          key={user._id}
-          value={user._id}
-        >{`${user.userFirstName} ${user.userLastName}`}</option>
+          key={participant._id}
+          value={participant._id}
+        >{`${participant.userFirstName} ${participant.userLastName}`}</option>
       );
     })}
   </select>

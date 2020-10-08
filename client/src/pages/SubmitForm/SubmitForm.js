@@ -26,8 +26,8 @@ const modalText = {
 class SubmitForm extends Component {
   // Setting our component's initial state
   state = {
-    users: [],
-    participantID: "",
+    participants: [],
+    participantID: "N/A",
     candidateName: "",
     role: this.props.match.params.role,
     university: "",
@@ -51,14 +51,43 @@ class SubmitForm extends Component {
   loadParticipants = () => {
     API.returnAllUsers()
       .then((res) => {
-        this.setState({ users: res.data });
+        // Create an array that contains all the users in the database
+        const allUsers = [...res.data];
+
+        // Keep only the users that aren't admins and filter everyone else out
+        const participantsList = allUsers.filter((user) => {
+          if (user.isAdmin === "N") return user;
+        });
+        // Assign the final list of possible participants to the state
+        this.setState({ participants: participantsList });
       })
       .catch((err) => console.log(err));
   };
 
   assignParticipant = (event) => {
+    // Whoever is chosen from the participant dropdown, set their ID number as the value of this.state.participantID
     this.setState({ participantID: event.target.value });
   };
+
+  assignReviewer = () => {
+    let leadID = this.state.submittedBy;
+    let participantID = this.state.participantID;
+    let reviewersList = [...this.state.participants]; // A list of all reviewers, Lead and Participant aren't excluded yet
+
+    // A list of possible reviewers, lead and participant are filtered out here
+    let possibleReviewers = reviewersList.filter((reviewerObj) => {
+      if (reviewerObj._id !== leadID && reviewerObj._id !== participantID) {
+        return reviewerObj;
+      }
+    });
+
+    // Randomly choose an index
+    let reviewerIndex = Math.floor(Math.random() * possibleReviewers.length);
+
+    // Set state of reviewedBy to value of the ID located at that random index
+    this.setState({ reviewedBy: possibleReviewers[reviewerIndex]._id });
+  };
+
   onOpenModal = () => {
     this.setState({ open: true });
   };
@@ -87,10 +116,13 @@ class SubmitForm extends Component {
 
   updateFinalResult = (event) => {
     // Save the final result to submitterResult
-    this.setState({
-      value: event.target.value,
-      submitterResult: event.target.value,
-    });
+    this.setState(
+      {
+        value: event.target.value,
+        submitterResult: event.target.value,
+      },
+      () => this.assignReviewer()
+    );
   };
 
   // When the form is submitted, use the API.saveTeachback or API.saveTAFinal method to save the data to the appropriate table
@@ -180,7 +212,7 @@ class SubmitForm extends Component {
           <Col size="md-6" customStyles="col-md-offset-3">
             {this.state.role === "Instructor" ? (
               <ParticipantDrop
-                users={this.state.users}
+                participants={this.state.participants}
                 assignParticipant={this.assignParticipant}
               />
             ) : null}

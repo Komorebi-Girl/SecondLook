@@ -12,7 +12,6 @@ import Dashboard from "./pages/Dashboard";
 import QAform from "./pages/QAform";
 import Login from "./pages/Login";
 import ResultsPage from "./pages/ResultsPage";
-import AssignView from "./pages/AssignView";
 import ManagerView from "./pages/ManagerView";
 
 class App extends Component {
@@ -42,7 +41,6 @@ class App extends Component {
               )}
             </Route>
             <Route path="/dashboard/:userID" component={Dashboard} />
-            <Route path="/assign/:userID" component={AssignView} />
             <Route path="/submit/:userID/:role" component={SubmitForm} />
             <Route path="/review/:userID/:itemID/:role" component={QAform} />
             <Route path="/view/:userID/:itemID/:role" component={ResultsPage} />
