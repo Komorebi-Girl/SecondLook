@@ -33,7 +33,8 @@ const Nav = (props) => (
         </a>
       </div>
       {props.userID === "5e83630b5fce490017a3930e" ||
-      "5e83a00dbf9b8f0017fb0333" ? (
+      props.userID === "5e83a00dbf9b8f0017fb0333" ||
+      props.userID === "5e83a00fbf9b8f0017fb0334" ? (
         <div>
           <div
             className="col-xs-12 col-sm-2 col-sm-push-5 col-md-1 col-md-push-7 col-lg-1 col-lg-push-8"
@@ -72,7 +73,10 @@ const Nav = (props) => (
         </div>
       ) : null}
 
-      {props.userID && props.userID !== "5e83630b5fce490017a3930e" ? (
+      {props.userID &&
+      props.userID !== "5e83630b5fce490017a3930e" &&
+      props.userID !== "5e83a00dbf9b8f0017fb0333" &&
+      props.userID !== "5e83a00fbf9b8f0017fb0334" ? (
         <div>
           <div
             className="col-xs-12 col-sm-2 col-sm-push-3 col-md-1 col-md-push-6 col-lg-1 col-lg-push-7 dropdown"
