@@ -40,7 +40,7 @@ mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
 mongoose.connect(
   process.env.DB_URI ||
-    `mongodb://${process.env.REACT_APP_MLAB_USERNAME}:${process.env.REACT_APP_MLAB_PASSWORD}@ds159100.mlab.com:59100/heroku_6mc1jvwt`,
+    `mongodb+srv://sjeanphilippe:${process.env.DB_PASSWORD}@secondlook.jdowm.mongodb.net/heroku_6mc1jvwt?retryWrites=true&w=majority`,
   {
     useMongoClient: true,
   }
