@@ -38,19 +38,12 @@ app.use(routes);
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
-// mongoose.connect(
-//   process.env.DB_URI ||
-//     `mongodb+srv://sjeanphilippe:${process.env.DB_PASSWORD}@secondlook.jdowm.mongodb.net/heroku_6mc1jvwt?retryWrites=true&w=majority`,
-//   {
-//     useMongoClient: true,
-//   }
-// );
-
 mongoose
   .connect(
-    `mongodb+srv://sjeanphilippe:${process.env.DB_PASSWORD}@secondlook.jdowm.mongodb.net/<dbname>?retryWrites=true&w=majority`,
+    process.env.DB_URI ||
+      `mongodb+srv://sjeanphilippe:${process.env.DB_PASSWORD}@secondlook.jdowm.mongodb.net/heroku_6mc1jvwt?retryWrites=true&w=majority`,
     {
-      useNewUrlParser: true,
+      useMongoClient: true,
     }
   )
   .then(() => {
