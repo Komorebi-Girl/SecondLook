@@ -1,7 +1,7 @@
 {
-  "name": "mern",
+  "name": "secondlook",
   "version": "1.0.0",
-  "description": "",
+  "description": "An app that will allow users to review the results of each other's teachbacks for quality assurance purposes.",
   "main": "server.js",
   "scripts": {
     "server": "node server.js",
@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "installDeps": "yarn && cd client && yarn"
   },
-  "author": "",
+  "author": "Stacy Jean-Philippe",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^3.5.0",
@@ -22,10 +22,8 @@
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "cookie-session": "^1.4.0",
-    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.15.4",
-    "http-proxy-middleware": "^1.0.1",
     "mongoose": ">=5.7.5",
     "morgan": "^1.9.1",
     "passport": "^0.4.1",
