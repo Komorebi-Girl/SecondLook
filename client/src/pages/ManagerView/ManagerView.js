@@ -75,6 +75,7 @@ class ManagerView extends Component {
   };
 
   deleteItem = (itemID, role) => {
+    // If the item's role is listed as instructor run the deleteTeachback function or if it's TA run the deleteTAFinal function 
     if (role === "Instructor") {
       API.deleteTeachback(itemID);
     } else if (role === "TA") {
@@ -115,7 +116,7 @@ class ManagerView extends Component {
                           </strong>
                           <div style={tbText}>
                             {teachback.role} role for {teachback.programType}{" "}
-                            program at {teachback.university}
+                            program at {teachback.university} {teachback.reviewerResult === "N/A" ? "- REVIEW PENDING" : null}
                           </div>
                         </ListItem>
                       </Col>
@@ -191,7 +192,7 @@ class ManagerView extends Component {
                           </strong>
                           <div style={tbText}>
                             {taFinal.role} role for {taFinal.programType}{" "}
-                            program at {taFinal.university}
+                            program at {taFinal.university} {taFinal.reviewerResult === "N/A" ? "- REVIEW PENDING" : null}
                           </div>
                         </ListItem>
                       </Col>
@@ -202,7 +203,13 @@ class ManagerView extends Component {
                             customStyles="col-sm-6 col-md-4 col-md-push-3 col-lg-4 col-lg-push-5"
                           >
                             <button
-                              style={viewBtn}
+                              style={
+                                taFinal.reviewerResult !== "N/A" &&
+                                taFinal.reviewerResult !==
+                                taFinal.submitterResult
+                                  ? flagBtn
+                                  : viewBtn
+                              }
                               type="button"
                               onClick={() =>
                                 this.viewItem(
