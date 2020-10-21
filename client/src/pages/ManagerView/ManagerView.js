@@ -30,6 +30,18 @@ const viewBtn = {
   height: "57px",
 };
 
+const flagBtn = {
+  backgroundColor: "rgb(252, 130, 4)",
+  color: "rgb(255,255,255)",
+  fontFamily: "Montserrat",
+  fontWeight: 600,
+  fontSize: "1.75rem",
+  position: "relative",
+  top: "14px",
+  right: "10px",
+  height: "57px",
+};
+
 const deleteBtn = {
   backgroundColor: "rgb(255,0,0)",
   color: "rgb(255,255,255)",
@@ -114,7 +126,13 @@ class ManagerView extends Component {
                             customStyles="col-sm-6 col-md-4 col-md-push-3 col-lg-4 col-lg-push-5"
                           >
                             <button
-                              style={viewBtn}
+                              style={
+                                teachback.reviewerResult !== "N/A" &&
+                                teachback.reviewerResult !==
+                                  teachback.submitterResult
+                                  ? flagBtn
+                                  : viewBtn
+                              }
                               type="button"
                               onClick={() =>
                                 this.viewItem(
