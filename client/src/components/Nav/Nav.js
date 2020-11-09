@@ -63,7 +63,7 @@ const Nav = (props) => (
               <a href={`/submit/${props.userID}/TA`}>Submit TA Final</a>
               <a href={`/submit/${props.userID}/LA`}>Submit LA Final</a>
               <a href={`/submit/${props.userID}/Tutor`}>Submit Tutor Final</a>
-              <a href={`/submit/${props.userID}/TA`}>Submit Grader Final</a>
+              <a href={`/submit/${props.userID}/Grader`}>Submit Grader Final</a>
             </div>
           </div>
           <div
@@ -100,7 +100,7 @@ const Nav = (props) => (
               <a href={`/submit/${props.userID}/TA`}>Submit TA Final</a>
               <a href={`/submit/${props.userID}/LA`}>Submit LA Final</a>
               <a href={`/submit/${props.userID}/Tutor`}>Submit Tutor Final</a>
-              <a href={`/submit/${props.userID}/TA`}>Submit Grader Final</a>
+              <a href={`/submit/${props.userID}/Grader`}>Submit Grader Final</a>
             </div>
           </div>
           <div
