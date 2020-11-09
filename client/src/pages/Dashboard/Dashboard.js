@@ -65,18 +65,18 @@ class Dashboard extends Component {
   loadItems = () => {
     let allFinalItems = [];
     let userTBs = [];
-    let userTAFinals = [];
+    let userOneonOnes = [];
 
     Promise.all([
       API.getUserTeachbacks(this.state.userID),
-      API.getUserTAFinals(this.state.userID),
+      API.getUserOneonOnes(this.state.userID),
     ])
       .then((res) => {
         // To make things clearer semantically, save the arrays of TB and TA Final objs into appropriately labelled variables
         userTBs = res[0].data;
-        userTAFinals = res[1].data;
+        userOneonOnes = res[1].data;
         // Combine the all user's TBs and all user's TA Finals into a single array
-        allFinalItems = userTBs.concat(userTAFinals);
+        allFinalItems = userTBs.concat(userOneonOnes);
         // Sort all these items into two groups: assigned and submitted items
         this.sortItems(allFinalItems);
       })
@@ -107,7 +107,8 @@ class Dashboard extends Component {
       }
     }
 
-    // reverse the array to ensure that more recently submitted TBs are listed first
+    // reverse the array to ensure that more recently assigned/submitted objs are listed first
+    assignedObjs = assignedObjs.reverse();
     submittedObjs = submittedObjs.reverse();
 
     // save each group of teachbacks to the component's state

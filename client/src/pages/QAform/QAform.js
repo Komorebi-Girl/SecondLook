@@ -47,7 +47,7 @@ class QAform extends Component {
     open: false,
   };
 
-  // When the component mounts, load all teachbacks and save them to this.state.teachbacks
+  // When the component mounts, load the appropriate teachback/final One-on-One 
   componentDidMount() {
     this.loadSingleItem();
   }
@@ -71,10 +71,11 @@ class QAform extends Component {
     });
   };
 
-  // Loads either a TA Final or Teachback profile object based on the value of role
+  // Loads either a Teachback or Final One-on-One profile object by means of an ID number based on the value of role
   loadSingleItem = () => {
-    if (this.state.role === "Instructor") {
-      API.getTeachback(this.props.match.params.itemID)
+    switch (this.state.role) {
+      case "Instructor":
+        API.getTeachback(this.props.match.params.itemID)
         .then((res) =>
           this.setState({
             data: res.data,
@@ -97,30 +98,85 @@ class QAform extends Component {
           })
         )
         .catch((err) => console.log(err));
-    } else if (this.state.role === "TA") {
-      API.getTAFinal(this.props.match.params.itemID)
-        .then((res) => {
-          this.setState({
-            data: res.data,
-            candidateName: res.data.candidateName,
-            role: res.data.role,
-            university: res.data.university,
-            programType: res.data.programType,
-            submittedBy: res.data.submittedBy,
-            zoomLink: res.data.zoomLink,
-            cohortStartDate: res.data.cohortStartDate,
-            submitterScores: res.data.submitterScores,
-            submitterResult: res.data.submitterResult,
-            reviewerScores: res.data.reviewerScores,
-            reviewerResult: res.data.reviewerResult,
-            reviewerRationale: res.data.reviewerRationale,
-            reviewerRecommendations: res.data.reviewerRecommendations,
-            notesIncluded: res.data.notesIncluded,
-            isVisible: res.data.isVisible,
-          });
-        })
-        .catch((err) => console.log(err));
+        break;
+      case "TA":
+      case "Tutor":
+      case "LA":
+      case "Grader":    
+      API.getOneonOne(this.props.match.params.itemID)
+      .then((res) => {
+        this.setState({
+          data: res.data,
+          candidateName: res.data.candidateName,
+          role: res.data.role,
+          university: res.data.university,
+          programType: res.data.programType,
+          submittedBy: res.data.submittedBy,
+          zoomLink: res.data.zoomLink,
+          cohortStartDate: res.data.cohortStartDate,
+          submitterScores: res.data.submitterScores,
+          submitterResult: res.data.submitterResult,
+          reviewerScores: res.data.reviewerScores,
+          reviewerResult: res.data.reviewerResult,
+          reviewerRationale: res.data.reviewerRationale,
+          reviewerRecommendations: res.data.reviewerRecommendations,
+          notesIncluded: res.data.notesIncluded,
+          isVisible: res.data.isVisible,
+        });
+      })
+      .catch((err) => console.log(err));
+        break;
+      default:
+        return;
     }
+    // if (this.state.role === "Instructor") {
+    //   API.getTeachback(this.props.match.params.itemID)
+    //     .then((res) =>
+    //       this.setState({
+    //         data: res.data,
+    //         candidateName: res.data.candidateName,
+    //         role: res.data.role,
+    //         university: res.data.university,
+    //         programType: res.data.programType,
+    //         submittedBy: res.data.submittedBy,
+    //         zoomLink: res.data.zoomLink,
+    //         cohortStartDate: res.data.cohortStartDate,
+    //         submitterScores: res.data.submitterScores,
+    //         submitterResult: res.data.submitterResult,
+    //         reviewerScores: res.data.reviewerScores,
+    //         reviewerResult: res.data.reviewerResult,
+    //         reviewerRationale: res.data.reviewerRationale,
+    //         reviewerRecommendations: res.data.reviewerRecommendations,
+    //         eqDuration: "35",
+    //         notesIncluded: res.data.notesIncluded,
+    //         isVisible: res.data.isVisible,
+    //       })
+    //     )
+    //     .catch((err) => console.log(err));
+    // } else if (this.state.role === "TA" || this.state.role === "Tutor" || this.state.role === "LA" || this.state.role === "Grader") {
+    //   API.getOneonOne(this.props.match.params.itemID)
+    //     .then((res) => {
+    //       this.setState({
+    //         data: res.data,
+    //         candidateName: res.data.candidateName,
+    //         role: res.data.role,
+    //         university: res.data.university,
+    //         programType: res.data.programType,
+    //         submittedBy: res.data.submittedBy,
+    //         zoomLink: res.data.zoomLink,
+    //         cohortStartDate: res.data.cohortStartDate,
+    //         submitterScores: res.data.submitterScores,
+    //         submitterResult: res.data.submitterResult,
+    //         reviewerScores: res.data.reviewerScores,
+    //         reviewerResult: res.data.reviewerResult,
+    //         reviewerRationale: res.data.reviewerRationale,
+    //         reviewerRecommendations: res.data.reviewerRecommendations,
+    //         notesIncluded: res.data.notesIncluded,
+    //         isVisible: res.data.isVisible,
+    //       });
+    //     })
+    //     .catch((err) => console.log(err));
+    // }
   };
 
   /* This function will take the scores selected via the category dropdowns & populate them
@@ -145,14 +201,30 @@ class QAform extends Component {
     this.setState({ notesIncluded: newNotesArray });
   };
 
-  /* When the form is submitted, use the API.updateTeachback method to update the teachback data
-   with reviewer's score Then reload teachbacks from the database */
+  /* When the form is submitted, use one of the API.update methods to update the teachback/final One-on-One data
+   with reviewer's score */
   handleFormSubmit = (event) => {
     event.preventDefault();
     if (this.validateAllValues(this.state)) {
       this.onOpenModal();
-      if (this.state.role === "Instructor") {
-        API.updateTeachback(this.props.match.params.itemID, {
+      switch (this.state.role) {
+        case "Instructor":
+          API.updateTeachback(this.props.match.params.itemID, {
+            reviewerScores: this.state.reviewerScores,
+            reviewerResult: this.state.reviewerResult,
+            reviewerRationale: this.state.reviewerRationale,
+            reviewerRecommendations: this.state.reviewerRecommendations,
+            eqDuration: this.state.eqDuration,
+            notesIncluded: this.state.notesIncluded,
+          })
+            .then((res) => res.send("Review Submitted"))
+            .catch((err) => console.log(err));
+          break;
+        case "TA":
+        case "Tutor":
+        case "LA":
+        case "Grader":    
+        API.updateOneonOne(this.props.match.params.itemID, {
           reviewerScores: this.state.reviewerScores,
           reviewerResult: this.state.reviewerResult,
           reviewerRationale: this.state.reviewerRationale,
@@ -162,18 +234,33 @@ class QAform extends Component {
         })
           .then((res) => res.send("Review Submitted"))
           .catch((err) => console.log(err));
-      } else if (this.state.role === "TA") {
-        API.updateTAFinal(this.props.match.params.itemID, {
-          reviewerScores: this.state.reviewerScores,
-          reviewerResult: this.state.reviewerResult,
-          reviewerRationale: this.state.reviewerRationale,
-          reviewerRecommendations: this.state.reviewerRecommendations,
-          eqDuration: this.state.eqDuration,
-          notesIncluded: this.state.notesIncluded,
-        })
-          .then((res) => res.send("Review Submitted"))
-          .catch((err) => console.log(err));
+          break;
+        default:
+          return;
       }
+      // if (this.state.role === "Instructor") {
+      //   API.updateTeachback(this.props.match.params.itemID, {
+      //     reviewerScores: this.state.reviewerScores,
+      //     reviewerResult: this.state.reviewerResult,
+      //     reviewerRationale: this.state.reviewerRationale,
+      //     reviewerRecommendations: this.state.reviewerRecommendations,
+      //     eqDuration: this.state.eqDuration,
+      //     notesIncluded: this.state.notesIncluded,
+      //   })
+      //     .then((res) => res.send("Review Submitted"))
+      //     .catch((err) => console.log(err));
+      // } else if (this.state.role === "TA" || this.state.role === "Tutor" || this.state.role === "LA" || this.state.role === "Grader") {
+      //   API.updateOneonOne(this.props.match.params.itemID, {
+      //     reviewerScores: this.state.reviewerScores,
+      //     reviewerResult: this.state.reviewerResult,
+      //     reviewerRationale: this.state.reviewerRationale,
+      //     reviewerRecommendations: this.state.reviewerRecommendations,
+      //     eqDuration: this.state.eqDuration,
+      //     notesIncluded: this.state.notesIncluded,
+      //   })
+      //     .then((res) => res.send("Review Submitted"))
+      //     .catch((err) => console.log(err));
+      // }
     }
   };
 
@@ -203,7 +290,7 @@ class QAform extends Component {
           <Col size="md-4" customStyles="col-lg-6">
             <Jumbotron>
               <h1 style={jumbotronText}>
-                {this.state.role === "Instructor" ? "Teachback" : "TA Final"}{" "}
+                {this.state.role === "Instructor" ? "Teachback" : "Final One-on-One"}{" "}
                 Info
               </h1>
             </Jumbotron>

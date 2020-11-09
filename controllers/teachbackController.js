@@ -1,6 +1,6 @@
 const db = require("../models");
 
-// Defining methods for the teachbacksController
+// Defining methods for the teachbackController
 module.exports = {
   findAll: function(req, res) {
     db.Teachback.find(req.query)

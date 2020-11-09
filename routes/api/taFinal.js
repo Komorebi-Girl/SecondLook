@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const taFinalController = require("../../controllers/taFinalController");
 
-// Matches with "/api/taFinals"
+// Matches with "/api/taFinal"
 router.route("/").get(taFinalController.findAll).post(taFinalController.create);
 
-// Matches with "/api/taFinals/mytaFinals/userID"
-router.route("/mytaFinals/:userID").get(taFinalController.findUserTAFinals);
+// Matches with "/api/taFinal/mytaFinal/userID"
+router.route("/mytaFinal/:userID").get(taFinalController.findUserTAFinals);
 
-// Matches with "/api/taFinals/:id"
+// Matches with "/api/taFinal/:id"
 router
   .route("/:id")
   .get(taFinalController.findById)

@@ -57,7 +57,7 @@ const deleteBtn = {
 class ManagerView extends Component {
   state = {
     teachbacks: [],
-    taFinals: [],
+    finalOneonOnes: [],
     userID: this.props.match.params.userID,
   };
 
@@ -66,22 +66,28 @@ class ManagerView extends Component {
   }
 
   loadAllFinalsInfo = () => {
-    // Make two calls to database to get all of teachback and TA final data for all users
-    Promise.all([API.getTeachbacks(), API.getTAFinals()])
+    // Make two calls to database to get all of teachback and Final One-on-One data for all users
+    Promise.all([API.getTeachbacks(), API.getOneonOnes()])
       .then((res) => {
-        this.setState({ teachbacks: res[0].data, taFinals: res[1].data });
+        this.setState({ teachbacks: res[0].data, finalOneonOnes: res[1].data });
       })
       .catch((err) => console.log(err));
   };
 
   deleteItem = (itemID, role) => {
-    // If the item's role is listed as instructor run the deleteTeachback function or if it's TA run the deleteTAFinal function 
-    if (role === "Instructor") {
-      API.deleteTeachback(itemID);
-    } else if (role === "TA") {
-      API.deleteTAFinal(itemID);
-    } else {
-      return;
+    // If the item's role is listed as instructor run the deleteTeachback function or if it's any other role run the deleteOneonOne function 
+    switch (role) {
+      case "Instructor":
+        API.deleteTeachback(itemID);
+        break;
+      case "TA":
+      case "Tutor":
+      case "LA":
+      case "Grader":    
+        API.deleteOneonOne(itemID);
+        break;
+      default:
+        return;
     }
     window.location.reload();
   };
@@ -174,25 +180,25 @@ class ManagerView extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1 style={jumbotronText}>View All TA Finals</h1>
+              <h1 style={jumbotronText}>View All Final One-on-Ones</h1>
             </Jumbotron>
           </Col>
         </Row>
         <Row>
           <Col size="md-12">
-            {this.state.taFinals.length ? (
+            {this.state.finalOneonOnes.length ? (
               <List>
-                {this.state.taFinals.map((taFinal) => {
+                {this.state.finalOneonOnes.map((OneonOne) => {
                   return (
                     <Row>
                       <Col size="xs-6" customStyles="">
-                        <ListItem key={taFinal._id}>
+                        <ListItem key={OneonOne._id}>
                           <strong style={tbText}>
-                            {taFinal.candidateName}
+                            {OneonOne.candidateName}
                           </strong>
                           <div style={tbText}>
-                            {taFinal.role} role for {taFinal.programType}{" "}
-                            program at {taFinal.university} {taFinal.reviewerResult === "N/A" ? "- REVIEW PENDING" : null}
+                            {OneonOne.role} role for {OneonOne.programType}{" "}
+                            program at {OneonOne.university} {OneonOne.reviewerResult === "N/A" ? "- REVIEW PENDING" : null}
                           </div>
                         </ListItem>
                       </Col>
@@ -204,9 +210,9 @@ class ManagerView extends Component {
                           >
                             <button
                               style={
-                                taFinal.reviewerResult !== "N/A" &&
-                                taFinal.reviewerResult !==
-                                taFinal.submitterResult
+                                OneonOne.reviewerResult !== "N/A" &&
+                                OneonOne.reviewerResult !==
+                                OneonOne.submitterResult
                                   ? flagBtn
                                   : viewBtn
                               }
@@ -214,12 +220,12 @@ class ManagerView extends Component {
                               onClick={() =>
                                 this.viewItem(
                                   this.state.userID,
-                                  taFinal._id,
-                                  taFinal.role
+                                  OneonOne._id,
+                                  OneonOne.role
                                 )
                               }
                             >
-                              View TA Final
+                              View Final One-on-One
                             </button>
                           </Col>
                           <Col
@@ -230,10 +236,10 @@ class ManagerView extends Component {
                               style={deleteBtn}
                               type="button"
                               onClick={() =>
-                                this.deleteItem(taFinal._id, taFinal.role)
+                                this.deleteItem(OneonOne._id, OneonOne.role)
                               }
                             >
-                              Delete TA Final
+                              Delete Final One-on-One
                             </button>
                           </Col>
                         </Row>
@@ -243,7 +249,7 @@ class ManagerView extends Component {
                 })}
               </List>
             ) : (
-              <h3 style={tbText}>No TA Finals to Display</h3>
+              <h3 style={tbText}>No Final One-on-Ones to Display</h3>
             )}
           </Col>
         </Row>

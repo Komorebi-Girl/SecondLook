@@ -129,8 +129,33 @@ class SubmitForm extends Component {
   handleFormSubmit = (event) => {
     if (this.validateAllValues(this.state)) {
       this.onOpenModal();
-      if (this.state.role === "Instructor") {
-        API.saveTeachback({
+      switch (this.state.role) {
+        case "Instructor":
+          API.saveTeachback({
+            candidateName: this.state.candidateName,
+            role: this.state.role,
+            university: this.state.university,
+            programType: this.state.programType,
+            reviewedBy: this.state.reviewedBy,
+            submittedBy: this.state.submittedBy,
+            zoomLink: this.state.zoomLink.slice(8), // need to cut off the "https://" for the link to work
+            cohortStartDate: this.state.cohortStartDate,
+            submitterScores: this.state.submitterScores,
+            reviewerScores: this.state.reviewerScores,
+            submitterResult: this.state.submitterResult,
+            reviewerResult: this.state.reviewerResult,
+            isVisible: this.state.isVisible,
+          })
+            .then((res) => {
+              res.status(200).send("Teachback Saved");
+            })
+            .catch((err) => console.log(err));
+          break;
+        case "TA":
+        case "Tutor":
+        case "LA":
+        case "Grader":    
+        API.saveOneonOne({
           candidateName: this.state.candidateName,
           role: this.state.role,
           university: this.state.university,
@@ -146,30 +171,54 @@ class SubmitForm extends Component {
           isVisible: this.state.isVisible,
         })
           .then((res) => {
-            res.status(200).send("Teachback Saved");
+            res.status(200).send("Final One-on-One Saved");
           })
           .catch((err) => console.log(err));
-      } else if (this.state.role === "TA") {
-        API.saveTAFinal({
-          candidateName: this.state.candidateName,
-          role: this.state.role,
-          university: this.state.university,
-          programType: this.state.programType,
-          reviewedBy: this.state.reviewedBy,
-          submittedBy: this.state.submittedBy,
-          zoomLink: this.state.zoomLink.slice(8), // need to cut off the "https://" for the link to work
-          cohortStartDate: this.state.cohortStartDate,
-          submitterScores: this.state.submitterScores,
-          reviewerScores: this.state.reviewerScores,
-          submitterResult: this.state.submitterResult,
-          reviewerResult: this.state.reviewerResult,
-          isVisible: this.state.isVisible,
-        })
-          .then((res) => {
-            res.status(200).send("TA Final Saved");
-          })
-          .catch((err) => console.log(err));
+          break;
+        default:
+          return;
       }
+      // if (this.state.role === "Instructor") {
+      //   API.saveTeachback({
+      //     candidateName: this.state.candidateName,
+      //     role: this.state.role,
+      //     university: this.state.university,
+      //     programType: this.state.programType,
+      //     reviewedBy: this.state.reviewedBy,
+      //     submittedBy: this.state.submittedBy,
+      //     zoomLink: this.state.zoomLink.slice(8), // need to cut off the "https://" for the link to work
+      //     cohortStartDate: this.state.cohortStartDate,
+      //     submitterScores: this.state.submitterScores,
+      //     reviewerScores: this.state.reviewerScores,
+      //     submitterResult: this.state.submitterResult,
+      //     reviewerResult: this.state.reviewerResult,
+      //     isVisible: this.state.isVisible,
+      //   })
+      //     .then((res) => {
+      //       res.status(200).send("Teachback Saved");
+      //     })
+      //     .catch((err) => console.log(err));
+      // } else if (this.state.role === "TA" || this.state.role === "Tutor" || this.state.role === "LA" || this.state.role === "Grader") {
+      //   API.saveOneonOne({
+      //     candidateName: this.state.candidateName,
+      //     role: this.state.role,
+      //     university: this.state.university,
+      //     programType: this.state.programType,
+      //     reviewedBy: this.state.reviewedBy,
+      //     submittedBy: this.state.submittedBy,
+      //     zoomLink: this.state.zoomLink.slice(8), // need to cut off the "https://" for the link to work
+      //     cohortStartDate: this.state.cohortStartDate,
+      //     submitterScores: this.state.submitterScores,
+      //     reviewerScores: this.state.reviewerScores,
+      //     submitterResult: this.state.submitterResult,
+      //     reviewerResult: this.state.reviewerResult,
+      //     isVisible: this.state.isVisible,
+      //   })
+      //     .then((res) => {
+      //       res.status(200).send("Final One-on-One Saved");
+      //     })
+      //     .catch((err) => console.log(err));
+      // }
     }
   };
 
@@ -194,7 +243,7 @@ class SubmitForm extends Component {
           styles={{ modal: modalText }}
         >
           <h2>
-            Your {this.state.role === "Instructor" ? "Teachback" : "TA Final"}{" "}
+            Your {this.state.role === "Instructor" ? "Teachback" : "Final One-on-One"}{" "}
             has been successfully submitted!
           </h2>
         </Modal>
@@ -203,7 +252,7 @@ class SubmitForm extends Component {
             <Jumbotron>
               <h1 style={jumbotronText}>
                 Submit a{" "}
-                {this.state.role === "Instructor" ? "Teachback!" : "TA Final!"}
+                {this.state.role === "Instructor" ? "Teachback!" : "Final One-on-One!"}
               </h1>
             </Jumbotron>
           </Col>
@@ -364,7 +413,7 @@ class SubmitForm extends Component {
                     Submit{" "}
                     {this.state.role === "Instructor"
                       ? "Teachback!"
-                      : "TA Final"}
+                      : "Final One-on-One"}
                   </FormBtn>
                 </Col>
               </Row>

@@ -53,7 +53,7 @@ class ResultsPage extends Component {
     open: false,
   };
 
-  // When the component mounts, load all teachbacks and save them to this.state.teachbacks
+ // When the component mounts, load the appropriate teachback/final One-on-One 
   componentDidMount() {
     this.loadSingleItem();
   }
@@ -69,10 +69,11 @@ class ResultsPage extends Component {
     );
   };
 
-  // Loads either a TA Final or Teachback profile object based on the value of role
+  // Loads either a Teachback or Final One-on-One profile object by means of an ID number based on the value of role
   loadSingleItem = () => {
-    if (this.state.role === "Instructor") {
-      API.getTeachback(this.props.match.params.itemID)
+    switch (this.state.role) {
+      case "Instructor":
+        API.getTeachback(this.props.match.params.itemID)
         .then((res) =>
           this.setState({
             data: res.data,
@@ -95,8 +96,12 @@ class ResultsPage extends Component {
           })
         )
         .catch((err) => console.log(err));
-    } else if (this.state.role === "TA") {
-      API.getTAFinal(this.props.match.params.itemID)
+        break;
+      case "TA":
+      case "Tutor":
+      case "LA":
+      case "Grader":    
+      API.getOneonOne(this.props.match.params.itemID)
         .then((res) =>
           this.setState({
             data: res.data,
@@ -119,25 +124,98 @@ class ResultsPage extends Component {
           })
         )
         .catch((err) => console.log(err));
+        break;
+      default:
+        return;
     }
+    // if (this.state.role === "Instructor") {
+    //   API.getTeachback(this.props.match.params.itemID)
+    //     .then((res) =>
+    //       this.setState({
+    //         data: res.data,
+    //         candidateName: res.data.candidateName,
+    //         role: res.data.role,
+    //         university: res.data.university,
+    //         programType: res.data.programType,
+    //         submittedBy: res.data.submittedBy,
+    //         zoomLink: res.data.zoomLink,
+    //         cohortStartDate: res.data.cohortStartDate,
+    //         submitterScores: res.data.submitterScores,
+    //         submitterResult: res.data.submitterResult,
+    //         reviewerScores: res.data.reviewerScores,
+    //         reviewerResult: res.data.reviewerResult,
+    //         reviewerRationale: res.data.reviewerRationale,
+    //         reviewerRecommendations: res.data.reviewerRecommendations,
+    //         eqDuration: res.data.eqDuration,
+    //         notesIncluded: res.data.notesIncluded,
+    //         isVisible: res.data.isVisible,
+    //       })
+    //     )
+    //     .catch((err) => console.log(err));
+    // } else if (this.state.role === "TA" || this.state.role === "Tutor" || this.state.role === "LA" || this.state.role === "Grader") {
+    //   API.getOneonOne(this.props.match.params.itemID)
+    //     .then((res) =>
+    //       this.setState({
+    //         data: res.data,
+    //         candidateName: res.data.candidateName,
+    //         role: res.data.role,
+    //         university: res.data.university,
+    //         programType: res.data.programType,
+    //         submittedBy: res.data.submittedBy,
+    //         zoomLink: res.data.zoomLink,
+    //         cohortStartDate: res.data.cohortStartDate,
+    //         submitterScores: res.data.submitterScores,
+    //         submitterResult: res.data.submitterResult,
+    //         reviewerScores: res.data.reviewerScores,
+    //         reviewerResult: res.data.reviewerResult,
+    //         reviewerRationale: res.data.reviewerRationale,
+    //         reviewerRecommendations: res.data.reviewerRecommendations,
+    //         eqDuration: res.data.eqDuration,
+    //         notesIncluded: res.data.notesIncluded,
+    //         isVisible: res.data.isVisible,
+    //       })
+    //     )
+    //     .catch((err) => console.log(err));
+    // }
   };
 
   removeItem = (event) => {
     event.preventDefault();
     this.onOpenModal();
-    if (this.state.role === "Instructor") {
-      API.updateTeachback(this.props.match.params.itemID, {
+    switch (this.state.role) {
+      case "Instructor":
+        API.updateTeachback(this.props.match.params.itemID, {
+          isVisible: "False",
+        })
+          .then((res) => res.send("Teachback Removed"))
+          .catch((err) => console.log(err));
+        break;
+      case "TA":
+      case "Tutor":
+      case "LA":
+      case "Grader":    
+      API.updateOneonOne(this.props.match.params.itemID, {
         isVisible: "False",
       })
-        .then((res) => res.send("Teachback Removed"))
+        .then((res) => res.send("Final One-on-One Removed"))
         .catch((err) => console.log(err));
-    } else if (this.state.role === "TA") {
-      API.updateTAFinal(this.props.match.params.itemID, {
-        isVisible: "False",
-      })
-        .then((res) => res.send("TA Final Removed"))
-        .catch((err) => console.log(err));
+        break;
+      default:
+        return;
     }
+    // if (this.state.role === "Instructor") {
+    //   API.updateTeachback(this.props.match.params.itemID, {
+    //     isVisible: "False",
+    //   })
+    //     .then((res) => res.send("Teachback Removed"))
+    //     .catch((err) => console.log(err));
+    // } else if (this.state.role === "TA" || this.state.role === "Tutor" || this.state.role === "LA" || this.state.role === "Grader") {
+    //   API.updateOneonOne(this.props.match.params.itemID, {
+    //     isVisible: "False",
+    //   })
+    //     .then((res) => res.send("Final One-on-One Removed"))
+    //     .catch((err) => console.log(err));
+    // }
   };
   render() {
     const { open } = this.state;
@@ -154,7 +232,7 @@ class ResultsPage extends Component {
           <Col size="md-6">
             <Jumbotron>
               <h1 style={jumbotronText}>
-                {this.state.role === "Instructor" ? "Teachback" : "TA Final"}{" "}
+                {this.state.role === "Instructor" ? "Teachback" : "Final One-on-One"}{" "}
                 Profile
               </h1>
             </Jumbotron>

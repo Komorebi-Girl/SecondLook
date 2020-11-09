@@ -1,6 +1,29 @@
 import axios from "axios";
 
 export default {
+  getOneonOnes: function () {
+    return axios.get("/api/OneonOne");
+  },
+  // Gets all One-on-Ones associated with a particular user
+  getUserOneonOnes: function (userID) {
+    return axios.get("/api/OneonOne/myOneonOnes/" + userID);
+  },
+  // Gets the One-on-One with the given id
+  getOneonOne: function (id) {
+    return axios.get("/api/OneonOne/" + id);
+  },
+  // Deletes the One-on-One with the given id
+  deleteOneonOne: function (id) {
+    return axios.delete("/api/OneonOne/" + id);
+  },
+  // Updates the One-on-One with the given id
+  updateOneonOne: function (id, OneonOneData) {
+    return axios.put("/api/OneonOne/" + id, OneonOneData);
+  },
+  // Saves a One-on-One to the database
+  saveOneonOne: function (OneonOneData) {
+    return axios.post("/api/OneonOne", OneonOneData);
+  },
   getTAFinals: function () {
     return axios.get("/api/taFinals");
   },
