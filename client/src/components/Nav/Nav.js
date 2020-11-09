@@ -32,6 +32,7 @@ const Nav = (props) => (
           SecondLook
         </a>
       </div>
+      {/* If the user is authorized, show the manage tab on the nav bar */}
       {props.userID === "5e83630b5fce490017a3930e" ||
       props.userID === "5e83a00dbf9b8f0017fb0333" ||
       props.userID === "5e83a00fbf9b8f0017fb0334" ? (
@@ -60,6 +61,9 @@ const Nav = (props) => (
             <div class="dropdown-content" id="myDropdown">
               <a href={`/submit/${props.userID}/Instructor`}>Submit TB</a>
               <a href={`/submit/${props.userID}/TA`}>Submit TA Final</a>
+              <a href={`/submit/${props.userID}/LA`}>Submit LA Final</a>
+              <a href={`/submit/${props.userID}/Tutor`}>Submit Tutor Final</a>
+              <a href={`/submit/${props.userID}/TA`}>Submit Grader Final</a>
             </div>
           </div>
           <div
@@ -72,7 +76,7 @@ const Nav = (props) => (
           </div>
         </div>
       ) : null}
-
+{/* If a user is signed in but isn't an authorized user, show only the submit and logout tabs on the nav bar */}
       {props.userID &&
       props.userID !== "5e83630b5fce490017a3930e" &&
       props.userID !== "5e83a00dbf9b8f0017fb0333" &&
@@ -94,6 +98,9 @@ const Nav = (props) => (
             <div class="dropdown-content" id="myDropdown">
               <a href={`/submit/${props.userID}/Instructor`}>Submit TB</a>
               <a href={`/submit/${props.userID}/TA`}>Submit TA Final</a>
+              <a href={`/submit/${props.userID}/LA`}>Submit LA Final</a>
+              <a href={`/submit/${props.userID}/Tutor`}>Submit Tutor Final</a>
+              <a href={`/submit/${props.userID}/TA`}>Submit Grader Final</a>
             </div>
           </div>
           <div
