@@ -48,27 +48,27 @@ export default {
     return axios.post("/api/taFinals", taFinalData);
   },
   getTeachbacks: function () {
-    return axios.get("/api/teachbacks");
+    return axios.get("/api/teachback");
   },
   // Gets all teachbacks associated with a particular user
   getUserTeachbacks: function (userID) {
-    return axios.get("/api/teachbacks/myTBs/" + userID);
+    return axios.get("/api/teachback/myTBs/" + userID);
   },
   // Gets the teachback with the given id
   getTeachback: function (id) {
-    return axios.get("/api/teachbacks/" + id);
+    return axios.get("/api/teachback/" + id);
   },
   // Deletes the teachback with the given id
   deleteTeachback: function (id) {
-    return axios.delete("/api/teachbacks/" + id);
+    return axios.delete("/api/teachback/" + id);
   },
   // Updates the teachback with the given id
   updateTeachback: function (id, teachbackData) {
-    return axios.put("/api/teachbacks/" + id, teachbackData);
+    return axios.put("/api/teachback/" + id, teachbackData);
   },
   // Saves a teachback to the database
   saveTeachback: function (teachbackData) {
-    return axios.post("/api/teachbacks", teachbackData);
+    return axios.post("/api/teachback", teachbackData);
   },
   returnUser: function () {
     return axios.get("/auth/user");
