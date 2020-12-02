@@ -225,7 +225,7 @@ class ManagerView extends Component {
                                 )
                               }
                             >
-                              View Final One-on-One
+                              View Final 1-on-1
                             </button>
                           </Col>
                           <Col
@@ -239,7 +239,7 @@ class ManagerView extends Component {
                                 this.deleteItem(OneonOne._id, OneonOne.role)
                               }
                             >
-                              Delete Final One-on-One
+                              Delete Final 1-on-1
                             </button>
                           </Col>
                         </Row>
